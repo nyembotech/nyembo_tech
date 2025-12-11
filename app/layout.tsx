@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Future-grade AI software for Africa. European engineering, African speed.",
 };
 
-import { Sidebar } from "@/components/layout/sidebar";
+import { ClientLayoutWrapper } from "@/components/layout/client-layout-wrapper";
 
 export default function RootLayout({
   children,
@@ -26,11 +26,9 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col overflow-x-hidden`}
       >
-        <Sidebar />
-        <main className="flex-1 pl-28 lg:pl-32 pr-4 lg:pr-8 pt-6">
+        <ClientLayoutWrapper>
           {children}
-        </main>
-        <Footer />
+        </ClientLayoutWrapper>
       </body>
     </html>
   );

@@ -11,26 +11,26 @@ export function Sidebar() {
             {/* 3D Animated Navigation Icons */}
             <div className="flex flex-col gap-4">
                 {[
-                    { icon: Home, label: "Home", href: "/", baseColor: "cyan-400" },
-                    { icon: Lightbulb, label: "Solutions", href: "/solutions", baseColor: "yellow-400" },
-                    { icon: Layers, label: "Industries", href: "/industries", baseColor: "cyan-400" },
-                    { icon: Building2, label: "Smart Spaces", href: "/smart-spaces", baseColor: "yellow-400" },
-                    { icon: GraduationCap, label: "Academy", href: "/academy", baseColor: "cyan-400" },
-                    { icon: Info, label: "About", href: "/about", baseColor: "yellow-400" },
-                    { icon: Mail, label: "Contact", href: "/contact", baseColor: "cyan-400" }
+                    { icon: Home, label: "Home", href: "/", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" },
+                    { icon: Lightbulb, label: "Solutions", href: "/solutions", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
+                    { icon: Layers, label: "Industries", href: "/industries", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" },
+                    { icon: Building2, label: "Smart Spaces", href: "/smart-spaces", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
+                    { icon: GraduationCap, label: "Academy", href: "/academy", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" },
+                    { icon: Info, label: "About", href: "/about", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
+                    { icon: Mail, label: "Contact", href: "/contact", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" }
                 ].map((item, index) => (
                     <Link
                         key={index}
                         href={item.href}
                         className={`group relative w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 border backdrop-blur-md shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] pointer-events-auto
-                        text-${item.baseColor} border-${item.baseColor}/30 bg-${item.baseColor}/10 shadow-${item.baseColor}/20
+                        ${item.colorClasses}
                         hover:text-red-500 hover:border-red-500 hover:bg-red-500/10 hover:shadow-red-500/20
                         active:text-red-500 active:border-red-500 active:bg-red-500/10 active:shadow-red-500/20`}
                     >
                         <item.icon className="w-5 h-5 relative z-10" />
 
                         {/* Hover Label */}
-                        <span className={`absolute left-14 bg-black/80 backdrop-blur-md text-${item.baseColor} text-xs font-bold px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl border border-white/10 translate-x-2 group-hover:translate-x-0 duration-300 z-50`}>
+                        <span className={`absolute left-14 bg-black/80 backdrop-blur-md ${item.colorClasses.split(' ')[0]} text-xs font-bold px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl border border-white/10 translate-x-2 group-hover:translate-x-0 duration-300 z-50`}>
                             {item.label}
                         </span>
                     </Link>

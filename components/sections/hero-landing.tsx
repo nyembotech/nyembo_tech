@@ -81,11 +81,24 @@ export function HeroLanding() {
 
                         {/* Right Image Column */}
                         <div className="relative h-[500px] lg:h-auto overflow-hidden lg:overflow-visible">
-                            {/* Background Graphics */}
-                            <div className="absolute inset-0 overflow-hidden lg:rounded-bl-[100px] lg:rounded-tr-[3rem] bg-gradient-to-br from-gray-100 to-white/50 backdrop-blur-sm border-l border-white/50">
-                                <div className="absolute top-0 right-0 w-full h-full bg-[url('/assets/grid-pattern.png')] opacity-20 mix-blend-multiply" />
+                            {/* Background Graphics & Image */}
+                            <div className="absolute inset-0 overflow-hidden lg:rounded-bl-[100px] lg:rounded-tr-[3rem] border-l border-white/50">
+                                {/* Hero Image as Background */}
+                                <Image
+                                    src="/assets/images/hero-section/hero.png"
+                                    alt="Futuristic Cyborg"
+                                    fill
+                                    className="object-cover object-center z-0 opacity-[0.88]"
+                                    priority
+                                />
+
+                                {/* Overlay/Gradient if needed for text contrast or style */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-gray-100/20 to-white/10 backdrop-blur-[1px] z-0" />
+
+                                <div className="absolute top-0 right-0 w-full h-full bg-[url('/assets/grid-pattern.png')] opacity-20 mix-blend-multiply z-0" />
+
                                 {/* Decorative Elements */}
-                                <div className="absolute top-20 left-10 text-xs font-bold tracking-widest text-black/20 -rotate-90 origin-bottom-left hidden lg:block">
+                                <div className="absolute top-20 left-10 text-xs font-bold tracking-widest text-black/20 -rotate-90 origin-bottom-left hidden lg:block z-10">
                                     BRYAN WAN <br /> SEASON THREE 2021
                                 </div>
                                 <div className="absolute bottom-10 right-10 flex flex-col items-end gap-4 z-20">
@@ -109,27 +122,14 @@ export function HeroLanding() {
                                 </div>
 
                                 {/* Barcode */}
-                                <div className="absolute right-8 top-1/2 -translate-y-1/2 writing-vertical-rl text-[10px] font-mono tracking-widest opacity-40 hidden lg:block">
+                                <div className="absolute right-8 top-1/2 -translate-y-1/2 writing-vertical-rl text-[10px] font-mono tracking-widest opacity-40 hidden lg:block z-10">
                                     009//213
                                     <div className="w-4 h-32 bg-current mt-2 barcode-pattern" />
                                 </div>
                             </div>
 
-                            {/* Hero Image */}
-                            <div className="absolute inset-0 flex items-end justify-center lg:items-center lg:justify-center pt-10 pointer-events-none">
-                                <div className="relative w-full h-[90%] lg:h-[110%] max-w-2xl">
-                                    <Image
-                                        src="/assets/images/hero-section/hero.png"
-                                        alt="Futuristic Cyborg"
-                                        fill
-                                        className="object-contain object-bottom lg:object-center scale-100 lg:scale-110 lg:translate-x-10 drop-shadow-2xl"
-                                        priority
-                                    />
-                                </div>
-                            </div>
-
                             {/* Red Diamond Accent */}
-                            <div className="absolute bottom-32 left-10 w-12 h-12 bg-[#FF3B30] transform rotate-45 hidden lg:block shadow-lg animate-pulse" />
+                            <div className="absolute bottom-32 left-10 w-12 h-12 bg-[#FF3B30] transform rotate-45 hidden lg:block shadow-lg animate-pulse z-20" />
                         </div>
                     </div>
                 </div>
