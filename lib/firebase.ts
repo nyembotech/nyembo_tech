@@ -2,14 +2,14 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDv1THYkXLUnKFrhQo5_0XW391pA3lDW7E",
-    authDomain: "nyembotech-156d0.firebaseapp.com",
-    databaseURL: "https://nyembotech-156d0.firebaseio.com",
-    projectId: "nyembotech-156d0",
-    storageBucket: "nyembotech-156d0.firebasestorage.app",
-    messagingSenderId: "357851594143",
-    appId: "1:357851594143:web:019866c4fe11112b63d1aa",
-    measurementId: "G-EYPN3KF4EV"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
