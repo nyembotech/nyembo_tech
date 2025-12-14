@@ -133,3 +133,15 @@ export interface PageContent extends BaseEntity {
         data?: any;
     }>;
 }
+
+export interface Match extends BaseEntity {
+    homeTeam: string;
+    awayTeam: string;
+    venue: string;
+    date: Timestamp;
+    status: "upcoming" | "completed" | "postponed";
+    score?: {
+        home: number;
+        away: number;
+    };
+}

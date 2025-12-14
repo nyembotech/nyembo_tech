@@ -38,7 +38,7 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.STAGE_FIREBASE_SERVICE_ACCOUNT }}
-          channelId: live
+          channelId: staging
           projectId: nyembo-tech
 
       - name: Create Service Account File
