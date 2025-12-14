@@ -144,4 +144,5 @@ export interface Match extends BaseEntity {
         home: number;
         away: number;
     };
+    ticketLink?: string;
 }

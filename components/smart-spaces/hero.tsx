@@ -17,7 +17,7 @@ export function SmartSpacesHero() {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "out" }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-6">
                         Living <span className="text-transparent bg-clip-text bg-gradient-to-r from-nyembo-sky to-blue-500">Systems</span>.

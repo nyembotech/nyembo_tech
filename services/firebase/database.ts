@@ -97,13 +97,13 @@ export async function fetchDocument<T extends BaseEntity>(
  * Create a new document in a collection.
  * Automatically adds createdAt and updatedAt timestamps.
  */
-export async function createDocument<T>(
+export async function createDocument<T extends DocumentData>(
     collectionPath: string,
     data: WithFieldValue<Omit<T, "id" | "createdAt" | "updatedAt">>
 ) {
     const colRef = collection(db, collectionPath);
     const docRef = await addDoc(colRef, {
-        ...data,
+        ...(data as any),
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
     });
@@ -114,14 +114,14 @@ export async function createDocument<T>(
  * Update an existing document.
  * Automatically updates the updatedAt timestamp.
  */
-export async function updateDocument<T>(
+export async function updateDocument<T extends DocumentData>(
     collectionPath: string,
     docId: string,
     data: UpdateData<Omit<T, "id" | "createdAt" | "updatedAt">>
 ) {
     const docRef = doc(db, collectionPath, docId);
     await updateDoc(docRef, {
-        ...data,
+        ...(data as any),
         updatedAt: serverTimestamp()
     });
 }

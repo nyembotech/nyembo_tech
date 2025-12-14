@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 
-interface GradientListItemProps extends React.HTMLAttributes<HTMLDivElement> {
+interface GradientListItemProps extends HTMLMotionProps<"div"> {
     variant?: "green" | "orange" | "purple" | "blue";
     children: React.ReactNode;
 }

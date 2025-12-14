@@ -101,8 +101,8 @@ const generateTasks = (projectId: string, count: number) => {
             description: faker.lorem.sentence(),
             projectId: projectId,
             status: isDone ? 'done' : faker.helpers.arrayElement(['todo', 'in-progress', 'review']),
-            createdAt: admin.firestore.Timestamp.past(),
-            dueDate: admin.firestore.Timestamp.future(),
+            createdAt: admin.firestore.Timestamp.fromDate(faker.date.past()),
+            dueDate: admin.firestore.Timestamp.fromDate(faker.date.future()),
             assignee: faker.person.fullName(),
         });
     }
@@ -120,7 +120,7 @@ const generateTickets = (customerId: string, projectId: string | null, count: nu
             status: faker.helpers.arrayElement(['open', 'in-progress', 'resolved', 'closed']),
             type: faker.helpers.arrayElement(['bug', 'feature', 'support', 'billing']),
             priority: faker.helpers.arrayElement(['low', 'medium', 'high', 'critical']),
-            createdAt: admin.firestore.Timestamp.past(),
+            createdAt: admin.firestore.Timestamp.fromDate(faker.date.past()),
         });
     }
     return tickets;
@@ -199,7 +199,7 @@ async function seed() {
                 budget: '10k-25k',
             },
             status: faker.helpers.arrayElement(['new', 'in-review', 'rejected']),
-            createdAt: admin.firestore.Timestamp.past(),
+            createdAt: admin.firestore.Timestamp.fromDate(faker.date.past()),
         });
     }
 

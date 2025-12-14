@@ -5,9 +5,16 @@ import { SpinePlayer } from "@/components/ui/spine-player";
 import { MotionCard } from "@/components/ui/motion-card";
 import { Terminal, Cpu, Network } from "lucide-react";
 
-export function HeroSpineScene() {
+import { cn } from "@/lib/utils";
+
+interface HeroSpineSceneProps {
+    variant?: string;
+    className?: string;
+}
+
+export function HeroSpineScene({ variant = "console-orbit", className }: HeroSpineSceneProps) {
     return (
-        <div className="relative w-full h-[600px] md:h-[800px] flex items-center justify-center overflow-hidden">
+        <div className={cn("relative w-full h-[600px] md:h-[800px] flex items-center justify-center overflow-hidden", className)}>
 
             {/* Background Spine Layer */}
             <div className="absolute inset-0 z-0">

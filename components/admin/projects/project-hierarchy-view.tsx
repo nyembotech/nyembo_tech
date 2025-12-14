@@ -2,38 +2,111 @@
 
 import { useEffect, useState } from "react";
 import { Project, Epic, Task } from "@/types/firestore";
-import { useEpics, useProjectStories } from "@/hooks/firestore/use-hierarchy"; // Hypothetical hooks I need to create
+import { useEpics, useProjectStories } from "@/hooks/firestore/use-hierarchy";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, CheckCircle2, CircleDashed, AlertCircle } from "lucide-react";
+import { Timestamp } from "firebase/firestore";
 
 interface ProjectHierarchyViewProps {
     project: Project;
 }
 
 export function ProjectHierarchyView({ project }: ProjectHierarchyViewProps) {
-    // This component assumes we have hooks to fetch Epics and Stories for a specific project.
-    // I will need to implement these hooks or fetch logic here.
-    // For now, I'll mock the hook usage pattern.
-
-    // FETCHING LOGIC PLACEHOLDER
-    // const { epics } = useEpics(project.id);
-    // const { stories } = useProjectStories(project.id);
+    // Helper for valid timestamps in mock
+    const now = Timestamp.now();
 
     // MOCK DATA for now to visualize structure
     const epics: Epic[] = [
-        { id: "e1", title: "Phase 1: Core", status: "completed", priority: "high", projectId: project.id } as Epic,
-        { id: "e2", title: "Phase 2: AI", status: "in-progress", priority: "critical", projectId: project.id } as Epic,
-        { id: "e3", title: "Phase 3: Frontend", status: "planning", priority: "medium", projectId: project.id } as Epic,
+        {
+            id: "e1",
+            title: "Phase 1: Core",
+            status: "completed",
+            priority: "high",
+            projectId: project.id,
+            description: "Core infrastructure setup",
+            startDate: now,
+            targetDate: now,
+            createdAt: now,
+            updatedAt: now
+        },
+        {
+            id: "e2",
+            title: "Phase 2: AI",
+            status: "in-progress",
+            priority: "high",
+            projectId: project.id,
+            description: "AI integration and testing",
+            startDate: now,
+            targetDate: now,
+            createdAt: now,
+            updatedAt: now
+        },
+        {
+            id: "e3",
+            title: "Phase 3: Frontend",
+            status: "planning",
+            priority: "medium",
+            projectId: project.id,
+            description: "Frontend UI/UX implementation",
+            startDate: now,
+            targetDate: now,
+            createdAt: now,
+            updatedAt: now
+        }
     ];
 
     const stories: Task[] = [
-        { id: "s1", title: "Setup Auth", status: "done", epicId: "e1", type: "story", storyPoints: 5 } as Task,
-        { id: "s2", title: "Database Schema", status: "done", epicId: "e1", type: "task", storyPoints: 3 } as Task,
-        { id: "s3", title: "Connect OpenAI", status: "in-progress", epicId: "e2", type: "story", storyPoints: 8 } as Task,
-        { id: "s4", title: "Design Login Page", status: "todo", epicId: "e3", type: "story", storyPoints: 3 } as Task,
+        {
+            id: "s1",
+            title: "Setup Auth",
+            status: "done",
+            epicId: "e1",
+            type: "story",
+            storyPoints: 5,
+            projectId: project.id,
+            priority: "high",
+            createdAt: now,
+            updatedAt: now
+        },
+        {
+            id: "s2",
+            title: "Database Schema",
+            status: "done",
+            epicId: "e1",
+            type: "task",
+            storyPoints: 3,
+            projectId: project.id,
+            priority: "medium",
+            createdAt: now,
+            updatedAt: now
+        },
+        {
+            id: "s3",
+            title: "Connect OpenAI",
+            status: "in-progress",
+            epicId: "e2",
+            type: "story",
+            storyPoints: 8,
+            projectId: project.id,
+            priority: "critical",
+            createdAt: now,
+            updatedAt: now
+        },
+        {
+            id: "s4",
+            title: "Design Login Page",
+            status: "todo",
+            epicId: "e3",
+            type: "story",
+            storyPoints: 3,
+            projectId: project.id,
+            priority: "medium",
+            createdAt: now,
+            updatedAt: now
+        }
     ];
 
     return (
