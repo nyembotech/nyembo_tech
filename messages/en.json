@@ -1,0 +1,21 @@
+{
+    "Navigation": {
+        "home": "Home",
+        "solutions": "Solutions",
+        "industries": "Industries",
+        "about": "About Us",
+        "academy": "Academy",
+        "smartSpaces": "Smart Spaces",
+        "login": "Login"
+    },
+    "Home": {
+        "heroTitle": "Architects of the Digital Future",
+        "heroSubtitle": "Forging elite digital ecosystems with futuristic design and European engineering.",
+        "ctaStart": "Start Project",
+        "ctaContact": "Contact Us"
+    },
+    "Common": {
+        "loading": "Loading...",
+        "error": "Something went wrong"
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "indexes": [
+        {
+            "collectionGroup": "activity_log",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "visibility",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "createdAt",
+                    "order": "DESCENDING"
+                }
+            ]
+        },
+        {
+            "collectionGroup": "activity_log",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "customerId",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "createdAt",
+                    "order": "DESCENDING"
+                }
+            ]
+        },
+        {
+            "collectionGroup": "activity_log",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "targetId",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "createdAt",
+                    "order": "DESCENDING"
+                }
+            ]
+        }
+    ],
+    "fieldOverrides": []
+}

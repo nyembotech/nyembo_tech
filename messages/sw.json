@@ -1,0 +1,21 @@
+{
+    "Navigation": {
+        "home": "Nyumbani",
+        "solutions": "Suluhisho",
+        "industries": "Sekta",
+        "about": "Kuhusu Sisi",
+        "academy": "Chuo",
+        "smartSpaces": "Maeneo Mahiri",
+        "login": "Ingia"
+    },
+    "Home": {
+        "heroTitle": "Wasanifu wa Mustakabali wa Kidijitali",
+        "heroSubtitle": "Tunatengeneza mifumo bora ya kidijitali kwa muundo wa kisasa na uhandisi wa Kizungu.",
+        "ctaStart": "Anzisha Mradi",
+        "ctaContact": "Wasiliana Nasi"
+    },
+    "Common": {
+        "loading": "Inapakia...",
+        "error": "Kuna tatizo limetokea"
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "Navigation": {
+        "home": "Startseite",
+        "solutions": "Lösungen",
+        "industries": "Branchen",
+        "about": "Über uns",
+        "academy": "Akademie",
+        "smartSpaces": "Smart Spaces",
+        "login": "Anmelden"
+    },
+    "Home": {
+        "heroTitle": "Architekten der digitalen Zukunft",
+        "heroSubtitle": "Wir schmieden digitale Ökosysteme der Eliteklasse mit futuristischem Design und europäischer Ingenieurskunst.",
+        "ctaStart": "Projekt starten",
+        "ctaContact": "Kontaktieren Sie uns"
+    },
+    "Common": {
+        "loading": "Lädt...",
+        "error": "Etwas ist schief gelaufen"
+    }
+}

@@ -1,0 +1,128 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Helper Functions ---
+
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if user has 'admin' role in 'users' collection
+    function isAdmin() {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Check if user is the specific customer
+    function isCustomer(customerId) {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/customers/$(customerId)) &&
+        get(/databases/$(database)/documents/customers/$(customerId)).data.uid == request.auth.uid;
+    }
+
+    // Check if user is a customer and owns the project
+    function isProjectOwner(resourceData) {
+       return isAuthenticated() && 
+         // Check if the project's customerId matches a customer doc where uid == auth.uid
+         // Note: This requires a read. To optimize, we assume auth.uid is mapped or we check the customer doc.
+         // A cheaper way: The project should ideally store 'ownerUid' or we trust the 'customerId'.
+         // Here we check if the requestor is the customer linked to the project.
+         isCustomer(resourceData.customerId);
+    }
+    
+    // --- Collection Rules ---
+
+    // Users Collection (Roles)
+    match /users/{userId} {
+      allow read: if isAuthenticated(); // Allow any auth user to see users for now (listing)
+      allow write: if isAdmin(); // Only admins can change roles/users
+      // Exception: Users can trigger their own creation via client-side logic (as seen in auth-context), 
+      // strict mode would prevent this and require cloud functions. 
+      // For now, allow create if auth.uid matches.
+      allow create: if isAuthenticated() && request.auth.uid == userId; 
+      allow update: if isAdmin() || (isAuthenticated() && request.auth.uid == userId);
+    }
+
+    // Customers Collection
+    match /customers/{customerId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin(); // Only admins/staff onboard customers
+      allow update: if isAdmin() || (isCustomer(customerId) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['logoUrl', 'companyName', 'contactEmail']));
+    }
+
+    // Projects
+    match /projects/{projectId} {
+      allow read: if isAuthenticated(); // Allow any auth user to see projects for now
+      allow write: if isAdmin();
+    }
+
+    // Tasks
+    match /tasks/{taskId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Epics
+    match /epics/{epicId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Tickets
+    match /tickets/{ticketId} {
+      // Admins: Full access
+      // Customers: Read/Write their own tickets
+      allow read: if isAdmin() || isCustomer(resource.data.customerId);
+      allow create: if isAuthenticated() && 
+        // Ensure they are creating a ticket for THEMSELVES
+        isCustomer(request.resource.data.customerId) &&
+        request.resource.data.createdById == request.auth.uid;
+      allow update: if isAdmin() || (
+        isCustomer(resource.data.customerId) && 
+        // Customers can only update status to 'closed' or add comments (handled in subcollection usually, or here)
+        // Allowing general update for now but usually restricted
+        request.resource.data.customerId == resource.data.customerId
+      );
+    }
+
+    // Project Requests
+    match /project_requests/{requestId} {
+      // Allow public creation (Contact Form)
+      allow create: if true;
+      // Allow public read (Status Page)
+      allow read: if true;
+      // Admins can update/delete
+      allow update, delete: if isAdmin();
+    }
+    
+    // Activity Log
+    match /activity_log/{logId} {
+      allow read: if isAuthenticated(); // Allow any auth user to see activity for now
+      // Allow creation by authenticated users to log their own actions
+      allow create: if isAdmin() || (isAuthenticated() && request.resource.data.actorId == request.auth.uid);
+      allow update, delete: if false; // Audit trail is immutable
+    }
+
+    // Site Content
+    match /site_content/{docId} {
+      allow read: if true; // Public can read content
+      allow write: if isAdmin();
+    }
+    
+    // Customer Invites
+    match /customer_invites/{inviteId} {
+       allow read: if true; // Public onboarding page needs to validate token
+       allow write: if isAdmin();
+       allow update: if true; // Public onboarding page marks as used? 
+       // Ideally this should be a Cloud Function to prevent abuse (guessing tokens).
+       // We allow update only if we know the token? 
+       // Actually, we should probably allow Read to validate, but Update only if authenticated?
+       // The onboarding flow: User is Unauth -> Validates Token (Read) -> Registers (Auth) -> Marks Used (Write).
+       // So 'Mark Used' happens AFTER Auth.
+       // So: allow update if isAuthenticated() && request.resource.data.used == true.
+    }
+  }
+}

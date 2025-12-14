@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LifeBuoy, ArrowRight } from "lucide-react";
-import { Ticket } from "@/hooks/use-portal-data";
+import { Ticket } from "@/types/firestore";
 
 interface TicketsCardProps {
     tickets: Ticket[];
@@ -33,12 +33,12 @@ export function TicketsCard({ tickets, openCount }: TicketsCardProps) {
                     <div className="space-y-3">
                         {tickets.map((ticket) => (
                             <div key={ticket.id} className="flex items-center justify-between text-sm p-2 rounded hover:bg-white/5 transition-colors cursor-pointer">
-                                <span className="text-muted-foreground">{ticket.id} - {ticket.title}</span>
+                                <span className="text-muted-foreground line-clamp-1 flex-1 mr-2">{ticket.subject}</span>
                                 <Badge
                                     variant="outline"
                                     className={
-                                        ticket.status === "In Progress" ? "border-nyembo-gold text-nyembo-gold" :
-                                            ticket.status === "Resolved" ? "border-green-500 text-green-500" :
+                                        ticket.status === "in-progress" ? "border-nyembo-gold text-nyembo-gold" :
+                                            ticket.status === "resolved" ? "border-green-500 text-green-500" :
                                                 "border-white/30 text-white"
                                     }
                                 >

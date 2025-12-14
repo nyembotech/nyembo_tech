@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Rocket, ArrowRight } from "lucide-react";
-import { Project } from "@/hooks/use-portal-data";
+import { Project } from "@/types/firestore";
 
 interface ProjectsCardProps {
     projects: Project[];
@@ -30,7 +30,7 @@ export function ProjectsCard({ projects }: ProjectsCardProps) {
                         {projects.map((project) => (
                             <div key={project.id} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-nyembo-sky/20 transition-colors">
                                 <div className="flex justify-between items-start mb-2">
-                                    <h4 className="font-bold text-white">{project.name}</h4>
+                                    <h4 className="font-bold text-white">{project.title}</h4>
                                     <Badge className="bg-nyembo-yellow text-black hover:bg-nyembo-yellow">{project.status}</Badge>
                                 </div>
                                 <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mb-2">
@@ -39,7 +39,7 @@ export function ProjectsCard({ projects }: ProjectsCardProps) {
                                         style={{ width: `${project.progress}%` }}
                                     />
                                 </div>
-                                <p className="text-xs text-muted-foreground">Milestone: {project.milestone}</p>
+                                <p className="text-xs text-muted-foreground">Updated: {project.updatedAt?.toDate().toLocaleDateString()}</p>
                             </div>
                         ))}
                         <Button variant="ghost" className="w-full text-nyembo-sky hover:text-white hover:bg-white/5 justify-between group/btn">

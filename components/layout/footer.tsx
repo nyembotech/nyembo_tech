@@ -72,7 +72,7 @@ export function Footer() {
                     <div className="flex items-center gap-6 text-sm text-muted-foreground">
                         <Link href="/privacy" className="hover:text-nyembo-sky transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-nyembo-sky transition-colors">Terms of Service</Link>
-                        <Link href="/admin/login" className="hover:text-nyembo-sky transition-colors">Admin Portal</Link>
+                        <Link href="/login?returnUrl=/admin" className="hover:text-nyembo-sky transition-colors">Admin Portal</Link>
                     </div>
                 </div>
             </div>

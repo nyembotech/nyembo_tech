@@ -1,6 +1,7 @@
 "use client";
 
 import { FuturisticPanel } from "@/components/ui/futuristic-panel";
+
 import { Bot, Cloud, LayoutTemplate, Building2 } from "lucide-react";
 
 const solutions = [
