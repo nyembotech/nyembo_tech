@@ -18,6 +18,7 @@ interface AuthUser extends User {
 
 interface AuthContextType {
     user: AuthUser | null;
+    profile: any | null;
     loading: boolean;
     role: "admin" | "staff" | "customer" | null;
     signIn: (email: string, pass: string) => Promise<void>;
@@ -28,6 +29,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<AuthUser | null>(null);
+    const [profile, setProfile] = useState<any | null>(null);
     const [role, setRole] = useState<"admin" | "staff" | "customer" | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
@@ -51,10 +53,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                         // But we need a role. Default to 'customer' if not defined? 
                         // Or keep role null which restricts access.
                         console.warn("User document not found in Firestore.");
+                        setProfile(null);
                     } else {
                         const userData = userDoc.data();
                         const userRole = (userData?.role as string)?.toLowerCase() as "admin" | "staff" | "customer";
                         setRole(userRole || "customer"); // Default to customer if missing
+                        setProfile(userData);
                     }
 
                     setUser(firebaseUser);
@@ -64,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             } else {
                 setUser(null);
                 setRole(null);
+                setProfile(null);
             }
             setLoading(false);
         });
@@ -79,11 +84,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await firebaseSignOut(auth);
         setUser(null);
         setRole(null);
+        setProfile(null);
         router.push("/login");
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, role, signIn, signOut }}>
+        <AuthContext.Provider value={{ user, profile, loading, role, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );
