@@ -39,12 +39,12 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.STAGE_FIREBASE_SERVICE_ACCOUNT }}
           channelId: staging
-          projectId: nyembo-tech
+          projectId: nyembotech-156d0
 
       - name: Create Service Account File
         run: echo '${{ secrets.STAGE_FIREBASE_SERVICE_ACCOUNT }}' > service-account.json
 
       - name: Deploy Firestore Rules & Indexes
-        run: npx firebase-tools deploy --only firestore:rules,firestore:indexes --project nyembo-tech
+        run: npx firebase-tools deploy --only firestore:rules,firestore:indexes --project nyembotech-156d0
         env:
           GOOGLE_APPLICATION_CREDENTIALS: service-account.json
