@@ -39,6 +39,8 @@ jobs:
           firebaseServiceAccount: ${{ secrets.PROD_FIREBASE_SERVICE_ACCOUNT }}
           channelId: live
           projectId: nyembotech-156d0
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
 
       - name: Create Service Account File
         run: echo '${{ secrets.PROD_FIREBASE_SERVICE_ACCOUNT }}' > service-account.json
