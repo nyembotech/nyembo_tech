@@ -46,5 +46,3 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: service-account.json
         run: npx firebase-tools deploy --only firestore:rules,firestore:indexes --project nyembotech-156d0
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: service-account.json
