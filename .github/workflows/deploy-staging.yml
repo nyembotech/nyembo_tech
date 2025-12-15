@@ -36,11 +36,16 @@ jobs:
       - name: Create Service Account File
         run: echo '${{ secrets.STAGE_FIREBASE_SERVICE_ACCOUNT }}' > service-account.json
 
+      - name: Set Artifact Registry Cleanup Policy
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: service-account.json
+        run: npx firebase-tools functions:artifacts:setpolicy europe-west1 --project nyembotech-156d0 --force || true
+
       - name: Deploy to Firebase Hosting (Live)
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           GOOGLE_APPLICATION_CREDENTIALS: service-account.json
-        run: npx firebase-tools hosting:channel:deploy staging --project nyembotech-156d0 --force --expires 7d
+        run: npx firebase-tools hosting:channel:deploy staging --project nyembotech-156d0 --expires 7d
 
       - name: Deploy Firestore Rules & Indexes
         env:
