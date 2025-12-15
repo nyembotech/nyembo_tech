@@ -39,7 +39,7 @@ jobs:
       - name: Set Artifact Registry Cleanup Policy
         env:
           GOOGLE_APPLICATION_CREDENTIALS: service-account.json
-        run: npx firebase-tools functions:artifacts:setpolicy europe-west1 --project nyembotech-156d0 --force || true
+        run: npx firebase-tools functions:artifacts:setpolicy europe-west1 --project nyembotech-156d0 --force --debug
 
       - name: Deploy to Firebase Hosting (Live)
         env:
