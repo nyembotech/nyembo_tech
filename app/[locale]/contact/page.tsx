@@ -137,23 +137,23 @@ export default function ContactPage() {
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Full Name</label>
-                                            <Input placeholder="John Doe" className="bg-white/5 border-white/10" value={formData.name} onChange={e => updateForm("name", e.target.value)} />
+                                            <label htmlFor="name" className="text-sm text-muted-foreground">Full Name</label>
+                                            <Input id="name" placeholder="John Doe" className="bg-white/5 border-white/10" value={formData.name} onChange={e => updateForm("name", e.target.value)} />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Email Address</label>
-                                            <Input type="email" placeholder="john@company.com" className="bg-white/5 border-white/10" value={formData.email} onChange={e => updateForm("email", e.target.value)} />
+                                            <label htmlFor="email" className="text-sm text-muted-foreground">Email Address</label>
+                                            <Input id="email" type="email" placeholder="john@company.com" className="bg-white/5 border-white/10" value={formData.email} onChange={e => updateForm("email", e.target.value)} />
                                         </div>
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Company / Organization</label>
-                                            <Input placeholder="Acme Corp" className="bg-white/5 border-white/10" value={formData.company} onChange={e => updateForm("company", e.target.value)} />
+                                            <label htmlFor="company" className="text-sm text-muted-foreground">Company / Organization</label>
+                                            <Input id="company" placeholder="Acme Corp" className="bg-white/5 border-white/10" value={formData.company} onChange={e => updateForm("company", e.target.value)} />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Country</label>
-                                            <Input placeholder="Kenya" className="bg-white/5 border-white/10" value={formData.country} onChange={e => updateForm("country", e.target.value)} />
+                                            <label htmlFor="country" className="text-sm text-muted-foreground">Country</label>
+                                            <Input id="country" placeholder="Kenya" className="bg-white/5 border-white/10" value={formData.country} onChange={e => updateForm("country", e.target.value)} />
                                         </div>
                                     </div>
 
@@ -176,8 +176,9 @@ export default function ContactPage() {
                                     <h3 className="text-xl font-bold text-white mb-4">Mission Parameters</h3>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm text-muted-foreground">Problem Description</label>
+                                        <label htmlFor="problem" className="text-sm text-muted-foreground">Problem Description</label>
                                         <Textarea
+                                            id="problem"
                                             placeholder="Describe the challenge you're facing or the opportunity you want to seize..."
                                             className="bg-white/5 border-white/10 min-h-[120px]"
                                             value={formData.problem}
@@ -248,13 +249,14 @@ export default function ContactPage() {
                                                 { label: "$10k - $25k", value: "10k-25k" },
                                                 { label: "$25k+", value: "25k+" },
                                             ].map((option) => (
-                                                <div
+                                                <button
                                                     key={option.value}
+                                                    type="button"
                                                     onClick={() => updateForm("budget", option.value)}
-                                                    className={`p-4 rounded-lg border cursor-pointer transition-all ${formData.budget === option.value ? 'bg-nyembo-sky/10 border-nyembo-sky text-nyembo-sky' : 'bg-white/5 border-white/10 text-muted-foreground hover:border-white/30'}`}
+                                                    className={`p-4 rounded-lg border cursor-pointer transition-all text-left ${formData.budget === option.value ? 'bg-nyembo-sky/10 border-nyembo-sky text-nyembo-sky' : 'bg-white/5 border-white/10 text-muted-foreground hover:border-white/30'}`}
                                                 >
                                                     <span className="font-bold">{option.label}</span>
-                                                </div>
+                                                </button>
                                             ))}
                                         </div>
                                     </div>

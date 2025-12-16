@@ -8,9 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "seed:dev": "tsx scripts/seed-admin.ts",
-    "clean:dev": "tsx scripts/clean-db.ts"
+    "clean:dev": "tsx scripts/clean-db.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.86",
+    "@ai-sdk/react": "^2.0.115",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
@@ -26,6 +29,7 @@
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tabs": "^1.1.13",
+    "ai": "^5.0.113",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -39,10 +43,12 @@
     "recharts": "^3.5.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.2.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
+    "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

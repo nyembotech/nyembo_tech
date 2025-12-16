@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { ClientLayoutWrapper } from "@/components/layout/client-layout-wrapper";
 import { AuthProvider } from "@/context/auth-context";
 import { AnalyticsWrapper } from "@/components/analytics-wrapper";
+import { PublicAgentWrapper } from "@/components/ai/public-agent-wrapper";
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
@@ -45,6 +46,7 @@ export default async function LocaleLayout({
                         <AnalyticsWrapper />
                         <ClientLayoutWrapper>
                             {children}
+                            <PublicAgentWrapper />
                         </ClientLayoutWrapper>
                     </AuthProvider>
                 </NextIntlClientProvider>

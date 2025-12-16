@@ -1,5 +1,6 @@
 import { RoleGuard } from "@/components/auth/role-guard";
 import { Sidebar } from "@/components/layout/sidebar"; // Assuming we reuse sidebar or have a specific portal sidebar
+import { AgentChatWidget } from "@/components/ai/agent-chat-widget";
 
 export default function PortalLayout({
     children,
@@ -13,6 +14,7 @@ export default function PortalLayout({
                 {/* Portal Sidebar could go here if different from Admin */}
                 <main className="flex-1">
                     {children}
+                    <AgentChatWidget agentType="support" />
                 </main>
             </div>
         </RoleGuard>
