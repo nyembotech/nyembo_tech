@@ -54,7 +54,28 @@ export function HeroLanding() {
                             </div>
 
                             {/* Language Switcher Timeline */}
-                            <div className="space-y-8 pl-4 border-l-2 border-gray-300/50 my-8 lg:my-12">
+                            <div className="space-y-8 pl-4 border-l-2 border-gray-300/50 my-8 lg:my-12 max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pr-2">
+                                {/* German Option */}
+                                <div
+                                    className="relative group cursor-pointer"
+                                    onClick={() => switchLanguage('de')}
+                                >
+                                    <div className={cn(
+                                        "absolute transition-all duration-300 shadow-lg",
+                                        currentLocale === 'de'
+                                            ? "-left-[23px] top-0 w-4 h-4 rounded-full bg-black border-2 border-[#F0F2F5] scale-125"
+                                            : "-left-[21px] top-1 w-3 h-3 rounded-full bg-gray-400 group-hover:bg-nyembo-sky"
+                                    )} />
+                                    <p className={cn(
+                                        "text-xs uppercase tracking-widest transition-colors",
+                                        currentLocale === 'de'
+                                            ? "font-bold text-black"
+                                            : "font-medium text-gray-500 group-hover:text-nyembo-sky"
+                                    )}>
+                                        03- Deutsch
+                                    </p>
+                                </div>
+
                                 {/* Swahili Option */}
                                 <div
                                     className="relative group cursor-pointer"

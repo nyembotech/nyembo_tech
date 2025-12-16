@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Aperture, Home, Info, Briefcase, Mail, Layers, GraduationCap, Building2, Lightbulb, Menu } from "lucide-react";
+import { Aperture, Home, Info, Briefcase, Mail, Layers, GraduationCap, Building2, Lightbulb, Menu, BookOpen } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 export function Sidebar() {
@@ -14,6 +14,7 @@ export function Sidebar() {
         { icon: Layers, label: "Industries", href: "/industries", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" },
         { icon: Building2, label: "Smart Spaces", href: "/smart-spaces", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
         { icon: GraduationCap, label: "Academy", href: "/academy", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" },
+        { icon: BookOpen, label: "Knowledge", href: "/knowledge", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
         { icon: Info, label: "About", href: "/about", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
         { icon: Mail, label: "Contact", href: "/contact", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" }
     ];
@@ -29,7 +30,7 @@ export function Sidebar() {
         <>
             {/* HERNYEMBO'S DESKTOP SIDEBAR (MD+) */}
             <div className="hidden md:flex fixed left-0 top-0 h-screen w-24 bg-transparent flex-col items-center justify-between py-8 z-[9999] pointer-events-none">
-                <Link href="/" className="h-20 w-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-110 transition-transform duration-300 border border-white/20 pointer-events-auto">
+                <Link href="/" className="h-20 w-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-110 transition-transform duration-300 pointer-events-auto">
                     <Image
                         src="/assets/images/logo/logo.png"
                         alt="Nyembotech"
@@ -66,20 +67,22 @@ export function Sidebar() {
                     {user ? (
                         <Link href="/portal">
                             <div className="h-10 w-10 rounded-full bg-gray-600 overflow-hidden border-2 border-white/10 hover:scale-110 transition-transform cursor-pointer shadow-lg ring-2 ring-transparent hover:ring-nyembo-sky flex items-center justify-center relative">
-                                {user.photoURL ? (
-                                    <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
-                                ) : (
-                                    <span className="text-xs font-bold text-white">
-                                        {(user.displayName || user.email || "U").substring(0, 2).toUpperCase()}
-                                    </span>
-                                )}
+                                <img
+                                    src="/assets/images/auth/futuristic_ai_robot_icon.png"
+                                    alt="Customer Portal"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                         </Link>
                     ) : (
-                        <Link href="/login?returnUrl=/portal">
+                        <Link href="/login?view=portal&hideToggle=true">
                             <div className="h-10 w-10 rounded-full bg-white/5 overflow-hidden border-2 border-white/10 hover:scale-110 transition-transform cursor-pointer shadow-lg ring-2 ring-transparent hover:ring-nyembo-sky flex items-center justify-center group">
                                 <div className="w-full h-full flex items-center justify-center group-hover:bg-nyembo-sky group-hover:text-black text-white transition-colors duration-300">
-                                    <Aperture className="w-5 h-5" />
+                                    <img
+                                        src="/assets/images/auth/futuristic_ai_robot_icon.png"
+                                        alt="Login"
+                                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                    />
                                 </div>
                             </div>
                         </Link>

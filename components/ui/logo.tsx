@@ -15,6 +15,7 @@ export function Logo({ className, showText = false }: LogoProps) {
                     src="/assets/images/logo/logo.png"
                     alt="Nyembotech logo"
                     fill
+                    sizes="96px"
                     className="object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                     priority
                 />

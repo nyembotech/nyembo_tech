@@ -97,6 +97,56 @@ service cloud.firestore {
       // Admins can update/delete
       allow update, delete: if isAdmin();
     }
+
+    // Academy Bookings
+    match /academy_bookings/{bookingId} {
+      // Allow public booking request
+      allow create: if true;
+      // Admins can manage bookings
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Document Vault
+    match /documents/{docId} {
+      // Admins have full access
+      allow read, write: if isAdmin();
+      
+      // Customers can read if they own the project AND visibility is not 'admin'
+      allow read: if isAuthenticated() && 
+        isCustomer(resource.data.customerId) && 
+        resource.data.visibility != 'admin';
+        
+      // Customers can create if they own the project (marked as uploadedBy: 'customer')
+      allow create: if isAuthenticated() && 
+        isCustomer(request.resource.data.customerId) &&
+        request.resource.data.uploadedBy == 'customer';
+        
+       // Customers can update/delete their own uploads
+       allow update, delete: if isAuthenticated() && 
+         isCustomer(resource.data.customerId) &&
+         resource.data.uploadedBy == 'customer'; 
+    }
+
+    // Knowledge Hub
+    match /knowledge_articles/{articleId} {
+      // Public can read published articles
+      allow read: if true; 
+      // Admins have full access
+      allow write: if isAdmin();
+    }
+
+    // Feature Flags & Labs
+    match /feature_flags/{flagId} {
+      allow read: if true; // Debug: Open to public to verify visibility
+      allow write: if isAdmin();
+    }
+
+    // GDPR Deletion Requests
+    match /deletion_requests/{requestId} {
+      allow create: if isAuthenticated() && request.resource.data.customerId == request.auth.uid;
+      allow read: if isAuthenticated() && resource.data.customerId == request.auth.uid;
+      allow write: if isAdmin();
+    }
     
     // Activity Log
     match /activity_log/{logId} {

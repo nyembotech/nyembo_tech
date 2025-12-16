@@ -40,7 +40,7 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} suppressHydrationWarning>
-            <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
+            <body className={`${spaceGrotesk.variable} font-sans antialiased`} suppressHydrationWarning>
                 <NextIntlClientProvider messages={messages}>
                     <AuthProvider>
                         <AnalyticsWrapper />

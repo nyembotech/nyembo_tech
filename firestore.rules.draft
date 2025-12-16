@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Helper Functions ---
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      // Future: Check custom claims or user doc role + organizationId
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // New: Check if user belongs to the target organization
+    function isInOrg(orgId) {
+       let userDoc = get(/databases/$(database)/documents/users/$(request.auth.uid));
+       return isAuthenticated() && (
+         userDoc.data.organizationId == orgId || 
+         userDoc.data.role == 'super_admin' // Future role
+       );
+    }
+
+    // --- Collection Rules ---
+
+    // Organizations
+    match /organizations/{orgId} {
+        allow read: if isAuthenticated() && isInOrg(orgId);
+        allow write: if isAdmin() && isInOrg(orgId); 
+    }
+
+    // Projects (Scoped)
+    match /projects/{projectId} {
+      allow read: if isAuthenticated() && 
+        isInOrg(resource.data.organizationId); 
+      allow write: if isAdmin() && 
+        isInOrg(request.resource.data.organizationId); // Ensure creation is scoped
+    }
+
+    // ... (Apply similar logic to Tasks, Tickets, etc.)
+
+    // Feature Flags (Global or Scoped?)
+    // Likely Global for now, or scoped if white-labeling is advanced.
+    match /feature_flags/{flagId} {
+      allow read: if true; 
+      allow write: if isAdmin();
+    }
+  }
+}

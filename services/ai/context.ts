@@ -40,12 +40,12 @@ async function getSalesContext(lang: string): Promise<string> {
     });
 
     // 2. Fetch Knowledge Base
-    const kbSnap = await adminDb.collection("knowledge_base").limit(5).get();
+    const kbSnap = await adminDb.collection("knowledge_articles").where("status", "==", "published").limit(5).get();
     if (!kbSnap.empty) {
-        contentSummary += "\n[Knowledge Base]:\n";
+        contentSummary += "\n[Knowledge Base / Blog Articles]:\n";
         kbSnap.forEach(doc => {
             const data = doc.data();
-            contentSummary += `- ${data.title}: ${data.content}\n`;
+            contentSummary += `- ${data.title} (${data.category}): ${data.summary}\n`;
         });
     }
 

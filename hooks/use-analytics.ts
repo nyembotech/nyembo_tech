@@ -18,11 +18,14 @@ export const useAnalytics = () => {
 
         const handlePageView = async () => {
             try {
+                // Skip if not authenticated to avoid permission errors
+                if (!user) return;
+
                 // We log as "system" if unauthenticated, or user ID if logged in
                 // Using 'info' level for standard tracking
                 await logActivity({
                     type: "info",
-                    actorId: user?.uid || "anonymous",
+                    actorId: user.uid,
                     targetType: "system", // or 'marketing' if we expand types
                     targetId: "page_view",
                     message: `Page View: ${pathname}`,
@@ -36,7 +39,7 @@ export const useAnalytics = () => {
                 });
             } catch (error) {
                 // Silently fail to not disrupt UX
-                console.error("Analytics error", error);
+                console.error("ANALYTICS_ERROR", error);
             }
         };
 

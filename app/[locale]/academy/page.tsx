@@ -1,13 +1,22 @@
 "use client";
 
-import { useAcademyData } from "@/hooks/use-academy-data";
+import { useState } from "react";
+import { useAcademyData, Program } from "@/hooks/use-academy-data";
 import { AcademyHero } from "@/components/academy/hero";
 import { ProgramTabs } from "@/components/academy/program-tabs";
 import { CTARibbon } from "@/components/academy/cta-ribbon";
+import { BookingModal } from "@/components/academy/booking-modal";
 import { Loader2 } from "lucide-react";
 
 export default function AcademyPage() {
     const { programs, loading } = useAcademyData();
+    const [isBookingOpen, setIsBookingOpen] = useState(false);
+    const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
+
+    const handleBook = (program: Program) => {
+        setSelectedProgram(program);
+        setIsBookingOpen(true);
+    };
 
     if (loading) {
         return (
@@ -20,8 +29,13 @@ export default function AcademyPage() {
     return (
         <main className="min-h-screen bg-black pb-32">
             <AcademyHero />
-            <ProgramTabs programs={programs} />
+            <ProgramTabs programs={programs} onBook={handleBook} />
             <CTARibbon />
+            <BookingModal
+                isOpen={isBookingOpen}
+                onMakeOpen={setIsBookingOpen}
+                preSelectedProgram={selectedProgram}
+            />
         </main>
     );
 }

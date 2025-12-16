@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity, AlertCircle, CheckCircle2, Clock } from "lucide-react";
+import { AIInsightsPanel } from "@/components/ai/ai-insights-panel";
 
 export default function AdminDashboard() {
     return (
@@ -13,6 +14,11 @@ export default function AdminDashboard() {
                     <Clock className="w-4 h-4" />
                     <span>Last updated: Just now</span>
                 </div>
+            </div>
+
+            {/* AI Insights Layer */}
+            <div className="mb-4">
+                <AIInsightsPanel role="admin" />
             </div>
 
             {/* Metrics Row */}

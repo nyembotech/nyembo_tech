@@ -4,16 +4,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/logo";
-import { LayoutDashboard, FileText, Folder, Users, CheckSquare, GraduationCap, Building2, Settings } from "lucide-react";
+import { OrgSwitcher } from "@/components/admin/org-switcher";
+import { LayoutDashboard, FileText, Folder, Users, CheckSquare, GraduationCap, Building2, Settings, BrainCircuit, Bot, Activity, BookOpen, FlaskConical } from "lucide-react";
 
 const navItems = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },
     { name: "Content", href: "/admin/content", icon: FileText },
+    { name: "Knowledge Hub", href: "/admin/knowledge", icon: BookOpen },
     { name: "Projects", href: "/admin/projects", icon: Folder },
     { name: "Customers", href: "/admin/customers", icon: Users },
     { name: "Tasks", href: "/admin/tasks", icon: CheckSquare },
     { name: "Academy", href: "/admin/academy", icon: GraduationCap },
     { name: "Smart Spaces", href: "/admin/smart-spaces", icon: Building2 },
+    { name: "Agents", href: "/admin/agents", icon: Bot },
+    { name: "AI Architect", href: "/admin/ai-architect", icon: BrainCircuit },
+    { name: "System Health", href: "/admin/system", icon: Activity },
+    { name: "Labs", href: "/admin/labs", icon: FlaskConical },
     { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
@@ -26,6 +32,10 @@ export function AdminSidebar() {
                 <div className="absolute top-4 left-4 z-50 transition-transform duration-300 hover:scale-105">
                     <Logo className="scale-125 origin-center drop-shadow-[0_0_15px_rgba(190,242,100,0.3)]" />
                 </div>
+            </div>
+
+            <div className="px-4 mb-2">
+                <OrgSwitcher />
             </div>
 
             <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-2">
