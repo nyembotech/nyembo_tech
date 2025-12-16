@@ -6,15 +6,17 @@ export type AgentType = "sales" | "support";
 interface AgentContextParams {
     userId?: string;
     projectId?: string;
+    language?: string;
 }
 
 export async function getAgentContext(type: AgentType, params: AgentContextParams = {}): Promise<string> {
+    const language = params.language || "en";
     try {
         if (type === "sales") {
-            return await getSalesContext();
+            return await getSalesContext(language);
         } else if (type === "support") {
             if (!params.userId) throw new Error("User ID required for support agent");
-            return await getSupportContext(params.userId);
+            return await getSupportContext(params.userId, language);
         }
     } catch (error) {
         console.error("Error fetching agent context:", error);
@@ -23,36 +25,52 @@ export async function getAgentContext(type: AgentType, params: AgentContextParam
     return "";
 }
 
-async function getSalesContext(): Promise<string> {
+async function getSalesContext(lang: string): Promise<string> {
     // 1. Fetch Site Content (Home, Solutions)
-    // For MVP, we might hardcode critical info if DB is empty, or fetch from site_content
     const siteContentSnap = await adminDb.collection("site_content").get();
-    let contentSummary = "Company: Nyembotech. We build AI-first software for Africa and Europe.\n";
+    let contentSummary = `Context Language: ${lang}\n`;
+    contentSummary += "Company: Nyembotech. We build AI-first software for Africa and Europe.\n";
 
     siteContentSnap.forEach(doc => {
         const data = doc.data();
+        // Assuming localized content might be stored or we just dump available info
         if (data.heroTitle) {
-            contentSummary += `Title: ${data.heroTitle}\nSubtitle: ${data.heroSubtitle}\n`;
+            contentSummary += `[Site Content] Title: ${data.heroTitle}\nSubtitle: ${data.heroSubtitle}\n`;
         }
-        // Add more fields as structure evolves
     });
 
-    // 2. Fetch Case Studies or Offerings (Simulated or DB)
-    // const caseStudies = ...
+    // 2. Fetch Knowledge Base
+    const kbSnap = await adminDb.collection("knowledge_base").limit(5).get();
+    if (!kbSnap.empty) {
+        contentSummary += "\n[Knowledge Base]:\n";
+        kbSnap.forEach(doc => {
+            const data = doc.data();
+            contentSummary += `- ${data.title}: ${data.content}\n`;
+        });
+    }
+
+    // 3. Simulated Shortlist of Predefined Offers
+    const offers = [
+        { name: "MVP Launch Pack", price: "€15k - €25k", details: "Web App, Mobile MVP, 4 weeks delivery." },
+        { name: "Enterprise AI Suite", price: "€50k+", details: "Custom LLM integrations, Internal Tools, SLA." },
+        { name: "Design System Overhaul", price: "€8k", details: "Figma to Code, Storybook, Dark Mode." }
+    ];
+    contentSummary += `\n[Predefined Offers]:\n${JSON.stringify(offers)}\n`;
 
     return `
 You are "Nyembo Guide", a helpful sales representative for Nyembotech.
+Respond in ${lang === 'de' ? 'German' : lang === 'sw' ? 'Swahili' : 'English'}.
 Your goal: Explain our services (Web Apps, Mobile Apps, AI Integration), qualify leads, and direct them to the Contact form.
-Current Context (Public Site Info):
+Current Context (Public Info):
 ${contentSummary}
 Guidelines:
 - Be professional, enthusiastic, and concise.
 - Focus on "European Quality, African Speed".
-- Do NOT make up pricing. Say it depends on project scope.
+- Use the Predefined Offers as a baseline for pricing questions.
 `;
 }
 
-async function getSupportContext(userId: string): Promise<string> {
+async function getSupportContext(userId: string, lang: string): Promise<string> {
     // 1. Fetch User Profile
     const userDoc = await adminDb.collection("users").doc(userId).get();
     const userData = userDoc.data();
@@ -68,6 +86,7 @@ async function getSupportContext(userId: string): Promise<string> {
 
     return `
 You are "Nyembo Support", a dedicated support assistant for the customer portal.
+Respond in ${lang === 'de' ? 'German' : lang === 'sw' ? 'Swahili' : 'English'}.
 User: ${userData.displayName} (${userData.email})
 
 Customer Data:

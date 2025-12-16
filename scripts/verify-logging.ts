@@ -14,17 +14,27 @@ async function verify() {
         console.log("No logs found.");
     } else {
         console.log("Latest log found:");
-        snapshot.docs.forEach(doc => {
+        for (const doc of snapshot.docs) {
             const data = doc.data();
-            console.log(JSON.stringify({
+            console.log("Session:", JSON.stringify({
                 id: doc.id,
                 agentType: data.agentType,
-                input: data.input,
-                output: data.output,
-                isMock: data.metadata?.isMock,
+                language: data.language,
+                userId: data.userId,
                 createdAt: data.createdAt?.toDate().toISOString()
             }, null, 2));
-        });
+
+            const messagesSnap = await doc.ref.collection("messages").orderBy("createdAt", "asc").get();
+            console.log("Messages:");
+            messagesSnap.forEach(msgDoc => {
+                const msgData = msgDoc.data();
+                console.log(JSON.stringify({
+                    role: msgData.role,
+                    content: msgData.content,
+                    isMock: msgData.metadata?.isMock
+                }, null, 2));
+            });
+        }
     }
 }
 

@@ -10,7 +10,20 @@ export async function POST(req: Request) {
     // Check for OpenAI Key
     // If no key is found, return a mock response
     if (!process.env.OPENAI_API_KEY) {
-        const { messages, agentType, userId, projectId } = await req.json();
+        const { messages, agentType, userId, projectId, language, sessionId } = await req.json();
+
+        // Ensure session exists
+        const sessionRef = adminDb.collection("agent_sessions").doc(sessionId || "unknown_session");
+        const sessionSnap = await sessionRef.get();
+        if (!sessionSnap.exists) {
+            await sessionRef.set({
+                userId: userId || "anonymous",
+                agentType,
+                projectId: projectId || null,
+                createdAt: FieldValue.serverTimestamp(),
+                language: language || "en"
+            });
+        }
 
         const stream = new ReadableStream({
             async start(controller) {
@@ -25,19 +38,18 @@ export async function POST(req: Request) {
 
                 try {
                     const lastUserMessage = messages[messages.length - 1];
-                    await adminDb.collection("agent_sessions").add({
-                        userId: userId || "anonymous",
-                        agentType,
-                        projectId: projectId || null,
-                        input: lastUserMessage?.content || "",
-                        output: mockMessage,
-                        metadata: {
-                            completionTokens: 0,
-                            promptTokens: 0,
-                            totalTokens: 0,
-                            isMock: true
-                        },
-                        createdAt: FieldValue.serverTimestamp(),
+                    // Log User Message
+                    await sessionRef.collection("messages").add({
+                        role: "user",
+                        content: lastUserMessage?.content || "",
+                        createdAt: FieldValue.serverTimestamp()
+                    });
+                    // Log Assistant Message
+                    await sessionRef.collection("messages").add({
+                        role: "assistant",
+                        content: mockMessage,
+                        metadata: { isMock: true },
+                        createdAt: FieldValue.serverTimestamp()
                     });
                 } catch (e) {
                     console.error("Mock log failed", e);
@@ -52,15 +64,33 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { messages, agentType, userId, projectId } = await req.json();
-
+        const { messages, agentType, userId, projectId, language, sessionId } = await req.json();
 
         // Validate basic inputs
         if (!agentType) {
             return new Response("Agent Type required", { status: 400 });
         }
 
-        const systemContext = await getAgentContext(agentType as AgentType, { userId, projectId });
+        // Ensure session exists
+        const sessionRef = adminDb.collection("agent_sessions").doc(sessionId || "unknown_session");
+        const sessionSnap = await sessionRef.get();
+        if (!sessionSnap.exists) {
+            await sessionRef.set({
+                userId: userId || "anonymous",
+                agentType,
+                projectId: projectId || null,
+                language: language || "en",
+                createdAt: FieldValue.serverTimestamp(),
+                updatedAt: FieldValue.serverTimestamp()
+            });
+        } else {
+            await sessionRef.set({
+                agentType, // Update agent type if changed (unlikely/optional)
+                updatedAt: FieldValue.serverTimestamp()
+            }, { merge: true });
+        }
+
+        const systemContext = await getAgentContext(agentType as AgentType, { userId, projectId, language });
 
         const result = await streamText({
             model: openai("gpt-4o-mini"),
@@ -73,12 +103,20 @@ export async function POST(req: Request) {
 
                 try {
                     const lastUserMessage = messages[messages.length - 1];
-                    await adminDb.collection("agent_sessions").add({
-                        userId: userId || "anonymous",
-                        agentType,
-                        projectId: projectId || null,
-                        input: lastUserMessage?.content || "",
-                        output: text,
+
+                    // Log User Message
+                    if (lastUserMessage) {
+                        await sessionRef.collection("messages").add({
+                            role: "user",
+                            content: lastUserMessage.content,
+                            createdAt: FieldValue.serverTimestamp()
+                        });
+                    }
+
+                    // Log Assistant Message
+                    await sessionRef.collection("messages").add({
+                        role: "assistant",
+                        content: text,
                         metadata: {
                             completionTokens: (completion.usage as any)?.completionTokens || 0,
                             promptTokens: (completion.usage as any)?.promptTokens || 0,
@@ -86,7 +124,7 @@ export async function POST(req: Request) {
                         },
                         createdAt: FieldValue.serverTimestamp(),
                     });
-                    console.log("Logged agent session to Firestore.");
+                    console.log("Logged agent session messages to Firestore.");
                 } catch (logError) {
                     console.error("Failed to log agent session:", logError);
                 }

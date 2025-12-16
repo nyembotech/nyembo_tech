@@ -12,18 +12,23 @@ export interface Message {
 type UseChatAgentProps = UseChatOptions<any> & {
     agentType: "sales" | "support";
     projectId?: string;
+    language?: string;
 };
 
-export function useChatAgent({ agentType, projectId, ...props }: UseChatAgentProps) {
+export function useChatAgent({ agentType, projectId, language = "en", ...props }: UseChatAgentProps) {
     const { user } = useAuth();
     const [input, setInput] = useState("");
+    // Generate a stable session ID for this chat instance
+    const [sessionId] = useState(() => crypto.randomUUID());
 
     const chat: any = useChat({
         api: "/api/agent",
         body: {
             agentType,
+            sessionId,
             userId: user?.uid,
             projectId,
+            language,
         },
         onError: (err: Error) => {
             console.error("Chat Agent Error:", err);

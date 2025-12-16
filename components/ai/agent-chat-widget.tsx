@@ -13,11 +13,12 @@ import { cn } from "@/lib/utils";
 interface AgentChatWidgetProps {
     agentType: "sales" | "support";
     projectId?: string;
+    language?: string;
 }
 
-export function AgentChatWidget({ agentType, projectId }: AgentChatWidgetProps) {
+export function AgentChatWidget({ agentType, projectId, language = "en" }: AgentChatWidgetProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const { messages, input, handleInputChange, handleSubmit, isLoading, isReady, append } = useChatAgent({ agentType, projectId });
+    const { messages, input, handleInputChange, handleSubmit, isLoading, isReady, append } = useChatAgent({ agentType, projectId, language });
     const scrollRef = useRef<HTMLDivElement>(null);
 
     // Auto-scroll to bottom
