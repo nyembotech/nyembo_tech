@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { adminDb } from "@/lib/firebase-admin";
+import { adminDb, adminApp, adminStorage } from "@/lib/firebase-admin";
 
 export async function GET() {
     const status = {
@@ -27,7 +27,8 @@ export async function GET() {
     try {
         // If adminDb is initialized, Auth likely is too, but we can verify auth listing (requires permission)
         // Or simpler: just check if app name exists
-        if (adminDb.app.name) {
+        // Check if app name exists on the exported app instance
+        if (adminApp.name) {
             status.auth.status = "ok";
         } else {
             throw new Error("App not initialized");
@@ -42,7 +43,9 @@ export async function GET() {
     try {
         // Just check if bucket object exists in config/instantiated
         // Actual connectivity check would be getFiles limit 1
-        const bucket = adminDb.app.storage().bucket();
+        // Use exported adminStorage
+        // Actual connectivity check would be getFiles limit 1
+        const bucket = adminStorage.bucket();
         // Lightweight metadata fetch
         await bucket.getMetadata();
         status.storage.status = "ok";

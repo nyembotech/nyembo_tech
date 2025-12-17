@@ -36,6 +36,10 @@ export function initAdmin(): App {
     });
 }
 
+import { getStorage } from "firebase-admin/storage";
+
 const app = initAdmin();
+export const adminApp = app;
 export const adminDb = getFirestore(app);
 export const adminAuth = getAuth(app);
+export const adminStorage = getStorage(app);

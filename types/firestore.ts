@@ -203,3 +203,15 @@ export interface DeletionRequest extends BaseEntity {
     status: "pending" | "processing" | "completed" | "rejected";
     adminNotes?: string;
 }
+
+export interface TranslationJob extends BaseEntity {
+    sourceText: string;
+    sourceLanguage: "en" | "sw" | "de";
+    targetLanguages: ("en" | "sw" | "de")[];
+    translations: {
+        [lang: string]: string;
+    };
+    status: "pending" | "completed" | "failed";
+    referenceId?: string;
+    referenceType?: "site_content" | "knowledge_article";
+}
