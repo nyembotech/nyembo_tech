@@ -209,7 +209,7 @@ function AgentCard({ agent }: { agent: AgentProfile }) {
 
             <DialogContent className="max-w-2xl bg-[#0f172a] border border-white/10 text-white shadow-2xl overflow-hidden">
                 {/* Modal Cyber Background */}
-                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.png')] opacity-5 pointer-events-none" />
+                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.svg')] opacity-5 pointer-events-none" />
 
                 <DialogHeader className="relative z-10 border-b border-white/10 pb-4">
                     <div className="flex items-center gap-4">

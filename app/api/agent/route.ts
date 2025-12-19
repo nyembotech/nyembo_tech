@@ -1,4 +1,4 @@
-import { streamText, type CoreMessage } from "ai";
+import { streamText, type CoreMessage, convertToModelMessages } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { getAgentContext, AgentType } from "@/services/ai/context";
 import { adminDb } from "@/lib/firebase-admin";
@@ -92,12 +92,13 @@ export async function POST(req: Request) {
 
         const systemContext = await getAgentContext(agentType as AgentType, { userId, projectId, language });
 
-        const result = await streamText({
+        // Convert UI messages to model messages format
+        const modelMessages = await convertToModelMessages(messages);
+
+        const result = streamText({
             model: openai("gpt-4o-mini"),
-            messages: [
-                { role: "system", content: systemContext },
-                ...(messages as CoreMessage[])
-            ],
+            system: systemContext,
+            messages: modelMessages,
             onFinish: async ({ text, ...completion }) => {
                 console.log("Generated text length:", text.length);
 
@@ -108,7 +109,7 @@ export async function POST(req: Request) {
                     if (lastUserMessage) {
                         await sessionRef.collection("messages").add({
                             role: "user",
-                            content: lastUserMessage.content,
+                            content: lastUserMessage.content || lastUserMessage.parts?.find((p: any) => p.type === 'text')?.text || '',
                             createdAt: FieldValue.serverTimestamp()
                         });
                     }
@@ -131,7 +132,7 @@ export async function POST(req: Request) {
             }
         });
 
-        return result.toTextStreamResponse();
+        return result.toUIMessageStreamResponse();
     } catch (error: any) {
         console.error("Agent API Error:", error);
         return new Response(`Internal Server Error: ${error?.message || String(error)}`, { status: 500 });

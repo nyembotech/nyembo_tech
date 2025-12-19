@@ -1,27 +1,44 @@
-import { useState } from "react";
-import { useChat, UseChatOptions } from "@ai-sdk/react";
+import { useState, useMemo } from "react";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 import { useAuth } from "@/context/auth-context";
 
-// Define Message type to match runtime shape (since 'ai' v5 types are strict/changed)
+// Define Message type to support both old (content) and new (parts) AI SDK formats
 export interface Message {
     id: string;
     role: "function" | "system" | "user" | "assistant" | "data" | "tool";
-    content: string;
+    content?: string;
+    parts?: Array<{ type: string; text?: string }>;
 }
 
-type UseChatAgentProps = UseChatOptions<any> & {
+// Helper to extract text content from a message (supports both formats)
+export function getMessageContent(message: Message): string {
+    if (message.content) {
+        return message.content;
+    }
+    if (message.parts) {
+        return message.parts
+            .filter(part => part.type === 'text' && part.text)
+            .map(part => part.text)
+            .join('');
+    }
+    return '';
+}
+
+type UseChatAgentProps = {
     agentType: "sales" | "support";
     projectId?: string;
     language?: string;
 };
 
-export function useChatAgent({ agentType, projectId, language = "en", ...props }: UseChatAgentProps) {
+export function useChatAgent({ agentType, projectId, language = "en" }: UseChatAgentProps) {
     const { user } = useAuth();
     const [input, setInput] = useState("");
     // Generate a stable session ID for this chat instance
     const [sessionId] = useState(() => crypto.randomUUID());
 
-    const chat: any = useChat({
+    // Create transport with memoization to avoid recreating on every render
+    const transport = useMemo(() => new DefaultChatTransport({
         api: "/api/agent",
         body: {
             agentType,
@@ -30,11 +47,14 @@ export function useChatAgent({ agentType, projectId, language = "en", ...props }
             projectId,
             language,
         },
+    }), [agentType, sessionId, user?.uid, projectId, language]);
+
+    const chat: any = useChat({
+        transport,
         onError: (err: Error) => {
             console.error("Chat Agent Error:", err);
         },
-        ...props
-    } as any);
+    });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setInput(e.target.value);
@@ -44,9 +64,23 @@ export function useChatAgent({ agentType, projectId, language = "en", ...props }
         e.preventDefault();
         if (!input.trim()) return;
 
-        chat.append({ role: "user", content: input });
+        // Use sendMessage for newer AI SDK versions, fallback to append for older versions
+        if (chat.sendMessage) {
+            chat.sendMessage({ text: input });
+        } else if (chat.append) {
+            chat.append({ role: "user", content: input });
+        }
 
         setInput("");
+    };
+
+    // Helper function to send a message programmatically
+    const sendMessage = (content: string) => {
+        if (chat.sendMessage) {
+            chat.sendMessage({ text: content });
+        } else if (chat.append) {
+            chat.append({ role: "user", content });
+        }
     };
 
     const isLoading = chat.status === "streaming" || chat.status === "submitted";
@@ -54,7 +88,9 @@ export function useChatAgent({ agentType, projectId, language = "en", ...props }
     return {
         ...chat,
         messages: chat.messages as unknown as Message[],
-        append: chat.append,
+        sendMessage,
+        // Keep append for backward compatibility (maps to sendMessage)
+        append: sendMessage,
         input,
         setInput,
         handleInputChange,

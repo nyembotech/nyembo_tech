@@ -8,7 +8,7 @@ export function SmartSpacesHero() {
         <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 bg-black z-0">
-                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.png')] opacity-20 mix-blend-screen" />
+                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.svg')] opacity-20 mix-blend-screen" />
                 <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-nyembo-sky/10 rounded-full blur-[100px] animate-pulse" />
                 <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] animate-pulse delay-1000" />
             </div>
