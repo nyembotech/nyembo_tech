@@ -65,7 +65,7 @@ export default function ContactPage() {
     if (submittedCode) {
         return (
             <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.png')] opacity-20" />
+                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.svg')] opacity-20" />
                 <div className="absolute inset-0 bg-gradient-to-t from-nyembo-sky/10 to-transparent pointer-events-none" />
 
                 <motion.div

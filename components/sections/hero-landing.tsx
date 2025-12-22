@@ -156,7 +156,7 @@ export function HeroLanding() {
                             <div className="absolute inset-0 overflow-hidden lg:rounded-bl-[100px] lg:rounded-tr-[3rem] border-l border-white/50 bg-gradient-to-br from-gray-100/20 to-white/10 backdrop-blur-[1px]">
                                 <HeroSpineScene variant="console-orbit" className="h-[120%] -translate-y-[10%]" />
 
-                                <div className="absolute top-0 right-0 w-full h-full bg-[url('/assets/grid-pattern.png')] opacity-20 mix-blend-multiply z-0 pointer-events-none" />
+                                <div className="absolute top-0 right-0 w-full h-full bg-[url('/assets/grid-pattern.svg')] opacity-20 mix-blend-multiply z-0 pointer-events-none" />
 
                                 {/* Decorative Elements */}
                                 <div className="absolute top-20 left-10 text-xs font-bold tracking-widest text-black/20 -rotate-90 origin-bottom-left hidden lg:block z-10 pointer-events-none">

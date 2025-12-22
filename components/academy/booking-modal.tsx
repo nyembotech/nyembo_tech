@@ -76,7 +76,7 @@ export function BookingModal({ isOpen, onMakeOpen, preSelectedProgram }: Booking
     return (
         <Dialog open={isOpen} onOpenChange={onMakeOpen}>
             <DialogContent className="max-w-2xl bg-black/95 border-white/10 text-white backdrop-blur-xl">
-                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.png')] opacity-5 pointer-events-none" />
+                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.svg')] opacity-5 pointer-events-none" />
 
                 <DialogHeader>
                     <div className="flex items-center justify-between">

@@ -10,7 +10,7 @@ export function AcademyHero() {
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-purple-900/20 to-transparent rounded-full blur-[100px]" />
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-nyembo-sky/10 to-transparent rounded-full blur-[100px]" />
-                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.png')] opacity-10 bg-repeat" />
+                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.svg')] opacity-10 bg-repeat" />
             </div>
 
             <div className="container relative z-10 px-4 text-center">

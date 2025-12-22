@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useChatAgent, type Message } from "@/hooks/use-chat-agent";
+import { useChatAgent, type Message, getMessageContent } from "@/hooks/use-chat-agent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -18,7 +18,7 @@ interface AgentChatWidgetProps {
 
 export function AgentChatWidget({ agentType, projectId, language = "en" }: AgentChatWidgetProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const { messages, input, handleInputChange, handleSubmit, isLoading, isReady, append } = useChatAgent({ agentType, projectId, language });
+    const { messages, input, handleInputChange, handleSubmit, isLoading, isReady, sendMessage } = useChatAgent({ agentType, projectId, language });
     const scrollRef = useRef<HTMLDivElement>(null);
 
     // Auto-scroll to bottom
@@ -86,7 +86,7 @@ export function AgentChatWidget({ agentType, projectId, language = "en" }: Agent
                                                     variant="outline"
                                                     className="w-full justify-start text-xs h-auto py-2 bg-white/5 border-white/10 hover:bg-white/10 text-left whitespace-normal"
                                                     onClick={() => {
-                                                        append({ role: "user", content: action });
+                                                        sendMessage(action);
                                                     }}
                                                 >
                                                     {action}
@@ -110,7 +110,7 @@ export function AgentChatWidget({ agentType, projectId, language = "en" }: Agent
                                                 ? "bg-nyembo-sky/20 text-white rounded-br-none border border-nyembo-sky/30"
                                                 : "bg-white/5 text-gray-200 rounded-bl-none border border-white/10"
                                         )}>
-                                            {m.content}
+                                            {getMessageContent(m)}
                                         </div>
 
                                         {m.role === "user" && (
