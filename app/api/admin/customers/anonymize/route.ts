@@ -1,14 +1,18 @@
 import { NextResponse } from 'next/server';
 import { adminDb, adminAuth } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
+import { AnonymizeRequestSchema } from '@/lib/schemas';
 
 export async function POST(req: Request) {
     try {
-        const { customerId, uid, requestId } = await req.json();
+        const body = await req.json();
+        const parseResult = AnonymizeRequestSchema.safeParse(body);
 
-        if (!customerId || !uid) {
-            return NextResponse.json({ error: "Missing Target IDs" }, { status: 400 });
+        if (!parseResult.success) {
+            return NextResponse.json({ error: "Invalid Request", details: parseResult.error.format() }, { status: 400 });
         }
+
+        const { customerId, uid, requestId } = parseResult.data;
 
         console.log(`Starting anonymization for UID: ${uid}, CustomerID: ${customerId}`);
 

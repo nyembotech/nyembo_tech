@@ -1,6 +1,7 @@
 import { AdminSidebar } from "@/components/admin/sidebar";
 import { AdminTopbar } from "@/components/admin/topbar";
 import { RoleGuard } from "@/components/auth/role-guard";
+import { AdminErrorBoundary } from "@/components/app-error-boundary";
 
 export default function AdminLayout({
     children,
@@ -14,10 +15,13 @@ export default function AdminLayout({
                 <div className="flex-1 flex flex-col ml-64 transition-all duration-300">
                     <AdminTopbar />
                     <main className="flex-1 p-6 overflow-y-auto bg-sidebar/20">
-                        {children}
+                        <AdminErrorBoundary>
+                            {children}
+                        </AdminErrorBoundary>
                     </main>
                 </div>
             </div>
         </RoleGuard>
     );
 }
+

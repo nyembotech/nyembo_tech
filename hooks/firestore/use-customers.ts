@@ -1,17 +1,31 @@
 import { useState, useEffect } from "react";
 import { Customer } from "@/types/firestore";
 import { subscribeToCollection, subscribeToDocument, createDocument, updateDocument, deleteDocument } from "@/services/firebase/database";
-import { where, orderBy } from "firebase/firestore";
+import { where, orderBy, QueryConstraint } from "firebase/firestore";
+import { useAuth } from "@/context/auth-context";
+import { withOrgId, isTenantScoped } from "@/lib/firestore-helpers";
 
 export function useCustomers() {
+    const { organization } = useAuth();
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
+        // Wait for organization to be loaded
+        if (!organization?.id) {
+            setLoading(false);
+            return;
+        }
+
+        const constraints: QueryConstraint[] = [
+            where('organizationId', '==', organization.id),
+            orderBy("name", "asc")
+        ];
+
         const unsubscribe = subscribeToCollection<Customer>(
             "customers",
-            [orderBy("name", "asc")],
+            constraints,
             (data) => {
                 setCustomers(data);
                 setLoading(false);
@@ -23,11 +37,14 @@ export function useCustomers() {
         );
 
         return () => unsubscribe();
-    }, []);
+    }, [organization?.id]);
 
-    const addCustomer = async (data: Omit<Customer, "id" | "createdAt" | "updatedAt">) => {
+    const addCustomer = async (data: Omit<Customer, "id" | "createdAt" | "updatedAt" | "organizationId">) => {
+        if (!organization?.id) {
+            throw new Error('Cannot create customer without organization context');
+        }
         try {
-            return await createDocument("customers", data);
+            return await createDocument("customers", withOrgId(data, organization.id));
         } catch (err) {
             console.error("Failed to add customer", err);
             throw err;

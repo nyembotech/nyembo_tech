@@ -3,6 +3,7 @@ import { openai } from "@ai-sdk/openai";
 import { getAgentContext, AgentType } from "@/services/ai/context";
 import { adminDb } from "@/lib/firebase-admin";
 import { FieldValue } from "firebase-admin/firestore";
+import { AgentRequestSchema } from "@/lib/schemas";
 
 export const maxDuration = 30;
 
@@ -10,7 +11,19 @@ export async function POST(req: Request) {
     // Check for OpenAI Key
     // If no key is found, return a mock response
     if (!process.env.OPENAI_API_KEY) {
-        const { messages, agentType, userId, projectId, language, sessionId } = await req.json();
+        // Validation for Mock Mode as well to ensure type safety
+        const body = await req.json();
+        const parseResult = AgentRequestSchema.safeParse(body);
+
+        if (!parseResult.success) {
+            console.warn("Invalid agent request in mock mode", parseResult.error);
+            // Proceeding with fallback values if strict validation fails in mock mode might is safer for debugging, 
+            // but stricter is better. Let's use the parsed data if valid, or just simple internal fallback if not critical?
+            // Actually, sticking to strict validation even in mock is better practice.
+            return new Response(JSON.stringify({ error: "Invalid Request", details: parseResult.error.format() }), { status: 400 });
+        }
+
+        const { messages, agentType, userId, projectId, language, sessionId } = parseResult.data;
 
         // Ensure session exists
         const sessionRef = adminDb.collection("agent_sessions").doc(sessionId || "unknown_session");
@@ -64,33 +77,40 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { messages, agentType, userId, projectId, language, sessionId } = await req.json();
+        const body = await req.json();
+        const parseResult = AgentRequestSchema.safeParse(body);
 
-        // Validate basic inputs
-        if (!agentType) {
-            return new Response("Agent Type required", { status: 400 });
+        if (!parseResult.success) {
+            return new Response(JSON.stringify({ error: "Invalid Request", details: parseResult.error.format() }), { status: 400 });
         }
 
-        // Ensure session exists
-        const sessionRef = adminDb.collection("agent_sessions").doc(sessionId || "unknown_session");
-        const sessionSnap = await sessionRef.get();
-        if (!sessionSnap.exists) {
-            await sessionRef.set({
-                userId: userId || "anonymous",
-                agentType,
-                projectId: projectId || null,
-                language: language || "en",
-                createdAt: FieldValue.serverTimestamp(),
-                updatedAt: FieldValue.serverTimestamp()
-            });
-        } else {
-            await sessionRef.set({
-                agentType, // Update agent type if changed (unlikely/optional)
-                updatedAt: FieldValue.serverTimestamp()
-            }, { merge: true });
+        const { messages, agentType, userId, projectId, language, sessionId } = parseResult.data;
+        let sessionRef: any = null;
+
+        // Try to initialize session logging, but don't block chat if it fails (e.g. missing firebase creds)
+        try {
+            sessionRef = adminDb.collection("agent_sessions").doc(sessionId || "unknown_session");
+            const sessionSnap = await sessionRef.get();
+            if (!sessionSnap.exists) {
+                await sessionRef.set({
+                    userId: userId || "anonymous",
+                    agentType,
+                    projectId: projectId || null,
+                    language: language || "en",
+                    createdAt: FieldValue.serverTimestamp(),
+                    updatedAt: FieldValue.serverTimestamp()
+                });
+            } else {
+                await sessionRef.set({
+                    updatedAt: FieldValue.serverTimestamp()
+                }, { merge: true });
+            }
+        } catch (dbError) {
+            console.error("Failed to init agent session in Firestore (non-fatal):", dbError);
+            sessionRef = null;
         }
 
-        const systemContext = await getAgentContext(agentType as AgentType, { userId, projectId, language });
+        const systemContext = await getAgentContext(agentType as AgentType, { userId: userId || undefined, projectId: projectId || undefined, language });
 
         const result = await streamText({
             model: openai("gpt-4o-mini"),
@@ -99,7 +119,7 @@ export async function POST(req: Request) {
                 ...(messages as CoreMessage[])
             ],
             onFinish: async ({ text, ...completion }) => {
-                console.log("Generated text length:", text.length);
+                if (!sessionRef) return;
 
                 try {
                     const lastUserMessage = messages[messages.length - 1];
@@ -124,7 +144,6 @@ export async function POST(req: Request) {
                         },
                         createdAt: FieldValue.serverTimestamp(),
                     });
-                    console.log("Logged agent session messages to Firestore.");
                 } catch (logError) {
                     console.error("Failed to log agent session:", logError);
                 }

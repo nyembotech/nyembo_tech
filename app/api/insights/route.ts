@@ -3,6 +3,7 @@ import { openai } from "@ai-sdk/openai";
 import { adminDb } from "@/lib/firebase-admin";
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import { z } from "zod";
+import { apiError, handleApiError } from "@/lib/error-handler";
 
 export const maxDuration = 60; // Allow longer timeout for aggregation
 
@@ -20,7 +21,7 @@ export async function GET(req: Request) {
     const userId = searchParams.get("userId");
 
     if (!userId) {
-        return new Response("Missing userId", { status: 400 });
+        return apiError('BAD_REQUEST', 'Missing userId parameter');
     }
 
     const cacheKey = `${userId}_${role}`;
@@ -78,11 +79,11 @@ export async function GET(req: Request) {
             `;
         }
 
-        // 3. Generate Insights via LLM
+        // 3. Generate Insights via LLM (using gpt-4o-mini for cost efficiency)
         let result;
         try {
             result = await generateObject({
-                model: openai("gpt-4o"),
+                model: openai("gpt-4o-mini"),
                 schema: InsightsResponseSchema,
                 system: `You are an AI Operations Analyst for Nyembotech.
                 Analyze the provided data and generate 3-5 concise, actionable insights.
@@ -120,8 +121,8 @@ export async function GET(req: Request) {
             headers: { "Content-Type": "application/json" },
         });
 
-    } catch (error: any) {
-        console.error("Insights Error:", error);
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    } catch (error) {
+        return handleApiError(error);
     }
 }
+

@@ -13,15 +13,32 @@ import { useRouter } from "next/navigation";
 
 import { Organization } from "@/types/firestore";
 
+interface CustomClaims {
+    role?: 'admin' | 'staff' | 'customer';
+    organizationId?: string;
+    permissions?: string[];
+}
+
+interface UserProfile {
+    displayName?: string;
+    email?: string;
+    photoURL?: string;
+    role?: 'admin' | 'staff' | 'customer';
+    organizationId?: string;
+    customerId?: string;
+    createdAt?: unknown;
+    updatedAt?: unknown;
+}
+
 interface AuthUser extends User {
     role?: "admin" | "staff" | "customer";
-    customClaims?: any;
+    customClaims?: CustomClaims;
     organizationId?: string;
 }
 
 interface AuthContextType {
     user: AuthUser | null;
-    profile: any | null;
+    profile: UserProfile | null;
     loading: boolean;
     role: "admin" | "staff" | "customer" | null;
     organization: Organization | null;
@@ -34,7 +51,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<AuthUser | null>(null);
-    const [profile, setProfile] = useState<any | null>(null);
+    const [profile, setProfile] = useState<UserProfile | null>(null);
     const [role, setRole] = useState<"admin" | "staff" | "customer" | null>(null);
     const [organization, setOrganization] = useState<Organization | null>(null);
     const [loading, setLoading] = useState(true);

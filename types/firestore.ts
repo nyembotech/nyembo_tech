@@ -29,7 +29,7 @@ export interface Customer extends BaseEntity {
     contactEmail: string;
     type: "individual" | "company";
     companyName?: string;
-    password?: string; // Optional: stored only if custom auth is used
+    // NOTE: Password authentication is handled by Firebase Auth only - never store passwords in Firestore
     onboardingStatus?: "pending" | "invited" | "completed";
 }
 

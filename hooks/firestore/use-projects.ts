@@ -3,6 +3,8 @@ import { Project } from "@/types/firestore";
 import { subscribeToCollection, subscribeToDocument, createDocument, updateDocument, deleteDocument } from "@/services/firebase/database";
 import { where, orderBy, QueryConstraint } from "firebase/firestore";
 import { logActivity } from "@/services/activity-log";
+import { useAuth } from "@/context/auth-context";
+import { withOrgId } from "@/lib/firestore-helpers";
 
 interface UseProjectsFilters {
     customerId?: string;
@@ -11,17 +13,27 @@ interface UseProjectsFilters {
 }
 
 export function useProjects(filters?: UseProjectsFilters, options?: { enabled?: boolean }) {
+    const { organization } = useAuth();
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        const constraints: QueryConstraint[] = [orderBy("updatedAt", "desc")];
-
         if (options?.enabled === false) {
             setLoading(false);
             return;
         }
+
+        // Wait for organization to be loaded
+        if (!organization?.id) {
+            setLoading(false);
+            return;
+        }
+
+        const constraints: QueryConstraint[] = [
+            where('organizationId', '==', organization.id),
+            orderBy("updatedAt", "desc")
+        ];
 
         if (filters?.customerId) {
             constraints.push(where("customerId", "==", filters.customerId));
@@ -47,7 +59,7 @@ export function useProjects(filters?: UseProjectsFilters, options?: { enabled?: 
         );
 
         return () => unsubscribe();
-    }, [filters?.customerId, filters?.status, filters?.managerId, options?.enabled]);
+    }, [filters?.customerId, filters?.status, filters?.managerId, options?.enabled, organization?.id]);
 
     // ... existing imports
 
@@ -56,9 +68,13 @@ export function useProjects(filters?: UseProjectsFilters, options?: { enabled?: 
 
     // Inside useProjects ...
 
-    const addProject = async (data: Omit<Project, "id" | "createdAt" | "updatedAt">) => {
+    const addProject = async (data: Omit<Project, "id" | "createdAt" | "updatedAt" | "organizationId">) => {
+        if (!organization?.id) {
+            throw new Error('Cannot create project without organization context');
+        }
         try {
-            const id = await createDocument("projects", data);
+            const projectData = withOrgId(data, organization.id);
+            const id = await createDocument("projects", projectData);
 
             // Log Creation
             await logActivity({

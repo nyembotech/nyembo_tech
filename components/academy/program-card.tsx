@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { LemonBuyButton } from "@/components/lemon-buy-button";
 import { Calendar, Clock, Layers, ArrowRight } from "lucide-react";
 import { Program } from "@/hooks/use-academy-data";
 
@@ -61,12 +62,12 @@ export function ProgramCard({ program, index, onBook }: ProgramCardProps) {
                 </div>
 
                 <CardFooter className="pt-2 gap-3">
-                    <Button
-                        onClick={() => onBook(program)}
+                    <LemonBuyButton
+                        storeId={process.env.NEXT_PUBLIC_LEMON_STORE_ID || "11111"} // Placeholder
+                        variantId={"22222"} // Placeholder variant
+                        label="Join Program"
                         className="flex-1 bg-nyembo-sky text-black hover:bg-nyembo-sky/80 font-bold tracking-tight"
-                    >
-                        Request Booking
-                    </Button>
+                    />
                     <Button variant="outline" className="bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white px-3">
                         <ArrowRight className="w-4 h-4" />
                     </Button>

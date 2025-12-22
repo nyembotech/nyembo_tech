@@ -8,7 +8,7 @@ import { OrgSwitcher } from "@/components/admin/org-switcher";
 import {
     LayoutDashboard, FileText, Folder, Users, CheckSquare, GraduationCap,
     Building2, Settings, BrainCircuit, Bot, Activity, BookOpen, FlaskConical, Globe,
-    ChevronDown
+    ChevronDown, PenTool
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,6 +47,7 @@ const navGroups: NavGroup[] = [
             { name: "Academy", href: "/admin/academy", icon: GraduationCap },
             { name: "Smart Spaces", href: "/admin/smart-spaces", icon: Building2 },
             { name: "Content CMS", href: "/admin/content", icon: FileText },
+            { name: "Posts", href: "/admin/posts", icon: PenTool },
         ]
     },
     {

@@ -9,7 +9,7 @@ export async function seedDatabase() {
         {
             name: "TechFlow Dynamics",
             contactEmail: "contact@techflow.com",
-            password: "password123",
+            // NOTE: User authentication handled via Firebase Auth - no passwords stored in Firestore
             domain: "techflow.com",
             status: "active",
             plan: "enterprise",

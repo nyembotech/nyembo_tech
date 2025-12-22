@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     DndContext,
     DragOverlay,
@@ -19,6 +19,7 @@ import { KanbanCard } from "./card";
 import { NewTaskDialog } from "./new-task-dialog";
 import { Task, Column, Status } from "@/types/kanban";
 import { createPortal } from "react-dom";
+import { cn } from "@/lib/utils";
 
 const initialColumns: Column[] = [
     { id: "Backlog", title: "Backlog" },
@@ -27,7 +28,7 @@ const initialColumns: Column[] = [
     { id: "Done", title: "Done" },
 ];
 
-const initialTasks: Task[] = [
+const defaultTasks: Task[] = [
     {
         id: "1",
         title: "Implement Auth Flow",
@@ -66,9 +67,30 @@ const initialTasks: Task[] = [
     },
 ];
 
-export function KanbanBoard() {
+interface KanbanBoardProps {
+    initialTasks?: Task[];
+    isReadOnly?: boolean;
+    title?: string;
+    description?: string;
+    className?: string;
+}
+
+export function KanbanBoard({
+    initialTasks = defaultTasks,
+    isReadOnly = false,
+    title = "Cyber Command Board",
+    description = "Tactical operational workflow management.",
+    className
+}: KanbanBoardProps) {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+    // Update internal state if props change (optional, but good for data loading)
+    useEffect(() => {
+        if (initialTasks && initialTasks !== defaultTasks) {
+            setTasks(initialTasks);
+        }
+    }, [initialTasks]);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -82,12 +104,14 @@ export function KanbanBoard() {
     );
 
     const handleDragStart = (event: DragStartEvent) => {
+        if (isReadOnly) return;
         const { active } = event;
         const task = tasks.find((t) => t.id === active.id);
         if (task) setActiveTask(task);
     };
 
     const handleDragOver = (event: DragOverEvent) => {
+        if (isReadOnly) return;
         const { active, over } = event;
         if (!over) return;
 
@@ -125,6 +149,7 @@ export function KanbanBoard() {
     };
 
     const handleDragEnd = (event: DragEndEvent) => {
+        if (isReadOnly) return;
         setActiveTask(null);
         const { active, over } = event;
         if (!over) return;
@@ -155,19 +180,19 @@ export function KanbanBoard() {
     };
 
     return (
-        <div className="h-full flex flex-col">
+        <div className={cn("h-full flex flex-col", className)}>
             <div className="flex items-center justify-between mb-6 shrink-0">
                 <div>
                     <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 tracking-tight mb-2 drop-shadow-sm">
-                        Cyber Command Board
+                        {title}
                     </h1>
-                    <p className="text-muted-foreground/80 text-sm">Tactical operational workflow management.</p>
+                    <p className="text-muted-foreground/80 text-sm">{description}</p>
                 </div>
-                <NewTaskDialog onAddTask={handleAddTask} />
+                {!isReadOnly && <NewTaskDialog onAddTask={handleAddTask} />}
             </div>
 
             <DndContext
-                sensors={sensors}
+                sensors={isReadOnly ? [] : sensors} // Disable sensors if read-only
                 collisionDetection={closestCorners}
                 onDragStart={handleDragStart}
                 onDragOver={handleDragOver}

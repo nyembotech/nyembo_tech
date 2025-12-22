@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
+import { UserExportSchema } from '@/lib/schemas';
 
 export async function POST(req: Request) {
     try {
-        const { uid } = await req.json();
+        const body = await req.json();
+        const parseResult = UserExportSchema.safeParse(body);
 
-        if (!uid) {
-            return NextResponse.json({ error: "Missing UID" }, { status: 400 });
+        if (!parseResult.success) {
+            return NextResponse.json({ error: "Invalid Request", details: parseResult.error.format() }, { status: 400 });
         }
+
+        const { uid } = parseResult.data;
 
         // --- FETCH DATA ---
 

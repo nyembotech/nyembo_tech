@@ -4,6 +4,7 @@ import { openai } from '@ai-sdk/openai';
 import { z } from 'zod';
 import { adminDb } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
+import { translationCache, cacheKey } from '@/lib/cache';
 
 // Define the output schema for the LLM
 const translationSchema = z.object({
@@ -20,6 +21,14 @@ export async function POST(req: Request) {
 
         if (!text || !targetLangs || targetLangs.length === 0) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        }
+
+        // Check in-memory cache first
+        const cacheKeyStr = cacheKey('translate', sourceLang || 'en', targetLangs.sort().join(','), text.slice(0, 100));
+        const cached = translationCache.get(cacheKeyStr);
+        if (cached) {
+            console.log('✓ Translation cache HIT');
+            return NextResponse.json({ translations: cached });
         }
 
         console.log(` Translating: "${text.substring(0, 50)}..." [${sourceLang} -> ${targetLangs.join(',')}]`);
@@ -66,6 +75,11 @@ export async function POST(req: Request) {
             prompt: text,
         });
 
+        // Save to in-memory cache
+        if (object.translations) {
+            translationCache.set(cacheKeyStr, object.translations as Record<string, string>);
+        }
+
         // Save to Firestore
         await adminDb.collection('translations').add({
             sourceText: text,
@@ -78,8 +92,9 @@ export async function POST(req: Request) {
 
         return NextResponse.json(object);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Translation failed';
         console.error("Translation API Error:", error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error: message }, { status: 500 });
     }
 }
