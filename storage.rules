@@ -1,0 +1,41 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      // Check for admin custom claim or specific admin allow-list if needed
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+
+    // Default deny
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Public folder - Readable by anyone, writable by no one (except admins if added)
+    match /public/{allPaths=**} {
+      allow read: if true;
+    }
+
+    // User specific folder - Users can manage their own files
+    match /users/{userId}/{allPaths=**} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Blog/Content images - Readable by everyone, writable by authenticated users (or admins)
+    // Adjust logic if only specific editors should upload
+    match /content/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAuthenticated(); // Refine this to isAdmin() if appropriate
+    }
+  }
+}
