@@ -1,0 +1,291 @@
+{
+    "site_content_sw": {
+        "home": {
+            "hero": {
+                "title": "Programu za AI za kizazi kipya kwa biashara za Afrika",
+                "subtitle": "Nyembotech inajenga majukwaa, mawakala na mifumo ya majengo yenye akili ili kuwezesha kampuni za Afrika kufanya kazi kwa viwango vya uhandisi vya Ulaya bila kuondoka barani.",
+                "ctaPrimary": "Sajili mradi",
+                "ctaSecondary": "Ongea na mbunifu wa suluhisho"
+            },
+            "trustStrip": {
+                "bullets": [
+                    "AI iko ndani ya usanifu tangu siku ya kwanza, sio nyongeza",
+                    "Miundombinu ya wingu na usalama kama kanuni ya msingi",
+                    "Daraja kati ya Tanzania na Ujerumani",
+                    "Kutoka mifumo ya zamani hadi ofisi na nyumba zenye akili"
+                ]
+            },
+            "pillars": [
+                {
+                    "id": "aiAgents",
+                    "title": "Mawakala wa AI na Uendeshaji Otomati",
+                    "description": "Tunajenga mawakala wa AI wanaojibu wateja, kusaidia wafanyakazi na kuendesha kazi za ndani kiotomatiki kupitia chat, barua pepe na WhatsApp.",
+                    "outcomes": [
+                        "Kupunguza maswali yanayojirudia yanayofika kwa timu ya msaada",
+                        "Kupunguza muda wa majibu kutoka saa hadi sekunde",
+                        "Kuwaachia watu wafanye kazi inayohitaji ubunifu na maamuzi ya binadamu"
+                    ]
+                },
+                {
+                    "id": "cloudModernization",
+                    "title": "Uboreshaji wa Mifumo ya Zamani na Wingu",
+                    "description": "Tunahamisha na kufunika mifumo ya zamani kwa API, kisha tunaweka uchambuzi na AI juu yake ili kupata thamani mpya bila kujenga upya kila kitu mara moja.",
+                    "outcomes": [
+                        "Kupunguza hatari ya uendeshaji kutoka kwa mifumo dhaifu ya miaka mingi",
+                        "Kuwezesha API safi kwa ajili ya washirika na bidhaa mpya",
+                        "Kuandaa data zako kwa AI na ripoti za kiwango cha juu"
+                    ]
+                },
+                {
+                    "id": "modernWorkplace",
+                    "title": "Mahali pa Kazi wa Kisasa na Timu",
+                    "description": "Tunatengeneza mazingira ya kazi ya kidijitali ambapo zana, taratibu na otomatiki vinasaidia utendaji wa timu badala ya kuuzuia.",
+                    "outcomes": [
+                        "Zana na michakato iliyosanifiwa kwa kampuni nzima",
+                        "Upungufu wa vurugu katika mawasiliano na ufuatiliaji wa kazi",
+                        "Mizunguko ya utoaji wa bidhaa kwa kasi na uwazi zaidi"
+                    ]
+                },
+                {
+                    "id": "smartSpacesAcademy",
+                    "title": "Majengo Yenye Akili na Chuo cha Nyembotech",
+                    "description": "Tunageuza ofisi na nyumba kuwa mazingira yenye akili na kufundisha timu zako kujenga na kuendesha mifumo inayotumia AI.",
+                    "outcomes": [
+                        "Majengo yanayoelewa matumizi ya nishati, usalama na matumizi ya nafasi",
+                        "Timu zinazojua lugha ya AI na wingu",
+                        "Utamaduni wa kujaribu na kupima badala ya kuogopa teknolojia"
+                    ]
+                }
+            ],
+            "industriesTeaser": {
+                "intro": "Mustakabali wa ukuaji wa Afrika utategemea kasi ya sekta kubadilika kidijitali. Nyembotech inalenga maeneo ambayo AI na programu zinaweza kuleta matokeo ya moja kwa moja yanayoonekana.",
+                "items": [
+                    {
+                        "id": "retail",
+                        "name": "Uuzaji wa rejareja na mtandaoni",
+                        "pain": "Ukaguzi wa stoo kwa mikono, majibu ya polepole kwa wateja na ukosefu wa ubinafsishaji.",
+                        "promise": "Udhibiti wa stoo unaoongozwa na AI, mauzo kupitia WhatsApp na ofa binafsi kwa kiwango kikubwa."
+                    },
+                    {
+                        "id": "logistics",
+                        "name": "Usafirishaji na Usambazaji",
+                        "pain": "Njia zisizotabirika, ushahidi hafifu wa kukabidhi na maamuzi ya usambazaji yanayofanywa kwa simu.",
+                        "promise": "Uboreshaji wa njia, ufuatiliaji wa moja kwa moja na ushahidi wa kukabidhi kwa kila safari."
+                    },
+                    {
+                        "id": "finance",
+                        "name": "Fedha na SACCOS",
+                        "pain": "Mchakato wa karatasi, foleni ndefu na mwonekano mdogo kati ya matawi.",
+                        "promise": "Usajili wa wanachama kidijitali, tathmini ya AI na mwonekano wa wakati halisi wa mtandao mzima."
+                    },
+                    {
+                        "id": "health",
+                        "name": "Afya na Elimu",
+                        "pain": "Wafanyakazi wachache, rekodi zilizotawanyika na ukosefu wa data kwa maamuzi.",
+                        "promise": "Rekodi za kidijitali, wasaidizi wa uchujaji wa wagonjwa na dashibodi zinazoonyesha wapi kuchukua hatua."
+                    }
+                ]
+            },
+            "process": {
+                "title": "Tunavyofanya kazi na wewe",
+                "steps": [
+                    {
+                        "id": "discover",
+                        "title": "Ugunduzi",
+                        "description": "Tunatazama hali yako ya sasa, vizuizi na viashiria vya biashara vinavyoleta maana. Hakuna maneno ya mitaani yasiyo na tija."
+                    },
+                    {
+                        "id": "design",
+                        "title": "Ubunifu",
+                        "description": "Tunapendekeza usanifu na ramani ya njia inayolingana na malengo, hatari na bajeti yako, kwa maelezo ya wazi ya trade-off."
+                    },
+                    {
+                        "id": "build",
+                        "title": "Ujenzi",
+                        "description": "Tunajenga kwa hatua fupi zinazoonekana tukitumia uhandisi unaosaidiwa na AI na mbinu za kisasa za DevOps."
+                    },
+                    {
+                        "id": "launch",
+                        "title": "Uzinduzi",
+                        "description": "Tunazindua kwa watumiaji halisi, kufuatilia tabia na kurekebisha makali haraka ili kuona matokeo mapema."
+                    },
+                    {
+                        "id": "evolve",
+                        "title": "Ukuaji",
+                        "description": "Tunaboresha kwa kutumia data, si maoni pekee, na kuandaa mifumo yako kwa uwezo mpya wa AI."
+                    }
+                ]
+            },
+            "proof": {
+                "title": "Athari zinaweza kuonekana hivi",
+                "items": [
+                    "Kupunguza mzigo wa msaada wa mstari wa kwanza kwa takribani 40% kwa mtoa huduma wa kidijitali kwa kutumia mawakala wa AI.",
+                    "Kupunguza muda wa kushughulikia ankara kutoka siku 10 hadi siku 2 kwa kuendesha hati kiotomatiki.",
+                    "Kumpa mtoa huduma wa usafirishaji mwonekano wa wakati halisi wa kila gari na safari, na kupunguza makosa ya uwasilishaji kwa 25%.",
+                    "Kusaidia taasisi ya fedha kuhamisha mfumo wa zamani kwenda wingu bila muda wa ziada wa kusimama bila mpango."
+                ]
+            },
+            "closingCta": {
+                "headline": "Washindani wako hawasubiri. Mifumo yako pia isichelewe.",
+                "body": "Kama programu na taratibu zako bado zinaonekana kama mwaka 2010, Nyembotech ni njia ya mkato kwenda kwenye siku zijazo.",
+                "ctaLabel": "Sajili mradi wako"
+            }
+        },
+        "solutions": {
+            "intro": "Nyembotech sio tu kampuni ya kutengeneza programu. Sisi ni mshirika wa uhandisi unaotumia AI tangu mwanzo, tukibuni, kujenga na kuendesha mifumo inayojilipa kupitia ufanisi, ukuaji na uimara.",
+            "areas": [
+                {
+                    "id": "aiAgents",
+                    "title": "Mawakala wa AI na Ujumuishaji wa LLM",
+                    "summary": "Tunajenga mawakala wa AI wanaoongea na wateja, wafanyakazi na mifumo yako kwenye njia wanazotumia tayari.",
+                    "bestFor": [
+                        "Kampuni zenye idadi kubwa ya maswali yanayojirudia na michakato ya mikono",
+                        "Timu za msaada zinazolemazwa na tiketi na ujumbe mwingi",
+                        "Viongozi wanaotaka upatikanaji wa saa 24 bila kuajiri kwa saa 24"
+                    ],
+                    "whatWeBuild": [
+                        "Mawakala wa WhatsApp na wavuti wanaojibu maswali ya mara kwa mara, kuchuja leads na kukusanya oda",
+                        "Wasaidizi wa ndani wanaotafuta katika nyaraka, barua pepe na mifumo",
+                        "Boti za ofisi ya nyuma zinazosomea ankara, mikataba na fomu na kutuma data kwenye mifumo yako"
+                    ],
+                    "businessOutcomes": [
+                        "Tiketi za kawaida chache zaidi zinazoifikia timu ya binadamu",
+                        "Muda mfupi wa majibu na kuridhika zaidi kwa wateja",
+                        "Data safi zaidi inayoingia kwenye mifumo, na makosa machache"
+                    ],
+                    "exampleScenario": "Mtoa huduma wa intaneti nchini Tanzania anapokea maelfu ya ujumbe wa msaada kila wiki. Nyembotech inasambaza wakala wa AI kwenye WhatsApp na tovuti unaotatua maswali rahisi na kutuma kesi ngumu kwa mafundi wakiwa na taarifa zote muhimu."
+                },
+                {
+                    "id": "cloudModernization",
+                    "title": "Uhamiaji wa Wingu na Uboreshaji wa Mifumo ya Zamani",
+                    "summary": "Tunahamisha mifumo muhimu kwenda wingu hatua kwa hatua, tukifungua API safi na kuandaa data kwa AI na uchambuzi.",
+                    "bestFor": [
+                        "Mashirika yanayoendesha mifumo ya zamani ya ndani isiyoweza kuendelea",
+                        "Timu za IT zinazobeba shinikizo la kupunguza hatari za mdaumrefu",
+                        "Viongozi wanaotaka kufungua API kwa washirika bila kubomoa kila kitu"
+                    ],
+                    "whatWeBuild": [
+                        "Tabaka za API kuzunguka mifumo ya msingi ili iwasiliane na programu za kisasa",
+                        "Mikakati na utekelezaji wa uhamiaji kutoka miundombinu ya ndani kwenda majukwaa ya wingu",
+                        "Mifereji ya data na maghala yanayosafisha na kuandaa data kwa ripoti na AI"
+                    ],
+                    "businessOutcomes": [
+                        "Muda mdogo wa kukatika na mshangao mdogo unapotokea hitilafu kwenye mifumo ya zamani",
+                        "Uwezo wa kuzindua bidhaa mpya za kidijitali haraka kwa kutumia data iliyopo",
+                        "Uwazi zaidi wa gharama na matumizi kupitia ufuatiliaji wa wingu"
+                    ],
+                    "exampleScenario": "SACCO yenye mfumo wa msingi wa miaka 15 inataka programu za simu na dashibodi. Nyembotech inaunda tabaka la API, kuhamisha sehemu muhimu kwenda wingu na kujenga kiolesura cha kisasa bila kuvuruga shughuli za kila siku."
+                }
+            ],
+            "whyNyembotech": [
+                "Tunaunganisha muktadha wa Afrika na nidhamu ya uhandisi wa Ulaya.",
+                "Tumejengwa kuanzia AI: kila suluhisho linaundwa ili kufanya kazi na AI ya kisasa, si kupambana nayo.",
+                "Tunaiheshimu mifumo ya zamani na kutafuta njia salama badala ya mabadiliko ya ghafla yasiyodhibitiwa.",
+                "Tunaongea lugha ya wahandisi, mameneja na bodi – na kuwatafsiria kati yao.",
+                "Tunatembea kwa kasi, lakini hatuchezi kamari na usalama na utiifu wa kanuni."
+            ]
+        },
+        "industries": {
+            "intro": "Nyembotech inalenga sekta ambazo programu bora na AI zinaweza kubadili kazi za kila siku, si vitini vya slaidi pekee. Tunaelewa uhalisia wa Afrika na tunajenga suluhisho zinazostahimili mazingira ya kila siku.",
+            "industries": [
+                {
+                    "id": "retail",
+                    "title": "Uuzaji wa Rejareja na Mtandaoni",
+                    "description": "Wauzaji na wafanyabiashara mtandaoni barani Afrika hukabiliana na stoo isiyotabirika, wateja wenye hali ya juu ya bei na mchanganyiko wa njia za kimwili na kidijitali.",
+                    "keyPains": [
+                        "Viwango vya stoo vinapimwa kwa mikono na mara nyingi haviko sahihi.",
+                        "Wateja wanatarajia majibu ya haraka kwenye WhatsApp lakini timu haziwezi kuhimili.",
+                        "OFA na maamuzi ya bei yanategemea hisia badala ya data."
+                    ],
+                    "whatNyembotechDelivers": [
+                        "Uzoefu wa manunuzi unaoanzia WhatsApp uliounganishwa na mfumo wa stoo.",
+                        "Mawakala wa AI wanaojibu maswali ya bidhaa na kupendekeza bidhaa masaa 24.",
+                        "Uchambuzi na utabiri wa kusaidia ununuzi na bei zenye akili zaidi."
+                    ],
+                    "signatureSolution": "Msaidizi wa rejareja wa AI anayeelewa orodha ya bidhaa, stoo na historia ya mteja, akifanya kazi kama muuzaji ndani ya WhatsApp na kwenye tovuti."
+                }
+            ],
+            "closing": "Kama unaona changamoto zako za kila siku katika sekta hizi, Nyembotech inaweza kubuni njia kutoka hali ya leo hadi mustakabali ambapo programu na AI vinabeba kazi pamoja na timu zako."
+        },
+        "smartSpaces": {
+            "hero": {
+                "title": "Geuza majengo yako kuwa mifumo hai",
+                "subtitle": "Nyembotech Smart Spaces inaunganisha ufikiaji, nishati, usalama na starehe katika safu moja yenye akili kwa ofisi na nyumba."
+            },
+            "whatWeAutomate": [
+                {
+                    "id": "access",
+                    "title": "Udhibiti wa Ufikiaji",
+                    "description": "Badala ya funguo na vitabu vya wageni, tumia ufikiaji wa kidijitali kupitia simu, vitambulisho au kibayometria."
+                }
+            ],
+            "whySmartSpacesMatter": "Bei ya nishati, mahitaji ya usalama na kazi ya mchanganyiko vinabadilisha jinsi ofisi na nyumba barani Afrika zinavyopaswa kufanya kazi. Majengo yenye akili hukusaidia kupunguza upotevu, kuboresha ulinzi na kuboresha uzoefu wa watumiaji.",
+            "officePackages": [],
+            "smartHome": {
+                "title": "Nyumba zenye akili kwa mazingira ya Afrika",
+                "bullets": [
+                    "Kuunganisha usalama, taa na vifaa katika uzoefu mmoja unaodhibitiwa kwa simu na sauti.",
+                    "Kutumia ratiba na matukio kupunguza matumizi ya nishati bila kupoteza starehe.",
+                    "Kuongeza usalama kwa kufuli za kidijitali, kamera na vihisi moshi au uvujaji wa maji."
+                ]
+            },
+            "projectJourney": {
+                "title": "Kutoka wazo hadi jengo lenye akili",
+                "steps": []
+            },
+            "cta": {
+                "headline": "Uko tayari kuifanya nafasi yako ifikiri?",
+                "body": "Tuambie kuhusu jengo au mradi wako na tutabuni mpango wa Smart Space unaolingana na hali yako.",
+                "ctaLabel": "Omba mpango wa Smart Space"
+            }
+        },
+        "academy": {
+            "hero": {
+                "title": "Fundisha timu yako kwa enzi ya AI",
+                "subtitle": "Nyembotech Academy hubadilisha AI, wingu na uhandisi wa kisasa kutoka maneno ya soko la hisia kuwa ujuzi unaotumika kazi."
+            },
+            "tracks": [],
+            "programs": [],
+            "howWeRun": "Tunasisitiza mafunzo ya vitendo yanayojengwa juu ya miradi halisi ya kampuni, si mifano ya kubuni.",
+            "corporateBenefits": [
+                "Kuendeleza vipaji vya ndani badala ya kutegemea tu wauzaji wa nje.",
+                "Kupunguza hatari ya miradi ya kidijitali kushindikana kwa kulinganisha ujuzi na matarajio.",
+                "Kuongeza ari ya wafanyakazi kwa kutoa nafasi halisi za maendeleo."
+            ],
+            "cta": {
+                "headline": "Weka ujuzi wa timu yako sawa na ndoto zako.",
+                "body": "Toa muktadha wako na tutabuni mpango wa mafunzo unaolingana na watu, sekta na malengo yako.",
+                "ctaLabel": "Omba mpango wa mafunzo"
+            }
+        },
+        "about": {
+            "mission": "Nyembotech ipo ili kujenga mifumo inayotumia AI kusaidia biashara za Afrika kufanya kazi kwa ujasiri, ufanisi na ubora wa viwango vya dunia.",
+            "vision": "Tunaona Afrika ambako mashirika hayawezi tena kungoja zana kutoka nje, bali yanaendesha kazi kwa programu, AI na majengo yenye akili yaliyoundwa kwa kuzingatia uhalisia wa hapa na viwango vya kimataifa.",
+            "story": "Nyembotech ilizaliwa kati ya dunia mbili: nguvu na kasi ya Tanzania na nidhamu ya uhandisi wa Ulaya. Baada ya miaka ya kujenga mifumo kwa kampuni za kimataifa, tuliona pengo lile lile mara nyingi: biashara za Afrika zinatarajiwa kufanya kazi katika ulimwengu wa kidijitali zikitumia zana za zamani na michakato dhaifu. Tulianzisha Nyembotech ili kufunga pengo hilo kwa kuchanganya utaalamu wa kina wa kiufundi na uelewa wa kazi za kila siku za eneo letu.",
+            "values": [
+                "Kasi yenye uwajibikaji: tunatembea haraka lakini hatuhatarishi mifumo yako ya msingi.",
+                "Uwazi: tunazungumza kwa uwazi kuhusu trade-off, hatari na gharama.",
+                "Utamaduni wa kujifunza: kila mradi unatakiwa kuiacha timu yako ikiwa na nguvu zaidi.",
+                "Uhalisia wa ndani, viwango vya kimataifa: tunabuni kwa kuzingatia mazingira halisi, si hali za kufikirika.",
+                "Mtazamo wa ushirikiano: tunapendelea mahusiano ya muda mrefu kuliko ushindi wa haraka."
+            ],
+            "whereWeOperate": [],
+            "workingWithUs": [
+                "Unapata timu iliyojitolea inayofahamu biashara na teknolojia.",
+                "Tunaanza kwa ufanisi mdogo unaoonekana, kisha tunapanua hatua kwa hatua.",
+                "Tunafanya kazi kwa uwazi: maonyesho ya mara kwa mara, nyaraka wazi na orodha zinazoonekana.",
+                "Tunatanguliza usalama na utiifu tangu mwanzo, si baada ya matatizo kutokea."
+            ],
+            "careersTeaser": {
+                "headline": "Unataka kujenga mustakabali kutoka Afrika kwenda duniani?",
+                "body": "Nyembotech inatafuta wahandisi, wabunifu na waendeshaji wanaojali ubora na athari. Kama unataka kujenga mifumo ambayo watu wanategemea kila siku, tuwasiliane.",
+                "ctaLabel": "Tazama nafasi za kazi"
+            },
+            "workWithUsTeaser": {
+                "headline": "Tuchore mfumo wako unaofuata pamoja.",
+                "body": "Ikiwa unaboreshesha jukwaa la msingi, kuzindua bidhaa mpya au kuifanya ofisi yako iwe yenye akili, Nyembotech inaweza kuwa mshirika wako wa uhandisi.",
+                "ctaLabel": "Anza mazungumzo ya mradi"
+            }
+        }
+    }
+}
