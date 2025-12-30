@@ -15,12 +15,30 @@ import { cn } from "@/lib/utils";
 
 // Mock Preview Components (In a real app, import actual components)
 const PreviewHero = ({ data }: { data: any }) => (
-    <div className="bg-black text-white p-10 text-center border-b border-white/10">
-        <h1 className="text-4xl font-bold mb-4">{data.title || "Hero Title"}</h1>
-        <p className="text-xl text-muted-foreground mb-6">{data.subtitle || "Hero Subtitle"}</p>
-        <div className="flex gap-4 justify-center">
-            {data.ctaPrimary && <Button>{data.ctaPrimary}</Button>}
-            {data.ctaSecondary && <Button variant="outline">{data.ctaSecondary}</Button>}
+    <div className="relative bg-black text-white p-20 text-center border-b border-white/10 overflow-hidden min-h-[400px] flex flex-col justify-center items-center">
+        {/* Background Image */}
+        {data.image && (
+            <div className="absolute inset-0 z-0">
+                <img src={data.image} alt="Hero" className="w-full h-full object-cover opacity-50" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+            </div>
+        )}
+
+        <div className="relative z-10 max-w-3xl">
+            <h1 className="text-5xl font-black mb-6 tracking-tight drop-shadow-lg">{data.title || "Hero Title"}</h1>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-md">{data.subtitle || "Hero Subtitle"}</p>
+            <div className="flex gap-4 justify-center">
+                {data.ctaPrimary && (
+                    <Button className="bg-nyembo-yellow text-black hover:bg-nyembo-gold font-bold px-8 py-6 text-lg shadow-[0_0_20px_rgba(246,227,15,0.3)] border-0">
+                        {data.ctaPrimary}
+                    </Button>
+                )}
+                {data.ctaSecondary && (
+                    <Button variant="outline" className="border-nyembo-sky text-nyembo-sky hover:bg-nyembo-sky/10 px-8 py-6 text-lg backdrop-blur-sm">
+                        {data.ctaSecondary}
+                    </Button>
+                )}
+            </div>
         </div>
     </div>
 );

@@ -1,6 +1,24 @@
 {
     "indexes": [
         {
+            "collectionGroup": "knowledge_articles",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "status",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "publishedAt",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "__name__",
+                    "order": "DESCENDING"
+                }
+            ]
+        },
+        {
             "collectionGroup": "activity_log",
             "queryScope": "COLLECTION",
             "fields": [

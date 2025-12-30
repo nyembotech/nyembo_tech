@@ -8,7 +8,7 @@ import { OrgSwitcher } from "@/components/admin/org-switcher";
 import {
     LayoutDashboard, FileText, Folder, Users, CheckSquare, GraduationCap,
     Building2, Settings, BrainCircuit, Bot, Activity, BookOpen, FlaskConical, Globe,
-    ChevronDown
+    ChevronDown, Map as MapIcon
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -33,6 +33,7 @@ const navGroups: NavGroup[] = [
         title: "Intelligence",
         items: [
             { name: "Agents", href: "/admin/agents", icon: Bot },
+            { name: "Navigator", href: "/admin/navigator", icon: MapIcon },
             { name: "AI Architect", href: "/admin/ai-architect", icon: BrainCircuit },
             { name: "Translation", href: "/admin/translate", icon: Globe },
             { name: "Knowledge Hub", href: "/admin/knowledge", icon: BookOpen },
@@ -61,6 +62,12 @@ const navGroups: NavGroup[] = [
 
 export function AdminSidebar() {
     const pathname = usePathname();
+    const [expandedGroup, setExpandedGroup] = useState<string | null>(() => {
+        const currentGroup = navGroups.find(group =>
+            group.items.some(item => pathname === item.href || (item.href !== "/admin" && pathname?.startsWith(item.href)))
+        );
+        return currentGroup ? currentGroup.title : navGroups[0].title;
+    });
 
     return (
         <aside className="fixed left-0 top-0 bottom-0 w-64 glass-neumo m-4 mb-4 rounded-2xl border-r-0 flex flex-col z-50 overflow-hidden shadow-2xl shadow-sky-900/20 backdrop-blur-xl bg-black/40 border border-white/10">
@@ -78,39 +85,70 @@ export function AdminSidebar() {
                 <OrgSwitcher />
             </div>
 
-            <nav className="flex-1 overflow-y-auto px-3 space-y-6 pb-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                {navGroups.map((group) => (
-                    <div key={group.title} className="space-y-1">
-                        <h3 className="px-3 text-[10px] uppercase tracking-[0.2em] font-bold text-sky-400/60 mb-2 font-mono">
-                            {group.title}
-                        </h3>
-                        {group.items.map((item) => {
-                            const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
-                            return (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className={cn(
-                                        "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 group relative overflow-hidden",
-                                        isActive
-                                            ? "bg-gradient-to-r from-sky-500/20 to-transparent text-sky-300 border-l-2 border-sky-400"
-                                            : "text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
-                                    )}
-                                >
-                                    <item.icon className={cn(
-                                        "w-4 h-4 transition-all duration-300 z-10",
-                                        isActive ? "text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]" : "group-hover:text-white group-hover:scale-110"
-                                    )} />
-                                    <span className="z-10">{item.name}</span>
+            <nav className="flex-1 overflow-y-auto px-3 space-y-2 pb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                {navGroups.map((group) => {
+                    const isExpanded = expandedGroup === group.title;
+                    const isActiveGroup = group.items.some(item => pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href)));
 
-                                    {isActive && (
-                                        <div className="absolute inset-0 bg-sky-400/5 z-0" />
+                    return (
+                        <div key={group.title} className="overflow-hidden">
+                            <button
+                                onClick={() => setExpandedGroup(isExpanded ? null : group.title)}
+                                className={cn(
+                                    "w-full flex items-center justify-between px-3 py-3 text-[10px] uppercase tracking-[0.2em] font-bold mb-1 font-mono transition-colors duration-200 group/header",
+                                    isExpanded || isActiveGroup ? "text-sky-400" : "text-gray-500 hover:text-sky-400/70"
+                                )}
+                            >
+                                {group.title}
+                                <ChevronDown
+                                    className={cn(
+                                        "w-3 h-3 transition-transform duration-300",
+                                        isExpanded ? "rotate-180 text-sky-400" : "text-gray-600 group-hover/header:text-sky-400/50"
                                     )}
-                                </Link>
-                            );
-                        })}
-                    </div>
-                ))}
+                                />
+                            </button>
+
+                            <AnimatePresence initial={false}>
+                                {isExpanded && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                    >
+                                        <div className="space-y-1 pb-2">
+                                            {group.items.map((item) => {
+                                                const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+                                                return (
+                                                    <Link
+                                                        key={item.href}
+                                                        href={item.href}
+                                                        className={cn(
+                                                            "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 group relative overflow-hidden",
+                                                            isActive
+                                                                ? "bg-gradient-to-r from-sky-500/20 to-transparent text-sky-300 border-l-2 border-sky-400"
+                                                                : "text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+                                                        )}
+                                                    >
+                                                        <item.icon className={cn(
+                                                            "w-4 h-4 transition-all duration-300 z-10",
+                                                            isActive ? "text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]" : "group-hover:text-white group-hover:scale-110"
+                                                        )} />
+                                                        <span className="z-10">{item.name}</span>
+
+                                                        {isActive && (
+                                                            <div className="absolute inset-0 bg-sky-400/5 z-0" />
+                                                        )}
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    );
+                })}
             </nav>
 
             <div className="p-4 border-t border-white/5 bg-black/20">

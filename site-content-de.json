@@ -4,6 +4,7 @@
             "hero": {
                 "title": "KI-Software der nächsten Generation für afrikanische Unternehmen",
                 "subtitle": "Nyembotech entwickelt KI-native Plattformen, Agenten und smarte Räume, damit afrikanische Unternehmen mit europäischem Engineering-Standard arbeiten können – ohne den Kontinent zu verlassen.",
+                "image": "/assets/images/heroes/home-hero.png",
                 "ctaPrimary": "Projekt starten",
                 "ctaSecondary": "Mit Architekten sprechen"
             },
@@ -120,6 +121,11 @@
             }
         },
         "solutions": {
+            "hero": {
+                "title": "KI-Native Engineering-Lösungen",
+                "subtitle": "Von KI-Agenten bis zur Cloud-Modernisierung.",
+                "image": "/assets/images/heroes/solutions-hero.png"
+            },
             "intro": "Nyembotech ist kein generischer Software-Dienstleister. Wir sind ein KI-nativer Engineering-Partner, der Systeme entwirft, baut und betreibt, die sich über Effizienz, Wachstum und Resilienz amortisieren.",
             "areas": [],
             "whyNyembotech": [
@@ -131,6 +137,11 @@
             ]
         },
         "industries": {
+            "hero": {
+                "title": "Branchen, die wir transformieren",
+                "subtitle": "Wir verbinden afrikanische Prozesse mit digitaler Effizienz.",
+                "image": "/assets/images/heroes/industries-hero.png"
+            },
             "intro": "Nyembotech konzentriert sich auf Branchen, in denen bessere Software und KI den Alltag sichtbar verändern – nicht nur Präsentationen.",
             "industries": [],
             "closing": "Wenn Sie Ihre täglichen Herausforderungen in diesen Beschreibungen wiedererkennen, kann Nyembotech den Weg von heute in eine KI-gestützte Zukunft mit Ihnen gestalten."
@@ -138,7 +149,8 @@
         "smartSpaces": {
             "hero": {
                 "title": "Verwandeln Sie Gebäude in lebende Systeme",
-                "subtitle": "Nyembotech Smart Spaces verbindet Zutritt, Energie, Sicherheit und Komfort zu einer intelligenten Ebene für Büros und Wohnungen."
+                "subtitle": "Nyembotech Smart Spaces verbindet Zutritt, Energie, Sicherheit und Komfort zu einer intelligenten Ebene für Büros und Wohnungen.",
+                "image": "/assets/images/heroes/smart-spaces-hero.png"
             },
             "whatWeAutomate": [],
             "whySmartSpacesMatter": "Energiepreise, Sicherheitsanforderungen und hybride Arbeit verändern, wie Büros und Gebäude funktionieren müssen. Smarte Räume helfen, weniger zu verschwenden, mehr zu schützen und ein hochwertiges Erlebnis zu bieten.",
@@ -178,7 +190,12 @@
             }
         },
         "about": {
-            "mission": "Nyembotech entwickelt KI-native Systeme, die afrikanischen Unternehmen helfen, mit dem Selbstvertrauen, der Effizienz und der Qualität globaler Player zu arbeiten.",
+            "hero": {
+                "title": "Unsere Vision",
+                "subtitle": "Afrikanisches Potenzial trifft auf globales Engineering.",
+                "image": "/assets/images/heroes/about-hero.png"
+            },
+            "mission": "Wir bauen den digitalen Rücken des nächsten afrikanischen Jahrhunderts.",
             "vision": "Wir sehen ein Afrika, in dem Organisationen nicht auf importierte Tools warten, sondern auf Software, KI und smarte Räume setzen, die lokale Realitäten und globale Standards vereinen.",
             "story": "Nyembotech ist aus zwei Welten entstanden: der dynamischen Energie Tansanias und der Ingenieurskultur Europas. Nach Jahren in internationalen Projekten haben wir immer wieder dieselbe Lücke gesehen: Afrikanische Unternehmen sollen in einer digitalen Welt bestehen, arbeiten aber mit überalterten Werkzeugen und brüchigen Prozessen. Nyembotech schließt diese Lücke mit tiefem technischem Know-how und echtem Verständnis für die Arbeitsrealität vor Ort.",
             "values": [

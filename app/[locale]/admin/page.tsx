@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity, AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import { AIInsightsPanel } from "@/components/ai/ai-insights-panel";
+import { SystemStatusCard } from "@/components/admin/system-status-card";
 
 export default function AdminDashboardPage() {
     return (
@@ -61,16 +62,7 @@ export default function AdminDashboardPage() {
                             <p className="text-xs text-muted-foreground">+12% from last week</p>
                         </CardContent>
                     </Card>
-                    <Card className="bg-card/50 border-sidebar-border shadow-neumo hover:border-nyembo-gold/50 transition-colors">
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium text-muted-foreground">Upcoming Trainings</CardTitle>
-                            <Clock className="h-4 w-4 text-nyembo-gold" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold text-white">3</div>
-                            <p className="text-xs text-muted-foreground">Next: AI Basics (Tomorrow)</p>
-                        </CardContent>
-                    </Card>
+                    <SystemStatusCard />
                 </div>
 
                 {/* Main Content Area */}

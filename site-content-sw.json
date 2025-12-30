@@ -4,6 +4,7 @@
             "hero": {
                 "title": "Programu za AI za kizazi kipya kwa biashara za Afrika",
                 "subtitle": "Nyembotech inajenga majukwaa, mawakala na mifumo ya majengo yenye akili ili kuwezesha kampuni za Afrika kufanya kazi kwa viwango vya uhandisi vya Ulaya bila kuondoka barani.",
+                "image": "/assets/images/heroes/home-hero.png",
                 "ctaPrimary": "Sajili mradi",
                 "ctaSecondary": "Ongea na mbunifu wa suluhisho"
             },
@@ -132,6 +133,11 @@
             }
         },
         "solutions": {
+            "hero": {
+                "title": "Suluhisho za Uhandisi za AI-Native",
+                "subtitle": "Kutoka kwa Mawakala wa AI hadi Uboreshaji wa Wingu.",
+                "image": "/assets/images/heroes/solutions-hero.png"
+            },
             "intro": "Nyembotech sio tu kampuni ya kutengeneza programu. Sisi ni mshirika wa uhandisi unaotumia AI tangu mwanzo, tukibuni, kujenga na kuendesha mifumo inayojilipa kupitia ufanisi, ukuaji na uimara.",
             "areas": [
                 {
@@ -186,7 +192,12 @@
             ]
         },
         "industries": {
-            "intro": "Nyembotech inalenga sekta ambazo programu bora na AI zinaweza kubadili kazi za kila siku, si vitini vya slaidi pekee. Tunaelewa uhalisia wa Afrika na tunajenga suluhisho zinazostahimili mazingira ya kila siku.",
+            "hero": {
+                "title": "Sekta Tunazobadilisha",
+                "subtitle": "Kuunganisha operesheni za Afrika na ufanisi wa kidijitali.",
+                "image": "/assets/images/heroes/industries-hero.png"
+            },
+            "intro": "Nyembotech inalenga maeneo ambayo AI na programu zinaweza kuleta matokeo ya moja kwa moja yanayoonekana. Tunaelewa uhalisia wa Afrika na tunajenga suluhisho zinazodumu.",
             "industries": [
                 {
                     "id": "retail",
@@ -210,7 +221,8 @@
         "smartSpaces": {
             "hero": {
                 "title": "Geuza majengo yako kuwa mifumo hai",
-                "subtitle": "Nyembotech Smart Spaces inaunganisha ufikiaji, nishati, usalama na starehe katika safu moja yenye akili kwa ofisi na nyumba."
+                "subtitle": "Nyembotech Smart Spaces inaunganisha ufikiaji, nishati, usalama na starehe katika safu moja yenye akili kwa ofisi na nyumba.",
+                "image": "/assets/images/heroes/smart-spaces-hero.png"
             },
             "whatWeAutomate": [
                 {

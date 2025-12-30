@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/logo";
-import { LayoutDashboard, Folder, MessageSquare, CreditCard, Settings, LifeBuoy, Bell, Building2, BookOpen } from "lucide-react";
+import { LayoutDashboard, Folder, MessageSquare, CreditCard, Settings, LifeBuoy, Bell, Building2, BookOpen, Map as MapIcon } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 const navItems = [
     { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
     { name: "Projects", href: "/portal/projects", icon: Folder },
     { name: "Tickets", href: "/portal/tickets", icon: MessageSquare },
+    { name: "Navigator", href: "/portal/navigator", icon: MapIcon },
     { name: "Smart Spaces", href: "/portal/smart-spaces", icon: Building2 },
     { name: "Knowledge Hub", href: "/knowledge", icon: BookOpen },
     { name: "Billing", href: "/portal/billing", icon: CreditCard },

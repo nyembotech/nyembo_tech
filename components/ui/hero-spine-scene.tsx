@@ -18,7 +18,7 @@ export function HeroSpineScene({ variant = "console-orbit", className }: HeroSpi
 
             {/* Background Spine Layer */}
             <div className="absolute inset-0 z-0">
-                <SpinePlayer variant="console-orbit" className="opacity-80" />
+                <SpinePlayer variant="console-orbit" className="opacity-100" />
             </div>
 
             {/* Foreground Glass UI Layers (Parallax/Depth) */}
@@ -31,7 +31,7 @@ export function HeroSpineScene({ variant = "console-orbit", className }: HeroSpi
                     transition={{ delay: 0.5, duration: 0.8 }}
                     className="absolute top-1/4 left-10 md:left-20 pointer-events-auto"
                 >
-                    <MotionCard className="w-64 backdrop-blur-md bg-[#0c0c0e]/90 border-white/20 shadow-2xl" glowBorder>
+                    <MotionCard className="w-64 backdrop-blur-md bg-orange-600/90 border-white/20 shadow-2xl" glowBorder>
                         <div className="flex items-center gap-3 mb-3">
                             <div className="p-2 rounded-lg bg-nyembo-sky/20 border border-nyembo-sky/30">
                                 <Cpu className="w-5 h-5 text-nyembo-sky" />
@@ -60,7 +60,7 @@ export function HeroSpineScene({ variant = "console-orbit", className }: HeroSpi
                     transition={{ delay: 0.7, duration: 0.8 }}
                     className="absolute bottom-1/4 right-10 md:right-20 pointer-events-auto"
                 >
-                    <MotionCard className="w-72 backdrop-blur-md bg-[#0c0c0e]/90 border-white/20 shadow-2xl" delay={0.2}>
+                    <MotionCard className="w-72 backdrop-blur-md bg-pink-600/90 border-white/20 shadow-2xl" delay={0.2}>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30">
                                 <Network className="w-5 h-5 text-purple-400" />
@@ -90,7 +90,7 @@ export function HeroSpineScene({ variant = "console-orbit", className }: HeroSpi
                     animate={{ y: [0, -20, 0] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                 >
-                    <div className="font-mono text-xs text-nyembo-sky space-y-1 p-4 rounded-lg bg-[#0c0c0e]/90 border border-white/10 backdrop-blur-md shadow-xl">
+                    <div className="font-mono text-xs text-white space-y-1 p-4 rounded-lg bg-purple-600/90 border border-white/10 backdrop-blur-md shadow-xl">
                         <div>{">"} INITIALIZING NEURAL LINK...</div>
                         <div>{">"} ESTABLISHING SECURE HANDSHAKE</div>
                         <div>{">"} PROTOCOL V.9.2 ACCEPTED</div>

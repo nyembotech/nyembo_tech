@@ -35,18 +35,23 @@ async function seedContent() {
         const data = JSON.parse(rawData);
 
         // Seed Site Content
-        if (data.site_content) {
-            for (const [key, value] of Object.entries(data.site_content)) {
+        const contentKey = lang === 'en' ? 'site_content' : `site_content_${lang}`;
+        const siteContentData = data[contentKey] || data.site_content; // Fallback to 'site_content' if specific key missing
+
+        if (siteContentData) {
+            for (const [key, value] of Object.entries(siteContentData) as [string, any][]) {
                 // For 'en', we also seed to the base key (e.g. 'home') for backward compatibility/defaults
                 if (lang === "en") {
-                    await db.collection("site_content").doc(key).set(value);
+                    await db.collection("site_content").doc(key).set(value as any);
                     console.log(`Saved site_content/${key} (Default EN)`);
                 }
                 // Seed with language suffix
                 const docId = `${key}_${lang}`;
-                await db.collection("site_content").doc(docId).set(value);
+                await db.collection("site_content").doc(docId).set(value as any);
                 console.log(`Saved site_content/${docId}`);
             }
+        } else {
+            console.warn(`${LOG_TAG} Key '${contentKey}' (or 'site_content') not found in ${fileName}`);
         }
 
         // Seed Case Studies

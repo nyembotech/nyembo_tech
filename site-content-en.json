@@ -132,6 +132,11 @@
             }
         },
         "solutions": {
+            "hero": {
+                "title": "AI-Native Engineering Solutions",
+                "subtitle": "From AI Agents to Cloud Modernization.",
+                "image": "/assets/images/heroes/solutions-hero.png"
+            },
             "intro": "Nyembotech is not a generic software factory. We are an AI-native engineering partner that designs, builds, and runs systems that pay for themselves in efficiency, growth, and resilience.",
             "areas": [
                 {
@@ -221,6 +226,11 @@
                 {
                     "id": "academy",
                     "title": "Nyembotech Academy & Training",
+                    "hero": {
+                        "title": "Nyembotech Academy",
+                        "subtitle": "Training the next generation of AI engineers.",
+                        "image": "/assets/images/heroes/academy-hero.png"
+                    },
                     "summary": "We train engineers, business teams, and leaders to use AI and modern cloud practices safely and effectively.",
                     "bestFor": [
                         "Companies that do not want to outsource everything forever",
@@ -249,6 +259,11 @@
             ]
         },
         "industries": {
+            "hero": {
+                "title": "Industries We Transform",
+                "subtitle": "Connecting African operations with digital efficiency.",
+                "image": "/assets/images/heroes/industries-hero.png"
+            },
             "intro": "Nyembotech focuses on industries where better software and AI can visibly change daily operations, not just PowerPoint slides. We understand African realities and build solutions that survive real-world constraints.",
             "industries": [
                 {
@@ -558,12 +573,16 @@
             ],
             "cta": {
                 "headline": "Give your team the skills to match your ambitions.",
-                "body": "Share your context and we will design a training program that fits your people, industry, and roadmap.",
                 "ctaLabel": "Request a training plan"
             }
         },
         "about": {
-            "mission": "Nyembotech exists to build AI-native systems that help African businesses operate with the confidence, efficiency, and quality expected in any global market.",
+            "hero": {
+                "title": "Our Vision",
+                "subtitle": "Bridging African Potential with Global Engineering.",
+                "image": "/assets/images/heroes/about-hero.png"
+            },
+            "mission": "To build the digital backbone of the next African century.",
             "vision": "We see an Africa where organizations do not wait for imported tools, but run on software, AI, and smart spaces designed with local realities and global standards in mind.",
             "story": "Nyembotech was born from two worlds: the ambitious, fast-moving energy of Tanzania and the rigorous engineering culture of Europe. After years of building systems for global companies, we saw the same gap again and again: African businesses were expected to operate in a digital-first world using outdated tools and fragile processes. We started Nyembotech to close that gap by combining deep technical expertise with on-the-ground understanding of how work really happens in the region.",
             "values": [

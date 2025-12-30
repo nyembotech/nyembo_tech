@@ -18,6 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
     title: "Nyembotech | Future-grade AI Software",
     description: "Future-grade AI software for Africa. European engineering, African speed.",
+    metadataBase: new URL('https://nyembotech.com'),
 };
 
 export default async function LocaleLayout({
