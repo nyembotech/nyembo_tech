@@ -4,7 +4,7 @@ import { useCustomers } from "@/hooks/firestore/use-customers";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Search, Loader2, Plus, Users, Building2, User, Mail, Edit, Trash2 } from "lucide-react";
+import { Search, Loader2, Plus, Users, Building2, User, Mail, Edit, Trash2, Eye } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { CustomerDialog } from "@/components/admin/customers/customer-dialog";
@@ -132,6 +132,11 @@ export default function AdminCustomersPage() {
                                     </div>
 
                                     <div className="flex gap-2">
+                                        <Link href={`/admin/customers/${customer.id}`}>
+                                            <Button variant="ghost" size="icon" className="hover:text-blue-400">
+                                                <Eye className="w-4 h-4" />
+                                            </Button>
+                                        </Link>
                                         <Button variant="ghost" size="icon" onClick={() => openEdit(customer)} className="hover:text-[#bef264]">
                                             <Edit className="w-4 h-4" />
                                         </Button>

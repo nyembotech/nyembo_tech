@@ -10,9 +10,10 @@ import { Program } from "@/hooks/use-academy-data";
 interface ProgramCardProps {
     program: Program;
     index: number;
+    onBook: (program: Program) => void;
 }
 
-export function ProgramCard({ program, index }: ProgramCardProps) {
+export function ProgramCard({ program, index, onBook }: ProgramCardProps) {
     const levelColors = {
         Beginner: "bg-green-500/10 text-green-500 border-green-500/20",
         Intermediate: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
@@ -59,9 +60,15 @@ export function ProgramCard({ program, index }: ProgramCardProps) {
                     </CardContent>
                 </div>
 
-                <CardFooter className="pt-2">
-                    <Button className="w-full bg-white/5 hover:bg-nyembo-sky hover:text-black text-white border border-white/10 transition-all group-hover:border-nyembo-sky/50">
-                        View Syllabus <ArrowRight className="ml-2 w-4 h-4" />
+                <CardFooter className="pt-2 gap-3">
+                    <Button
+                        onClick={() => onBook(program)}
+                        className="flex-1 bg-nyembo-sky text-black hover:bg-nyembo-sky/80 font-bold tracking-tight"
+                    >
+                        Request Booking
+                    </Button>
+                    <Button variant="outline" className="bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white px-3">
+                        <ArrowRight className="w-4 h-4" />
                     </Button>
                 </CardFooter>
             </Card>

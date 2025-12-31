@@ -65,7 +65,7 @@ export default function ContactPage() {
     if (submittedCode) {
         return (
             <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.png')] opacity-20" />
+                <div className="absolute inset-0 bg-[url('/assets/grid-pattern.svg')] opacity-20" />
                 <div className="absolute inset-0 bg-gradient-to-t from-nyembo-sky/10 to-transparent pointer-events-none" />
 
                 <motion.div
@@ -137,23 +137,23 @@ export default function ContactPage() {
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Full Name</label>
-                                            <Input placeholder="John Doe" className="bg-white/5 border-white/10" value={formData.name} onChange={e => updateForm("name", e.target.value)} />
+                                            <label htmlFor="name" className="text-sm text-muted-foreground">Full Name</label>
+                                            <Input id="name" placeholder="John Doe" className="bg-white/5 border-white/10" value={formData.name} onChange={e => updateForm("name", e.target.value)} />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Email Address</label>
-                                            <Input type="email" placeholder="john@company.com" className="bg-white/5 border-white/10" value={formData.email} onChange={e => updateForm("email", e.target.value)} />
+                                            <label htmlFor="email" className="text-sm text-muted-foreground">Email Address</label>
+                                            <Input id="email" type="email" placeholder="john@company.com" className="bg-white/5 border-white/10" value={formData.email} onChange={e => updateForm("email", e.target.value)} />
                                         </div>
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Company / Organization</label>
-                                            <Input placeholder="Acme Corp" className="bg-white/5 border-white/10" value={formData.company} onChange={e => updateForm("company", e.target.value)} />
+                                            <label htmlFor="company" className="text-sm text-muted-foreground">Company / Organization</label>
+                                            <Input id="company" placeholder="Acme Corp" className="bg-white/5 border-white/10" value={formData.company} onChange={e => updateForm("company", e.target.value)} />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-sm text-muted-foreground">Country</label>
-                                            <Input placeholder="Kenya" className="bg-white/5 border-white/10" value={formData.country} onChange={e => updateForm("country", e.target.value)} />
+                                            <label htmlFor="country" className="text-sm text-muted-foreground">Country</label>
+                                            <Input id="country" placeholder="Kenya" className="bg-white/5 border-white/10" value={formData.country} onChange={e => updateForm("country", e.target.value)} />
                                         </div>
                                     </div>
 
@@ -176,8 +176,9 @@ export default function ContactPage() {
                                     <h3 className="text-xl font-bold text-white mb-4">Mission Parameters</h3>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm text-muted-foreground">Problem Description</label>
+                                        <label htmlFor="problem" className="text-sm text-muted-foreground">Problem Description</label>
                                         <Textarea
+                                            id="problem"
                                             placeholder="Describe the challenge you're facing or the opportunity you want to seize..."
                                             className="bg-white/5 border-white/10 min-h-[120px]"
                                             value={formData.problem}
@@ -239,8 +240,34 @@ export default function ContactPage() {
                                 >
                                     <h3 className="text-xl font-bold text-white mb-4">Resources & Launch</h3>
 
+                                    {/* Cost Estimation Panel */}
+                                    <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
+                                        <h4 className="text-sm uppercase tracking-widest text-muted-foreground mb-4 font-bold">Estimated Investment</h4>
+                                        <div className="flex items-end justify-between">
+                                            <div>
+                                                <p className="text-3xl font-black text-nyembo-sky">
+                                                    {(() => {
+                                                        let base = 5000;
+                                                        if (formData.solutionType === 'web-app') base = 15000;
+                                                        if (formData.solutionType === 'mobile-app') base = 25000;
+                                                        if (formData.solutionType === 'ai-integration') base = 35000;
+
+                                                        if (formData.timeline === 'urgent') base *= 1.5;
+                                                        if (formData.budget === 'under-5k') return "Custom Quote";
+
+                                                        return `$${(base / 1000).toFixed(0)}k - $${((base * 1.5) / 1000).toFixed(0)}k`;
+                                                    })()}
+                                                </p>
+                                                <p className="text-xs text-muted-foreground mt-1">Based on {formData.solutionType.replace('-', ' ')} & {formData.timeline} delivery</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-xs text-white bg-white/10 px-2 py-1 rounded"> Indicative Only</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div className="space-y-2">
-                                        <label className="text-sm text-muted-foreground">Estimated Budget Band</label>
+                                        <label className="text-sm text-muted-foreground">Select Budget Band</label>
                                         <div className="grid grid-cols-2 gap-3">
                                             {[
                                                 { label: "< $5k", value: "under-5k" },
@@ -248,19 +275,16 @@ export default function ContactPage() {
                                                 { label: "$10k - $25k", value: "10k-25k" },
                                                 { label: "$25k+", value: "25k+" },
                                             ].map((option) => (
-                                                <div
+                                                <button
                                                     key={option.value}
+                                                    type="button"
                                                     onClick={() => updateForm("budget", option.value)}
-                                                    className={`p-4 rounded-lg border cursor-pointer transition-all ${formData.budget === option.value ? 'bg-nyembo-sky/10 border-nyembo-sky text-nyembo-sky' : 'bg-white/5 border-white/10 text-muted-foreground hover:border-white/30'}`}
+                                                    className={`p-4 rounded-lg border cursor-pointer transition-all text-left ${formData.budget === option.value ? 'bg-nyembo-sky/10 border-nyembo-sky text-nyembo-sky' : 'bg-white/5 border-white/10 text-muted-foreground hover:border-white/30'}`}
                                                 >
                                                     <span className="font-bold">{option.label}</span>
-                                                </div>
+                                                </button>
                                             ))}
                                         </div>
-                                    </div>
-
-                                    <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg text-sm text-blue-300">
-                                        <p>Review: <strong>{formData.solutionType}</strong> for <strong>{formData.company}</strong> ({formData.country}).</p>
                                     </div>
 
                                     <div className="pt-4 flex justify-between">
@@ -270,9 +294,9 @@ export default function ContactPage() {
                                         <Button
                                             onClick={handleSubmit}
                                             disabled={loading}
-                                            className="bg-nyembo-sky text-black hover:bg-nyembo-sky/90 w-40"
+                                            className="bg-nyembo-sky text-black hover:bg-nyembo-sky/90 w-40 font-bold"
                                         >
-                                            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Launch Mission"}
+                                            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Request Project"}
                                         </Button>
                                     </div>
                                 </motion.div>

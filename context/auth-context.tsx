@@ -11,9 +11,12 @@ import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 
+import { Organization } from "@/types/firestore";
+
 interface AuthUser extends User {
     role?: "admin" | "staff" | "customer";
     customClaims?: any;
+    organizationId?: string;
 }
 
 interface AuthContextType {
@@ -21,8 +24,10 @@ interface AuthContextType {
     profile: any | null;
     loading: boolean;
     role: "admin" | "staff" | "customer" | null;
+    organization: Organization | null;
     signIn: (email: string, pass: string) => Promise<void>;
     signOut: () => Promise<void>;
+    switchOrganization: (orgId: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,6 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [profile, setProfile] = useState<any | null>(null);
     const [role, setRole] = useState<"admin" | "staff" | "customer" | null>(null);
+    const [organization, setOrganization] = useState<Organization | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
@@ -38,27 +44,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
             if (firebaseUser) {
                 try {
-                    // Fetch customized user doc for role
-                    // First try 'users' collection (Customers)
+                    // Fetch customized user doc for role & org
                     let userDocRef = doc(db, "users", firebaseUser.uid);
                     let userDoc = await getDoc(userDocRef);
 
-                    // If not found, try 'admins' or just assume structure. 
-                    // For this prompt, let's assume all users (admins/customers) are in 'users' or we check a 'roles' collection.
-                    // Implementation: The prompt says "fetch from Firestore (users or admins / customers collection)".
-                    // Let's stick to a single 'users' collection for simplicity or check role field.
-
                     if (!userDoc.exists()) {
-                        // Fallback: If no doc, they might be a new user or just Auth-only.
-                        // But we need a role. Default to 'customer' if not defined? 
-                        // Or keep role null which restricts access.
                         console.warn("User document not found in Firestore.");
                         setProfile(null);
+                        setOrganization(null);
                     } else {
                         const userData = userDoc.data();
                         const userRole = (userData?.role as string)?.toLowerCase() as "admin" | "staff" | "customer";
-                        setRole(userRole || "customer"); // Default to customer if missing
+                        setRole(userRole || "customer");
                         setProfile(userData);
+
+                        // Fetch Organization
+                        // If user has organizationId, fetch it. Otherwise default/null.
+                        if (userData.organizationId) {
+                            const orgDoc = await getDoc(doc(db, "organizations", userData.organizationId));
+                            if (orgDoc.exists()) {
+                                setOrganization({ id: orgDoc.id, ...orgDoc.data() } as Organization);
+                            }
+                        } else {
+                            // Temporary: Set default "Nyembotech" for migration/legacy users
+                            setOrganization({
+                                id: "default",
+                                name: "Nyembotech",
+                                slug: "nyembotech",
+                                ownerId: "system",
+                                createdAt: userData.createdAt, // mock
+                                updatedAt: userData.updatedAt  // mock
+                            } as Organization);
+                        }
                     }
 
                     setUser(firebaseUser);
@@ -69,6 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 setUser(null);
                 setRole(null);
                 setProfile(null);
+                setOrganization(null);
             }
             setLoading(false);
         });
@@ -85,11 +103,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
         setRole(null);
         setProfile(null);
+        setOrganization(null);
         router.push("/login");
     };
 
+    const switchOrganization = async (orgId: string) => {
+        // Only for super-admins/logic later
+        // For now, valid implementation would require re-fetching context
+        // This is a stub for the "Multi-Tenant Readiness" prompt
+        console.log("Switching to organization:", orgId);
+    };
+
     return (
-        <AuthContext.Provider value={{ user, profile, loading, role, signIn, signOut }}>
+        <AuthContext.Provider value={{ user, profile, loading, role, organization, signIn, signOut, switchOrganization }}>
             {children}
         </AuthContext.Provider>
     );

@@ -6,9 +6,10 @@ import { ProgramCard } from "@/components/academy/program-card";
 
 interface ProgramTabsProps {
     programs: Program[];
+    onBook: (program: Program) => void;
 }
 
-export function ProgramTabs({ programs }: ProgramTabsProps) {
+export function ProgramTabs({ programs, onBook }: ProgramTabsProps) {
     const categories = ["Engineers", "Business", "Leadership"];
 
     return (
@@ -34,7 +35,7 @@ export function ProgramTabs({ programs }: ProgramTabsProps) {
                             {programs
                                 .filter((p) => p.category === category)
                                 .map((program, index) => (
-                                    <ProgramCard key={program.id} program={program} index={index} />
+                                    <ProgramCard key={program.id} program={program} index={index} onBook={onBook} />
                                 ))}
 
                             {programs.filter((p) => p.category === category).length === 0 && (

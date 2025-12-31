@@ -12,6 +12,7 @@ import { InsightDeck } from "@/components/portal/insight-deck"; // Keep this moc
 import { Loader2 } from "lucide-react";
 import { WelcomeTour } from "@/components/portal/welcome-tour";
 import { RecentActivityFeed } from "@/components/portal/recent-activity";
+import { AIInsightsPanel } from "@/components/ai/ai-insights-panel";
 
 export default function PortalPage() {
     const { user, profile } = useAuth();
@@ -39,6 +40,11 @@ export default function PortalPage() {
 
             {/* Hero Panel */}
             <HeroPanel customerName={customer?.name || "Valued Customer"} />
+
+            {/* AI Insights Layer */}
+            <div className="mb-8">
+                <AIInsightsPanel role="customer" />
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Main Content - 3 cols */}

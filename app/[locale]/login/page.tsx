@@ -10,30 +10,52 @@ import { Loader2, KeyRound, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+// ... imports
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { ShieldCheck, ShieldX } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
+
+import { useSearchParams } from "next/navigation";
+// ... imports
+
 export default function LoginPage() {
     const { signIn } = useAuth();
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const viewParam = searchParams.get("view"); // 'admin' or 'portal'
+    const hideToggle = searchParams.get("hideToggle") === "true";
+
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [mode, setMode] = useState<"admin" | "customer">("customer"); // Visual toggle only
+    // Default mode based on param or 'customer'
+    const [mode, setMode] = useState<"admin" | "customer">(
+        viewParam === "admin" ? "admin" : "customer"
+    );
+
+    // Popup States
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         try {
             await signIn(email, password);
-            // Redirect logic could be smarter based on role, 
-            // but AuthProvider will set role state, then the redirected page's RoleGuard will handle access.
-            // For UX, we guide them:
-            if (mode === "admin") router.push("/admin/projects");
-            else router.push("/portal");
-        } catch (err) {
+            setShowSuccess(true);
+
+            // Delay redirect slightly for visual confirmation
+            setTimeout(() => {
+                if (mode === "admin") router.push("/admin/projects");
+                else router.push("/portal");
+            }, 1000);
+
+        } catch (err: any) {
             console.error(err);
-            // Toast would replace this
-            alert("Identification Failed. Access Denied.");
-        } finally {
-            setLoading(false);
+            setErrorMessage(err.message || "Identification Failed. Access Denied.");
+            setShowError(true);
+            setLoading(false); // Only stop loading on error, keep spin on success
         }
     };
 
@@ -41,6 +63,48 @@ export default function LoginPage() {
         <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.05)_0%,transparent_70%)]" />
+
+            {/* Error Dialog */}
+            <AlertDialog open={showError} onOpenChange={setShowError}>
+                <AlertDialogContent className="bg-[#0a0a0f] border-red-900/50">
+                    <AlertDialogHeader>
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-red-900/20 rounded-lg">
+                                <ShieldX className="w-6 h-6 text-red-500" />
+                            </div>
+                            <AlertDialogTitle className="text-white text-xl">Access Denied</AlertDialogTitle>
+                        </div>
+                        <AlertDialogDescription className="text-gray-400">
+                            {errorMessage}
+                            <br /><br />
+                            Verify your credentials and clearance level before retrying.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogAction onClick={() => setShowError(false)} className="bg-red-900/20 text-red-500 hover:bg-red-900/40 border border-red-900/50">
+                            Acknowledge
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            {/* Success Dialog (Auto-closes on redirect) */}
+            <AlertDialog open={showSuccess}>
+                <AlertDialogContent className="bg-[#0a0a0f] border-green-900/50">
+                    <AlertDialogHeader>
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-green-900/20 rounded-lg">
+                                <ShieldCheck className="w-6 h-6 text-green-500" />
+                            </div>
+                            <AlertDialogTitle className="text-white text-xl">Access Granted</AlertDialogTitle>
+                        </div>
+                        <AlertDialogDescription className="text-gray-400">
+                            Secure connection established. Redirecting to secure sector...
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                </AlertDialogContent>
+            </AlertDialog>
+
 
             {/* 3D Panel */}
             <motion.div
@@ -61,40 +125,52 @@ export default function LoginPage() {
 
                     {/* Header */}
                     <div className="text-center mb-10">
-                        <div className={cn(
-                            "inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 transition-colors duration-500",
-                            mode === "admin" ? "bg-nyembo-yellow/10" : "bg-nyembo-sky/10"
-                        )}>
-                            <KeyRound className={cn(
-                                "w-8 h-8 transition-colors duration-500",
-                                mode === "admin" ? "text-nyembo-yellow" : "text-nyembo-sky"
-                            )} />
+                        {/* Added Logo as requested if KeyRound is not enough, but keeping KeyRound for now as main icon, 
+                            Maybe adding Logo small at top? User asked for "Logo on left" consistency. 
+                            Let's put the Logo component here instead of KeyRound or above it. */}
+                        <div className="flex justify-center mb-6">
+                            {mode === "admin" ? (
+                                <Logo className="scale-150" />
+                            ) : (
+                                <div className="relative w-24 h-24">
+                                    {/* Glow effect for robot */}
+                                    <div className="absolute inset-0 bg-nyembo-sky/30 blur-2xl rounded-full" />
+                                    <img
+                                        src="/assets/images/auth/futuristic_ai_robot_icon.png"
+                                        alt="AI Security"
+                                        className="w-full h-full object-contain relative z-10 drop-shadow-[0_0_15px_rgba(56,189,248,0.5)]"
+                                    />
+                                </div>
+                            )}
                         </div>
+
                         <h1 className="text-4xl font-black tracking-tighter text-white mb-2">ACCESS GATE</h1>
                         <p className="text-muted-foreground">Identify yourself to proceed.</p>
                     </div>
 
-                    {/* Toggle */}
-                    <div className="flex p-1 bg-white/5 rounded-xl mb-8 relative">
-                        <div className={cn(
-                            "absolute inset-y-1 w-[calc(50%-4px)] rounded-lg bg-white/10 transition-all duration-300 ease-out",
-                            mode === "admin" ? "left-1" : "left-[calc(50%+4px)]"
-                        )} />
-                        <button
-                            type="button"
-                            onClick={() => setMode("admin")}
-                            className={cn("flex-1 py-2 text-sm font-bold relative z-10 transition-colors", mode === "admin" ? "text-white" : "text-muted-foreground hover:text-white")}
-                        >
-                            COMMAND
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setMode("customer")}
-                            className={cn("flex-1 py-2 text-sm font-bold relative z-10 transition-colors", mode === "customer" ? "text-white" : "text-muted-foreground hover:text-white")}
-                        >
-                            PORTAL
-                        </button>
-                    </div>
+                    {/* Toggle - Hidden if hideToggle is true (Customer flow) */}
+                    {!hideToggle && (
+                        <div className="flex p-1 bg-white/5 rounded-xl mb-8 relative">
+                            <div className={cn(
+                                "absolute inset-y-1 w-[calc(50%-4px)] rounded-lg bg-white/10 transition-all duration-300 ease-out",
+                                mode === "admin" ? "left-1" : "left-[calc(50%+4px)]"
+                            )} />
+                            <button
+                                type="button"
+                                onClick={() => setMode("admin")}
+                                className={cn("flex-1 py-2 text-sm font-bold relative z-10 transition-colors", mode === "admin" ? "text-white" : "text-muted-foreground hover:text-white")}
+                            >
+                                COMMAND
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setMode("customer")}
+                                className={cn("flex-1 py-2 text-sm font-bold relative z-10 transition-colors", mode === "customer" ? "text-white" : "text-muted-foreground hover:text-white")}
+                            >
+                                PORTAL
+                            </button>
+                        </div>
+                    )}
 
                     {/* Form */}
                     <form onSubmit={handleLogin} className="space-y-6">

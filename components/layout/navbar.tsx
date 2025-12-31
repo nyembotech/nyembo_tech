@@ -60,6 +60,7 @@ export function Navbar() {
         { name: t('industries'), href: "/industries" },
         { name: t('smartSpaces'), href: "/smart-spaces" },
         { name: t('academy'), href: "/academy" },
+        { name: t('knowledge'), href: "/knowledge" },
         { name: t('about'), href: "/about" },
     ];
 

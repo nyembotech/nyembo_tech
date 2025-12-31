@@ -1,0 +1,227 @@
+{
+    "site_content_de": {
+        "home": {
+            "hero": {
+                "title": "KI-Software der nächsten Generation für afrikanische Unternehmen",
+                "subtitle": "Nyembotech entwickelt KI-native Plattformen, Agenten und smarte Räume, damit afrikanische Unternehmen mit europäischem Engineering-Standard arbeiten können – ohne den Kontinent zu verlassen.",
+                "image": "/assets/images/heroes/home-hero.png",
+                "ctaPrimary": "Projekt starten",
+                "ctaSecondary": "Mit Architekten sprechen"
+            },
+            "trustStrip": {
+                "bullets": [
+                    "KI ist von Anfang an im Design verankert, nicht nachträglich angeklebt",
+                    "Cloud-first- und Security-by-Design-Ansatz",
+                    "Brücke zwischen Tansania und Deutschland",
+                    "Von Altsystemen bis hin zu Smart Offices und Homes"
+                ]
+            },
+            "pillars": [
+                {
+                    "id": "aiAgents",
+                    "title": "KI-Agenten & Automatisierung",
+                    "description": "Wir bauen KI-Agenten, die Kundenanfragen beantworten, Mitarbeiter unterstützen und Backoffice-Prozesse über Chat, E-Mail und WhatsApp automatisieren.",
+                    "outcomes": [
+                        "Deutlich weniger Standardanfragen für Ihr Support-Team",
+                        "Antwortzeiten von Stunden auf Sekunden reduziert",
+                        "Mitarbeiter können sich auf wertschöpfende Aufgaben konzentrieren"
+                    ]
+                },
+                {
+                    "id": "cloudModernization",
+                    "title": "Cloud & Modernisierung von Altsystemen",
+                    "description": "Wir migrieren und kapseln Altsysteme mit APIs ein und ergänzen sie um Analytics und KI, statt alles auf einmal neu zu bauen.",
+                    "outcomes": [
+                        "Geringeres Betriebsrisiko durch weniger fragile Legacy-Systeme",
+                        "Saubere APIs für neue Produkte und Partnerintegrationen",
+                        "Datenbasis, die bereit für KI und Reporting ist"
+                    ]
+                },
+                {
+                    "id": "modernWorkplace",
+                    "title": "Modern Workplace & Teams",
+                    "description": "Wir gestalten digitale Arbeitsumgebungen, in denen Tools, Prozesse und Automatisierung Hochleistungsteams unterstützen – nicht bremsen.",
+                    "outcomes": [
+                        "Standardisierte Tool- und Prozesslandschaft im gesamten Unternehmen",
+                        "Weniger Chaos in Kommunikation und Aufgabensteuerung",
+                        "Schnellere Lieferzyklen mit mehr Transparenz"
+                    ]
+                },
+                {
+                    "id": "smartSpacesAcademy",
+                    "title": "Smart Spaces & Nyembotech Academy",
+                    "description": "Wir verwandeln Büros und Häuser in smarte Umgebungen und qualifizieren Ihre Teams für den Umgang mit KI-basierten Systemen.",
+                    "outcomes": [
+                        "Gebäude, die Energie, Sicherheit und Nutzung verstehen",
+                        "Teams, die die Sprache von KI und Cloud sprechen",
+                        "Eine Kultur, die experimentiert statt Technologie zu fürchten"
+                    ]
+                }
+            ],
+            "industriesTeaser": {
+                "intro": "Das Tempo der Digitalisierung entscheidet über die Wettbewerbsfähigkeit afrikanischer Branchen. Nyembotech konzentriert sich auf Bereiche, in denen KI und Software schnell messbare Effekte erzielen.",
+                "items": [
+                    {
+                        "id": "retail",
+                        "name": "Einzelhandel & E-Commerce",
+                        "pain": "Manuelle Bestandskontrolle, langsame Reaktion auf Kunden und kaum Personalisierung.",
+                        "promise": "KI-gestützte Bestände, WhatsApp-first-Shopping und personalisierte Angebote."
+                    },
+                    {
+                        "id": "logistics",
+                        "name": "Logistik & Transport",
+                        "pain": "Unvorhersehbare Routen, unsichere Zustellnachweise und Disposition per Telefon.",
+                        "promise": "Routenoptimierung, Live-Tracking und klare Zustellbelege."
+                    }
+                ]
+            },
+            "process": {
+                "title": "So arbeiten wir mit Ihnen",
+                "steps": [
+                    {
+                        "id": "discover",
+                        "title": "Verstehen",
+                        "description": "Wir analysieren Ihre aktuelle Situation, Rahmenbedingungen und echte Business-KPIs. Keine Buzzwords, nur relevante Probleme."
+                    },
+                    {
+                        "id": "design",
+                        "title": "Design",
+                        "description": "Wir entwerfen eine Architektur und Roadmap, die Ambition, Risiko und Budget in Balance bringt – mit klaren Trade-offs."
+                    },
+                    {
+                        "id": "build",
+                        "title": "Umsetzen",
+                        "description": "Wir liefern in kurzen, sichtbaren Inkrementen – mit KI-unterstütztem Engineering und modernen DevOps-Praktiken."
+                    },
+                    {
+                        "id": "launch",
+                        "title": "Go-Live",
+                        "description": "Wir bringen Lösungen zu echten Nutzern, beobachten Verhalten und glätten Kanten schnell, damit der Nutzen früh sichtbar wird."
+                    },
+                    {
+                        "id": "evolve",
+                        "title": "Weiterentwickeln",
+                        "description": "Wir optimieren auf Basis von Daten statt Meinungen und halten Ihre Systeme für neue KI-Fähigkeiten bereit."
+                    }
+                ]
+            },
+            "proof": {
+                "title": "So kann Wirkung aussehen",
+                "items": [
+                    "Reduktion des First-Level-Support-Volumens um ca. 40 % bei einem digitalen Service-Anbieter durch KI-Agenten.",
+                    "Verkürzung der Rechnungsverarbeitung von 10 Tagen auf 2 Tage durch automatisierte Dokumenten-Workflows.",
+                    "Echtzeit-Transparenz für einen Logistiker über jedes Fahrzeug und jede Lieferung – mit 25 % weniger fehlgeschlagenen Zustellungen.",
+                    "Cloud-Modernisierung eines Kernsystems ohne ungeplante Ausfälle."
+                ]
+            },
+            "closingCta": {
+                "headline": "Ihre Wettbewerber warten nicht. Ihre Systeme sollten es auch nicht.",
+                "body": "Wenn sich Ihre Software und Prozesse noch nach 2010 anfühlen, ist Nyembotech Ihre Überholspur in die Zukunft.",
+                "ctaLabel": "Projekt registrieren"
+            }
+        },
+        "solutions": {
+            "hero": {
+                "title": "KI-Native Engineering-Lösungen",
+                "subtitle": "Von KI-Agenten bis zur Cloud-Modernisierung.",
+                "image": "/assets/images/heroes/solutions-hero.png"
+            },
+            "intro": "Nyembotech ist kein generischer Software-Dienstleister. Wir sind ein KI-nativer Engineering-Partner, der Systeme entwirft, baut und betreibt, die sich über Effizienz, Wachstum und Resilienz amortisieren.",
+            "areas": [],
+            "whyNyembotech": [
+                "Wir verbinden afrikanischen Kontext mit europäischer Engineering-Disziplin.",
+                "Wir denken Lösungen von Anfang an KI-fähig, statt KI später hineinzuzwängen.",
+                "Wir respektieren Altsysteme und finden sichere Migrationspfade statt Big-Bang-Rewrites.",
+                "Wir sprechen die Sprache von IT, Business und Management – und übersetzen zwischen ihnen.",
+                "Wir bewegen uns schnell, aber nicht auf Kosten von Sicherheit und Compliance."
+            ]
+        },
+        "industries": {
+            "hero": {
+                "title": "Branchen, die wir transformieren",
+                "subtitle": "Wir verbinden afrikanische Prozesse mit digitaler Effizienz.",
+                "image": "/assets/images/heroes/industries-hero.png"
+            },
+            "intro": "Nyembotech konzentriert sich auf Branchen, in denen bessere Software und KI den Alltag sichtbar verändern – nicht nur Präsentationen.",
+            "industries": [],
+            "closing": "Wenn Sie Ihre täglichen Herausforderungen in diesen Beschreibungen wiedererkennen, kann Nyembotech den Weg von heute in eine KI-gestützte Zukunft mit Ihnen gestalten."
+        },
+        "smartSpaces": {
+            "hero": {
+                "title": "Verwandeln Sie Gebäude in lebende Systeme",
+                "subtitle": "Nyembotech Smart Spaces verbindet Zutritt, Energie, Sicherheit und Komfort zu einer intelligenten Ebene für Büros und Wohnungen.",
+                "image": "/assets/images/heroes/smart-spaces-hero.png"
+            },
+            "whatWeAutomate": [],
+            "whySmartSpacesMatter": "Energiepreise, Sicherheitsanforderungen und hybride Arbeit verändern, wie Büros und Gebäude funktionieren müssen. Smarte Räume helfen, weniger zu verschwenden, mehr zu schützen und ein hochwertiges Erlebnis zu bieten.",
+            "officePackages": [],
+            "smartHome": {
+                "title": "Smarte Homes für afrikanische Realitäten",
+                "bullets": []
+            },
+            "projectJourney": {
+                "title": "Vom Konzept zum intelligenten Raum",
+                "steps": []
+            },
+            "cta": {
+                "headline": "Bereit für ein denkendes Büro?",
+                "body": "Beschreiben Sie uns Ihr Gebäude oder Projekt und wir entwerfen einen Smart-Space-Plan, der zu Ihrer Realität passt.",
+                "ctaLabel": "Smart-Space anfragen"
+            }
+        },
+        "academy": {
+            "hero": {
+                "title": "Machen Sie Ihr Team fit für das KI-Zeitalter",
+                "subtitle": "Die Nyembotech Academy macht aus Buzzwords konkrete Fähigkeiten in KI, Cloud und modernem Engineering."
+            },
+            "tracks": [],
+            "programs": [],
+            "howWeRun": "Wir setzen auf praxisnahe, projektbasierte Formate. Teams arbeiten an realistischen Szenarien und nehmen verwertbare Artefakte mit zurück ins Unternehmen.",
+            "corporateBenefits": [
+                "Aufbau interner Kompetenz statt vollständiger Abhängigkeit von Dienstleistern.",
+                "Weniger gescheiterte Digitalprojekte durch bessere Ausrichtung von Skills und Zielen.",
+                "Höhere Mitarbeiterbindung durch echte Entwicklungsmöglichkeiten.",
+                "Gemeinsame Sprache rund um KI und Cloud über Fachbereiche hinweg."
+            ],
+            "cta": {
+                "headline": "Bringen Sie die Skills Ihres Teams auf das Niveau Ihrer Strategie.",
+                "body": "Teilen Sie uns Ihren Kontext mit und wir entwerfen ein Trainingsprogramm, das zu Ihren Menschen, Ihrer Branche und Ihrem Fahrplan passt.",
+                "ctaLabel": "Trainingsplan anfragen"
+            }
+        },
+        "about": {
+            "hero": {
+                "title": "Unsere Vision",
+                "subtitle": "Afrikanisches Potenzial trifft auf globales Engineering.",
+                "image": "/assets/images/heroes/about-hero.png"
+            },
+            "mission": "Wir bauen den digitalen Rücken des nächsten afrikanischen Jahrhunderts.",
+            "vision": "Wir sehen ein Afrika, in dem Organisationen nicht auf importierte Tools warten, sondern auf Software, KI und smarte Räume setzen, die lokale Realitäten und globale Standards vereinen.",
+            "story": "Nyembotech ist aus zwei Welten entstanden: der dynamischen Energie Tansanias und der Ingenieurskultur Europas. Nach Jahren in internationalen Projekten haben wir immer wieder dieselbe Lücke gesehen: Afrikanische Unternehmen sollen in einer digitalen Welt bestehen, arbeiten aber mit überalterten Werkzeugen und brüchigen Prozessen. Nyembotech schließt diese Lücke mit tiefem technischem Know-how und echtem Verständnis für die Arbeitsrealität vor Ort.",
+            "values": [
+                "Geschwindigkeit mit Verantwortung: Wir handeln schnell, ohne an den Kernsystemen zu spielen.",
+                "Transparenz: Wir sprechen offen über Risiken, Kosten und Trade-offs.",
+                "Lernkultur: Jedes Projekt soll Ihr Team stärker machen.",
+                "Lokale Realität, globaler Standard: Wir designen für echte Bedingungen – nicht für Laborumgebungen.",
+                "Partnerschaft: Wir streben langfristige Zusammenarbeit statt kurzfristiger Abschlüsse an."
+            ],
+            "whereWeOperate": [],
+            "workingWithUs": [
+                "Sie erhalten ein dediziertes Team, das Business und Technik versteht.",
+                "Wir starten klein, liefern sichtbar und skalieren erst dann.",
+                "Wir arbeiten offen: regelmäßige Demos, klare Dokumentation, transparente Backlogs.",
+                "Security und Compliance denken wir von Anfang an mit."
+            ],
+            "careersTeaser": {
+                "headline": "Du willst die Zukunft von Afrika aus mitgestalten?",
+                "body": "Nyembotech sucht Menschen, die sauberes Engineering und reale Wirkung ernst nehmen. Wenn du Systeme bauen willst, auf die sich andere verlassen, sollten wir sprechen.",
+                "ctaLabel": "Karrieremöglichkeiten ansehen"
+            },
+            "workWithUsTeaser": {
+                "headline": "Lassen Sie uns Ihr nächstes System gemeinsam entwerfen.",
+                "body": "Ob Kernplattform, neues Produkt oder Smart Office – Nyembotech kann Ihr Engineering-Partner sein.",
+                "ctaLabel": "Projektanfrage starten"
+            }
+        }
+    }
+}

@@ -1,0 +1,912 @@
+// seed-data.ts
+// Nyembotech Firestore seed data (EN version)
+
+export const seedData = {
+  site_content: {
+    home: {
+      hero: {
+        title: "Future-grade AI software for African businesses",
+        subtitle:
+          "Nyembotech builds AI-native platforms, agents, and smart spaces so African companies can operate with European-level engineering without leaving the continent.",
+        ctaPrimary: "Start a project",
+        ctaSecondary: "Talk to an architect",
+      },
+      trustStrip: {
+        bullets: [
+          "AI-native from day zero, not an afterthought",
+          "Cloud-first, security-first architectures",
+          "Bridge between Tanzania and Germany",
+          "From legacy systems to smart spaces",
+        ],
+      },
+      pillars: [
+        {
+          id: "aiAgents",
+          title: "AI Agents & Automation",
+          description:
+            "We build AI agents that answer customers, support staff, and automate back-office work across chat, email, and WhatsApp.",
+          outcomes: [
+            "Deflect repetitive questions from human support",
+            "Shorten response times from hours to seconds",
+            "Free your team to focus on work that actually needs humans",
+          ],
+        },
+        {
+          id: "cloudModernization",
+          title: "Cloud & Legacy Modernization",
+          description:
+            "We migrate and wrap legacy systems with APIs, then layer analytics and AI on top so you get new value without rebuilding everything at once.",
+          outcomes: [
+            "Reduce operational risk from fragile legacy stacks",
+            "Expose clean APIs for partners and new products",
+            "Prepare your data for AI and advanced reporting",
+          ],
+        },
+        {
+          id: "modernWorkplace",
+          title: "Modern Workplace & Teams",
+          description:
+            "We design digital workplaces where tools, rituals, and automation actually support high-performing teams instead of slowing them down.",
+          outcomes: [
+            "Standardized tools and workflows across the company",
+            "Less chaos in communication and task management",
+            "Faster delivery cycles with less firefighting",
+          ],
+        },
+        {
+          id: "smartSpacesAcademy",
+          title: "Smart Spaces & Nyembotech Academy",
+          description:
+            "We turn offices and homes into smart environments and train your teams to build and operate AI-powered systems.",
+          outcomes: [
+            "Buildings that understand energy, security, and occupancy",
+            "Teams that speak the language of AI and cloud",
+            "A culture that experiments instead of fearing technology",
+          ],
+        },
+      ],
+      industriesTeaser: {
+        intro:
+          "Africa’s growth will be decided by how fast industries digitalize. Nyembotech focuses on sectors where AI and software can create immediate, visible results.",
+        items: [
+          {
+            id: "retail",
+            name: "Retail & eCommerce",
+            pain: "Manual stock checks, slow customer responses, and little personalization.",
+            promise:
+              "AI-driven inventory, WhatsApp-first shopping, and personalized offers at scale.",
+          },
+          {
+            id: "logistics",
+            name: "Logistics & Transport",
+            pain: "Unpredictable routes, missing proof of delivery, and phone-based dispatch.",
+            promise:
+              "Route optimization, digital tracking, and clear delivery evidence for every trip.",
+          },
+          {
+            id: "finance",
+            name: "Finance & SACCOs",
+            pain: "Paper processes, long queues, and limited visibility across branches.",
+            promise:
+              "Digital onboarding, AI-assisted scoring, and real-time views across all locations.",
+          },
+          {
+            id: "health",
+            name: "Health & Education",
+            pain: "Overloaded staff, scattered records, and poor data for decision-making.",
+            promise:
+              "Digital records, triage assistants, and dashboards that show where to act next.",
+          },
+        ],
+      },
+      process: {
+        title: "How we work with you",
+        steps: [
+          {
+            id: "discover",
+            title: "Discover",
+            description:
+              "We map your current reality, constraints, and real business KPIs. No buzzwords, only the problems that matter.",
+          },
+          {
+            id: "design",
+            title: "Design",
+            description:
+              "We propose an architecture and roadmap that balances ambition, risk, and budget – with clear trade-offs.",
+          },
+          {
+            id: "build",
+            title: "Build",
+            description:
+              "We build in short, visible increments using AI-accelerated engineering and modern DevOps practices.",
+          },
+          {
+            id: "launch",
+            title: "Launch",
+            description:
+              "We ship to real users, monitor behavior, and fix sharp edges quickly so you see impact early.",
+          },
+          {
+            id: "evolve",
+            title: "Evolve",
+            description:
+              "We iterate based on data, not opinions, and keep your systems ready for new AI capabilities.",
+          },
+        ],
+      },
+      proof: {
+        title: "What impact can look like",
+        items: [
+          "Cut first-line support workload by 40% for a digital service provider using AI agents.",
+          "Reduced invoice processing time from 10 days to 2 days for a mid-sized company by automating document workflows.",
+          "Gave a logistics operator real-time visibility into every delivery truck, reducing failed deliveries by 25%.",
+          "Helped a financial institution move a legacy core system to the cloud with zero unplanned downtime.",
+        ],
+      },
+      closingCta: {
+        headline:
+          "Your competitors are not waiting. Your systems shouldn’t either.",
+        body:
+          "If your software, processes, and buildings still behave like it is 2010, Nyembotech is your fast lane to the future.",
+        ctaLabel: "Register your project",
+      },
+    },
+    solutions: {
+      intro:
+        "Nyembotech is not a generic software factory. We are an AI-native engineering partner that designs, builds, and runs systems that pay for themselves in efficiency, growth, and resilience.",
+      areas: [
+        {
+          id: "aiAgents",
+          title: "AI Agents & LLM Integrations",
+          summary:
+            "We build AI agents that talk to your customers, your staff, and your systems, in the channels they already use.",
+          bestFor: [
+            "Companies with high volumes of repetitive questions and manual processes",
+            "Support teams drowning in tickets and chats",
+            "Leaders who want 24/7 availability without 24/7 staffing",
+          ],
+          whatWeBuild: [
+            "WhatsApp and web chat assistants that answer FAQs, qualify leads, and capture orders",
+            "Internal knowledge assistants that search across documents, emails, and systems",
+            "AI back-office bots that read invoices, contracts, and forms and push data into your systems",
+          ],
+          businessOutcomes: [
+            "Fewer routine tickets hitting your human team",
+            "Shorter response times and higher customer satisfaction",
+            "Cleaner data entering your systems, with fewer errors",
+          ],
+          exampleScenario:
+            "A Tanzanian ISP receives thousands of repetitive support messages. Nyembotech deploys an AI agent on WhatsApp and the website that resolves most simple cases, while routing complex issues to human technicians with all relevant context attached.",
+        },
+        {
+          id: "cloudModernization",
+          title: "Cloud & Legacy Modernization",
+          summary:
+            "We move critical systems to the cloud in controlled steps, exposing clean APIs and preparing data for AI and analytics.",
+          bestFor: [
+            "Organizations running on old on-premise software that cannot keep up",
+            "IT teams under pressure to reduce downtime and operational risk",
+            "Leaders wanting to open APIs to partners without rewriting everything",
+          ],
+          whatWeBuild: [
+            "API layers around legacy core systems so they can talk to modern apps",
+            "Migration plans and execution from on-prem infrastructure to cloud platforms",
+            "Data pipelines and warehouses that clean and prepare data for reporting and AI",
+          ],
+          businessOutcomes: [
+            "Less downtime and fewer surprises when old systems fail",
+            "Ability to launch new digital products faster using existing data",
+            "Clear visibility into costs and usage with cloud-native monitoring",
+          ],
+          exampleScenario:
+            "A SACCO with a 15-year-old core system wants mobile apps and dashboards. Nyembotech wraps the core with APIs, moves key parts to the cloud, and builds a modern interface on top without disrupting daily operations.",
+        },
+        {
+          id: "modernWorkplace",
+          title: "Modern Workplace & Team Enablement",
+          summary:
+            "We design tool stacks, workflows, and automation that turn chaos into a predictable digital workplace.",
+          bestFor: [
+            "Teams spread across branches or cities",
+            "Organizations with too many tools and no unified way of working",
+            "Companies wanting DevOps, but stuck in email and spreadsheets",
+          ],
+          whatWeBuild: [
+            "Tooling stacks combining M365 or Google Workspace with GitHub, Jira, and automation",
+            "Workflow automation for approvals, reporting, and recurring tasks",
+            "Dashboards that show which work is blocked and where teams are stuck",
+          ],
+          businessOutcomes: [
+            "Less time lost in unclear handovers and duplicate work",
+            "Faster cycle times from idea to production",
+            "Higher team satisfaction because work is visible and organized",
+          ],
+          exampleScenario:
+            "A growing services company has work scattered across WhatsApp, Excel, and email. Nyembotech rolls out a modern tool stack, defines clear workflows, and automates status reporting so leadership sees real progress without chasing everyone.",
+        },
+        {
+          id: "smartSpaces",
+          title: "Smart Spaces & Smart Homes",
+          summary:
+            "We turn offices and homes into smart environments that understand access, energy, and safety.",
+          bestFor: [
+            "Companies building new offices or renovating headquarters",
+            "Co-working spaces wanting a premium digital experience",
+            "Home owners and developers wanting future-ready properties",
+          ],
+          whatWeBuild: [
+            "Smart access control with phones or biometrics instead of keys",
+            "Energy-optimized lighting and climate control based on usage",
+            "AI concierge assistants to control rooms, book meeting spaces, and trigger scenes",
+          ],
+          businessOutcomes: [
+            "Lower power consumption and better use of space",
+            "Safer, more controlled access to buildings and rooms",
+            "A modern brand experience the moment someone enters the building",
+          ],
+          exampleScenario:
+            "A Dar es Salaam HQ wants a modern, secure workplace. Nyembotech implements smart access, meeting room booking, and energy dashboards, so the building feels like a product, not just a cost.",
+        },
+        {
+          id: "academy",
+          title: "Nyembotech Academy & Training",
+          summary:
+            "We train engineers, business teams, and leaders to use AI and modern cloud practices safely and effectively.",
+          bestFor: [
+            "Companies that do not want to outsource everything forever",
+            "IT teams that need a practical, project-based upgrade",
+            "Leaders needing a clear view of what AI can and cannot do",
+          ],
+          whatWeBuild: [
+            "Weekend bootcamps where teams ship real mini-projects",
+            "Customized in-house training for your tools and stacks",
+            "Leadership sessions on AI strategy, risk, and governance",
+          ],
+          businessOutcomes: [
+            "Stronger internal capability, not just external dependency",
+            "Fewer failed technology projects due to misunderstanding",
+            "Teams that can talk confidently with vendors and partners",
+          ],
+          exampleScenario:
+            "A mid-sized bank knows AI is coming but does not know where to start. Nyembotech runs a series of workshops and mini build-sprints, leaving behind both working prototypes and trained champions inside the organization.",
+        },
+      ],
+      whyNyembotech: [
+        "We combine African context with European engineering discipline.",
+        "We are AI-native: every solution is designed to work with modern AI, not fight against it.",
+        "We respect legacy systems and find safe paths forward instead of pushing big-bang rewrites.",
+        "We speak the language of engineers, managers, and board members – and translate between them.",
+        "We move fast, but we do not gamble with security and compliance.",
+      ],
+    },
+    industries: {
+      intro:
+        "Nyembotech focuses on industries where better software and AI can visibly change daily operations, not just PowerPoint slides. We understand African realities and build solutions that survive real-world constraints.",
+      industries: [
+        {
+          id: "retail",
+          title: "Retail & eCommerce",
+          description:
+            "Retailers and online sellers in Africa deal with inconsistent stock, price-sensitive customers, and a mix of physical and digital channels.",
+          keyPains: [
+            "Stock levels are tracked manually and often wrong.",
+            "Customers expect fast answers on WhatsApp, but teams cannot keep up.",
+            "Promotions and pricing decisions are based on guesswork, not data.",
+          ],
+          whatNyembotechDelivers: [
+            "WhatsApp-first shopping experiences connected to your inventory systems.",
+            "AI agents that answer product questions and recommend items 24/7.",
+            "Analytics and forecasting to help you buy and price more intelligently.",
+          ],
+          signatureSolution:
+            "A retail AI assistant that understands your catalog, stock, and customer history, acting as a salesperson inside WhatsApp and on your website.",
+        },
+        {
+          id: "logistics",
+          title: "Logistics & Transport",
+          description:
+            "Logistics operators, transport companies, and fleet owners run in noisy environments with unpredictable roads, fuel costs, and delivery expectations.",
+          keyPains: [
+            "Dispatch decisions are made over phone calls and spreadsheets.",
+            "Proof of delivery is unreliable, leading to disputes and lost trust.",
+            "Vehicle health and driver behavior are barely tracked.",
+          ],
+          whatNyembotechDelivers: [
+            "Route planning and live tracking dashboards for your fleet.",
+            "Digital proof-of-delivery flows, including photos and signatures.",
+            "Analytics on delays, failed deliveries, and fuel patterns.",
+          ],
+          signatureSolution:
+            "A logistics control tower dashboard that gives dispatchers a live, map-based view of every vehicle and every delivery, plus alerts when something goes off-plan.",
+        },
+        {
+          id: "finance",
+          title: "Finance, SACCOs & Microfinance",
+          description:
+            "SACCOs, MFIs, and smaller banks must balance regulation, risk, and inclusion, often running on aging systems with paper-heavy processes.",
+          keyPains: [
+            "Loan origination and approvals require multiple in-person visits.",
+            "Core banking or SACCO systems are hard to integrate with new apps.",
+            "Risk and portfolio views are fragmented across branches.",
+          ],
+          whatNyembotechDelivers: [
+            "Digital onboarding flows for new members and borrowers.",
+            "Secure API layers around core systems to enable mobile and web apps.",
+            "Dashboards and AI models to detect risk and trends earlier.",
+          ],
+          signatureSolution:
+            "A digital lending and member portal that sits on top of your existing core system, enabling mobile-first access without replacing everything.",
+        },
+        {
+          id: "healthcare",
+          title: "Healthcare & Clinics",
+          description:
+            "Clinics and health providers face high patient volumes, limited staff, and fragmented records, especially outside large cities.",
+          keyPains: [
+            "Patient records are stored on paper or in scattered spreadsheets.",
+            "Phone lines and front desks are overloaded with appointment requests.",
+            "Managers lack clear visibility into utilization and outcomes.",
+          ],
+          whatNyembotechDelivers: [
+            "Digital patient record and appointment systems suited to local contexts.",
+            "Triage and appointment assistants that reduce pressure on staff.",
+            "Dashboards showing patient volume, wait times, and resource usage.",
+          ],
+          signatureSolution:
+            "A clinic assistant that helps patients book, change, and cancel appointments via WhatsApp, while keeping staff workflows under control.",
+        },
+        {
+          id: "education",
+          title: "Education & Training Institutions",
+          description:
+            "Schools, colleges, and training centers must handle admissions, scheduling, communication, and learning content with limited admin capacity.",
+          keyPains: [
+            "Admissions and fee tracking are partially manual and error-prone.",
+            "Communication with students and parents is fragmented across channels.",
+            "Learning materials are not centralized or interactive.",
+          ],
+          whatNyembotechDelivers: [
+            "Student and guardian portals for admissions, schedules, and fees.",
+            "AI-assisted communication channels for announcements and FAQs.",
+            "Learning content platforms that track engagement and performance.",
+          ],
+          signatureSolution:
+            "A school portal and communication hub that connects students, teachers, and parents, with AI answering routine questions instantly.",
+        },
+        {
+          id: "government",
+          title: "Government & NGOs",
+          description:
+            "Public institutions and NGOs carry the weight of service delivery and development, often with limited systems and heavy reporting requirements.",
+          keyPains: [
+            "Citizen or beneficiary services require physical visits and long queues.",
+            "Data for reporting is fragmented across programs and locations.",
+            "Procurement and grants are tracked in spreadsheets and email.",
+          ],
+          whatNyembotechDelivers: [
+            "Citizen- or beneficiary-facing portals with simple, mobile-ready flows.",
+            "Data platforms that unify program information and reporting.",
+            "AI assistants that help staff and citizens navigate services and forms.",
+          ],
+          signatureSolution:
+            "A digital services and reporting platform that reduces lineups, improves transparency, and gives program managers live insight.",
+        },
+      ],
+      closing:
+        "If you recognize your daily challenges in any of these industries, Nyembotech can design a path from today’s reality to a future where software and AI support your mission instead of blocking it.",
+    },
+    smartSpaces: {
+      hero: {
+        title: "Turn your buildings into living systems",
+        subtitle:
+          "Nyembotech Smart Spaces connect access, energy, security, and comfort into a single intelligent layer for offices and homes.",
+      },
+      whatWeAutomate: [
+        {
+          id: "access",
+          title: "Access Control",
+          description:
+            "Replace keys and manual sign-in sheets with digital access using phones, tags, or biometrics.",
+        },
+        {
+          id: "security",
+          title: "Security & Events",
+          description:
+            "Monitor doors, cameras, and critical areas, and receive smart alerts when something unusual happens.",
+        },
+        {
+          id: "climateEnergy",
+          title: "Climate & Energy",
+          description:
+            "Control lighting and air conditioning based on occupancy, schedules, and energy targets.",
+        },
+        {
+          id: "rooms",
+          title: "Meeting Rooms & Occupancy",
+          description:
+            "See which rooms are free, book them easily, and understand how your space is actually used.",
+        },
+        {
+          id: "concierge",
+          title: "AI Concierge",
+          description:
+            "Use voice or chat to book rooms, change settings, or trigger scenes like Night Mode or Presentation Mode.",
+        },
+      ],
+      whySmartSpacesMatter:
+        "Energy prices, safety requirements, and the realities of hybrid work are changing how African offices and homes must operate. Smart spaces help you waste less, protect more, and offer a premium experience to staff and visitors.",
+      officePackages: [
+        {
+          id: "starter",
+          name: "Smart Office Starter",
+          idealFor:
+            "Small offices and growing teams that want a modern experience without full renovation.",
+          features: [
+            "Digital access control for main doors",
+            "Basic meeting room booking",
+            "Central dashboard for key sensors and alerts",
+          ],
+        },
+        {
+          id: "pro",
+          name: "Smart Office Pro",
+          idealFor:
+            "Headquarters and multi-floor offices with higher security and efficiency needs.",
+          features: [
+            "Zone-based access control with roles and schedules",
+            "Advanced meeting room and workspace booking",
+            "Energy monitoring with optimization suggestions",
+            "Integration with collaboration tools and calendars",
+          ],
+        },
+        {
+          id: "enterprise",
+          name: "Smart Campus Enterprise",
+          idealFor: "Campuses, co-working spaces, and large facilities.",
+          features: [
+            "Campus-wide access and visitor management",
+            "Multi-building monitoring and alerts",
+            "Custom integrations with building management systems",
+            "Dedicated dashboards for operations teams",
+          ],
+        },
+      ],
+      smartHome: {
+        title: "Smart Homes for African realities",
+        bullets: [
+          "Integrate security, lighting, and appliances into a single mobile and voice-controlled experience.",
+          "Use schedules and scenes to lower energy usage without sacrificing comfort.",
+          "Increase safety with smart locks, cameras, and smoke or water leak detectors.",
+          "Future-proof new developments with infrastructure ready for new devices and services.",
+        ],
+      },
+      projectJourney: {
+        title: "From idea to intelligent space",
+        steps: [
+          {
+            id: "survey",
+            title: "Survey",
+            description:
+              "We assess your building, infrastructure, and goals to understand what is possible and what is required.",
+          },
+          {
+            id: "design",
+            title: "Design",
+            description:
+              "We design a solution that balances hardware, software, and budget, and decide which systems will talk to each other.",
+          },
+          {
+            id: "install",
+            title: "Install",
+            description:
+              "Our team or partners install devices, gateways, and network components with minimal disruption to your operations.",
+          },
+          {
+            id: "configure",
+            title: "Configure",
+            description:
+              "We connect devices to the Nyembotech smart layer, set up rules and scenes, and test with real-world scenarios.",
+          },
+          {
+            id: "monitor",
+            title: "Monitor & Evolve",
+            description:
+              "We monitor performance, adjust rules, and add new capabilities as your needs grow.",
+          },
+        ],
+      },
+      cta: {
+        headline: "Ready to make your space think?",
+        body:
+          "Tell us about your building or project and we will design a smart space plan that matches your reality.",
+        ctaLabel: "Transform my space",
+      },
+    },
+    academy: {
+      hero: {
+        title: "Train your team for the AI era",
+        subtitle:
+          "Nyembotech Academy turns AI, cloud, and modern engineering from buzzwords into skills your people can actually use.",
+      },
+      tracks: [
+        {
+          id: "engineers",
+          title: "Engineers Track",
+          description:
+            "For developers, system engineers, and tech leads who need practical experience with AI, cloud, and DevOps.",
+          outcomes: [
+            "Understand modern architectures and deployment patterns.",
+            "Build and integrate AI agents into real applications.",
+            "Apply DevOps practices to shorten delivery cycles.",
+          ],
+        },
+        {
+          id: "business",
+          title: "Business Teams Track",
+          description:
+            "For operations, finance, marketing, and service teams who want to use AI tools safely and effectively.",
+          outcomes: [
+            "Identify use-cases where AI automation makes sense.",
+            "Use AI tools to support daily work without breaking processes.",
+            "Communicate requirements clearly to internal and external tech teams.",
+          ],
+        },
+        {
+          id: "leadership",
+          title: "Leadership Track",
+          description:
+            "For executives and managers who must make strategic decisions about AI, cloud, and digital transformation.",
+          outcomes: [
+            "Distinguish between hype and realistic AI opportunities.",
+            "Understand risk, governance, and compliance dimensions.",
+            "Plan transformation programs that teams can actually execute.",
+          ],
+        },
+      ],
+      programs: [
+        {
+          id: "aiBootcamp",
+          name: "AI Agents Bootcamp",
+          audience: "Engineers and technical product owners",
+          duration: "3 days (intensive)",
+          format: "Onsite or hybrid",
+          outcomes: [
+            "Design and build a working AI agent integrated with a real API.",
+            "Understand prompt design and LLM integration patterns.",
+            "Deploy a prototype that your company can extend.",
+          ],
+        },
+        {
+          id: "cloudModernizationLab",
+          name: "Cloud Modernization Lab",
+          audience: "IT and infrastructure teams",
+          duration: "2 days",
+          format: "Onsite",
+          outcomes: [
+            "Map a legacy system and design a safe migration path.",
+            "Use infrastructure-as-code principles for consistent environments.",
+            "Apply monitoring and cost optimization techniques.",
+          ],
+        },
+        {
+          id: "aiForBusiness",
+          name: "AI for Business Teams",
+          audience: "Operations, finance, and service managers",
+          duration: "1 day",
+          format: "Onsite or online",
+          outcomes: [
+            "Identify high-value, low-risk AI use-cases in your department.",
+            "Combine AI tools with existing processes safely.",
+            "Create a simple roadmap to pilot and scale AI use.",
+          ],
+        },
+        {
+          id: "leadershipBriefing",
+          name: "AI & Cloud Leadership Briefing",
+          audience: "Executive team and senior managers",
+          duration: "Half day",
+          format: "Onsite or online",
+          outcomes: [
+            "Gain a clear view of the AI and cloud landscape.",
+            "Understand governance, ethics, and compliance basics.",
+            "Define 3–5 concrete moves your company can make in the next 12 months.",
+          ],
+        },
+      ],
+      howWeRun:
+        "Nyembotech Academy focuses on practical, project-based learning. Participants work on realistic scenarios and leave with artifacts – code, designs, or playbooks – that their organizations can keep using.",
+      corporateBenefits: [
+        "Develop internal talent instead of depending only on external vendors.",
+        "Reduce the risk of failed digital projects by aligning skills and expectations.",
+        "Increase employee engagement by offering real growth opportunities.",
+        "Build a shared language around AI and cloud across technical and business teams.",
+      ],
+      cta: {
+        headline: "Give your team the skills to match your ambitions.",
+        body:
+          "Share your context and we will design a training program that fits your people, industry, and roadmap.",
+        ctaLabel: "Request a training plan",
+      },
+    },
+    about: {
+      mission:
+        "Nyembotech exists to build AI-native systems that help African businesses operate with the confidence, efficiency, and quality expected in any global market.",
+      vision:
+        "We see an Africa where organizations do not wait for imported tools, but run on software, AI, and smart spaces designed with local realities and global standards in mind.",
+      story:
+        "Nyembotech was born from two worlds: the ambitious, fast-moving energy of Tanzania and the rigorous engineering culture of Europe. After years of building systems for global companies, we saw the same gap again and again: African businesses were expected to operate in a digital-first world using outdated tools and fragile processes. We started Nyembotech to close that gap by combining deep technical expertise with on-the-ground understanding of how work really happens in the region.",
+      values: [
+        "Speed with responsibility: we move fast, but we do not gamble with your core systems.",
+        "Transparency: we speak plainly about trade-offs, risks, and costs.",
+        "Learning culture: every project should leave your team stronger than before.",
+        "Local reality, global standard: we design for real constraints, not ideal conditions.",
+        "Partnership mindset: we prefer long-term relationships over quick wins.",
+      ],
+      whereWeOperate: [
+        {
+          id: "tanzania",
+          title: "Headquarters – Tanzania",
+          description:
+            "Our HQ is based in Tanzania, close to the markets, people, and infrastructure we serve. This is where we see daily how technology meets reality.",
+        },
+        {
+          id: "germany",
+          title: "Engineering Hub – Germany",
+          description:
+            "Our presence in Germany connects us to European engineering communities, standards, and partners. We bring that discipline back into every architecture and process we design.",
+        },
+      ],
+      workingWithUs: [
+        "You get a dedicated team that understands both business and technology.",
+        "We start small, show results, and only then scale the engagement.",
+        "We work in the open: regular demos, clear documentation, and visible backlogs.",
+        "We prioritize security and compliance from the beginning, not as an afterthought.",
+      ],
+      careersTeaser: {
+        headline: "Want to build the future from Africa to the world?",
+        body:
+          "Nyembotech is always looking for engineers, designers, and operators who care about quality and impact. If you want to build systems that real people depend on, let us talk.",
+        ctaLabel: "Explore opportunities",
+      },
+      workWithUsTeaser: {
+        headline: "Let’s design your next system together.",
+        body:
+          "Whether you are modernizing a core platform, launching a new product, or making your office smart, Nyembotech can be your engineering partner.",
+        ctaLabel: "Start a project",
+      },
+    },
+  },
+
+  case_studies: [
+    {
+      id: "telco-ai-support",
+      title: "AI Support Agent for a Tanzanian ISP",
+      industry: "Telecommunications",
+      country: "Tanzania",
+      clientSize: "Mid-sized ISP",
+      problem:
+        "A Tanzanian internet service provider received thousands of support messages every week across WhatsApp, phone, and email. Many questions were repetitive, but human agents still had to respond manually, leading to long wait times and frustrated customers.",
+      solution: [
+        "Designed and deployed an AI support agent integrated with WhatsApp and the company website.",
+        "Connected the agent to a curated knowledge base built from existing FAQs, manuals, and past tickets.",
+        "Implemented smart routing so complex or sensitive issues were escalated to human agents with full context.",
+      ],
+      results: [
+        "Reduced first-line support volume for human agents by around 40%.",
+        "Cut average response time for common questions from hours to seconds.",
+        "Improved customer satisfaction scores and freed human agents for complex cases.",
+      ],
+      summaryQuote:
+        "By letting an AI agent handle the repetitive questions, the ISP’s support team finally had time to fix real problems instead of typing the same answers all day.",
+    },
+    {
+      id: "sacco-cloud-modernization",
+      title: "Cloud-Ready API Layer for a SACCO Core System",
+      industry: "Finance / SACCO",
+      country: "East Africa",
+      clientSize: "Regional SACCO",
+      problem:
+        "A regional SACCO ran its core system on an old on-premise server, limiting remote access and integration with modern digital channels. Management wanted mobile apps and dashboards, but replacing the core system was too risky and expensive.",
+      solution: [
+        "Analyzed the legacy core system and identified safe integration points.",
+        "Built a secure API layer that exposed key functions for mobile and web without changing core logic.",
+        "Migrated selected workloads and data to the cloud to support new dashboards and services.",
+      ],
+      results: [
+        "Enabled development of a modern mobile app without replacing the core system.",
+        "Improved uptime and reduced maintenance effort on the old on-prem infrastructure.",
+        "Gave management real-time views of member activity and portfolio metrics.",
+      ],
+      summaryQuote:
+        "Instead of forcing a big-bang core replacement, the SACCO gained modern capabilities step by step with a safe integration layer.",
+    },
+    {
+      id: "logistics-control-tower",
+      title: "Logistics Control Tower for a Regional Transport Company",
+      industry: "Logistics & Transport",
+      country: "East Africa",
+      clientSize: "Regional logistics operator",
+      problem:
+        "A logistics company managed routing and delivery tracking using phone calls, messaging apps, and spreadsheets. They struggled with delayed deliveries, lost shipments, and no single view of operations.",
+      solution: [
+        "Implemented a control tower dashboard that shows all vehicles and deliveries on a live map.",
+        "Integrated driver mobile apps for capturing proof-of-delivery and issue reports.",
+        "Added alerting for late arrivals, route deviations, and repeated problem locations.",
+      ],
+      results: [
+        "Reduced failed or disputed deliveries by about 25%.",
+        "Gave dispatchers a clear view of problematic routes and customers.",
+        "Improved communication between drivers, dispatch, and customers.",
+      ],
+      summaryQuote:
+        "Dispatchers moved from guessing where trucks were to seeing the entire network at a glance.",
+    },
+    {
+      id: "smart-office-dar",
+      title: "Smart Office Upgrade for a Dar es Salaam Headquarters",
+      industry: "Corporate Office / Smart Spaces",
+      country: "Tanzania",
+      clientSize: "Corporate HQ",
+      problem:
+        "A corporate headquarters in Dar es Salaam wanted a modern, secure, and energy-efficient office experience but had limited visibility into how spaces were used and who accessed which areas.",
+      solution: [
+        "Implemented digital access control with role-based permissions and visitor management.",
+        "Rolled out meeting room booking integrated with company calendars.",
+        "Installed energy and occupancy sensors and connected them to dashboards and smart rules.",
+      ],
+      results: [
+        "Improved control over who can enter specific zones and when.",
+        "Increased meeting room utilization by making availability visible.",
+        "Identified energy saving opportunities, reducing unnecessary lighting and cooling.",
+      ],
+      summaryQuote:
+        "The office became a smart asset, not just a monthly cost.",
+    },
+    {
+      id: "academy-bank-training",
+      title:
+        "AI & Cloud Training Program for a Mid-Sized Bank",
+      industry: "Financial Services",
+      country: "East Africa",
+      clientSize: "Mid-sized bank",
+      problem:
+        "A mid-sized bank knew AI and cloud would reshape its operations but lacked a shared understanding between business teams, IT, and leadership. Prior training attempts were too generic and not tied to real projects.",
+      solution: [
+        "Designed a tailored training program combining leadership briefings, engineer labs, and business team workshops.",
+        "Used the bank’s own systems and use-cases as examples and mini-projects.",
+        "Left behind documentation and internal champions who could continue the work.",
+      ],
+      results: [
+        "Created a shared vocabulary around AI and cloud across departments.",
+        "Generated a prioritized list of realistic AI and modernization initiatives.",
+        "Increased internal confidence to lead projects with external support where needed.",
+      ],
+      summaryQuote:
+        "Training became the starting point for a transformation roadmap, not just another slide deck.",
+    },
+  ],
+
+  knowledge_articles: [
+    {
+      id: "ai-agents-whatsapp",
+      title: "Designing AI Agents for WhatsApp in African Markets",
+      summary:
+        "How to build AI assistants that feel natural on WhatsApp while respecting infrastructure, language, and cultural realities in African markets.",
+      category: "AI",
+      tags: ["AI agents", "WhatsApp", "customer support", "Africa"],
+      outline: [
+        "Why WhatsApp is the primary channel in many African markets",
+        "What makes a good WhatsApp AI experience",
+        "Data and integration requirements",
+        "Handling language, code-switching, and tone",
+        "Measuring success and iterating safely",
+      ],
+    },
+    {
+      id: "legacy-to-cloud-paths",
+      title: "Four Safer Paths from Legacy Systems to the Cloud",
+      summary:
+        "Not every organization can or should rebuild its systems from scratch. This article explores four practical paths to make legacy software cloud-ready.",
+      category: "Cloud",
+      tags: ["legacy", "cloud migration", "APIs"],
+      outline: [
+        "Why big-bang replacements often fail",
+        "API-wrapping as a first move",
+        "Strangling legacy systems with new services",
+        "Hybrid setups and data replication",
+        "How to choose the right path for your context",
+      ],
+    },
+    {
+      id: "modern-workplace-africa",
+      title: "Building a Modern Digital Workplace in African Organizations",
+      summary:
+        "A practical view on how to connect tools, people, and processes into a cohesive digital workplace in African contexts.",
+      category: "Modern Workplace",
+      tags: ["collaboration", "DevOps", "process"],
+      outline: [
+        "Typical starting point: WhatsApp, email, and spreadsheets everywhere",
+        "Choosing a core collaboration stack",
+        "Standardizing workflows without killing flexibility",
+        "Automation wins that do not require a big budget",
+        "Change management in environments with mixed digital maturity",
+      ],
+    },
+    {
+      id: "smart-spaces-basics",
+      title: "Smart Spaces 101: What African Offices Should Know",
+      summary:
+        "An introduction to smart offices and buildings tailored for African conditions, power realities, and budgets.",
+      category: "Smart Spaces",
+      tags: ["IoT", "buildings", "energy"],
+      outline: [
+        "What makes a space 'smart' beyond buzzwords",
+        "Core building blocks: sensors, actuators, connectivity, cloud",
+        "Dealing with power and connectivity constraints",
+        "Security and privacy considerations",
+        "How to start small and scale over time",
+      ],
+    },
+    {
+      id: "academy-design-training",
+      title: "Designing Technical Training That Actually Changes Behavior",
+      summary:
+        "Why many technical trainings fail, and how to design programs that lead to real behavior change inside organizations.",
+      category: "Academy",
+      tags: ["training", "learning", "change"],
+      outline: [
+        "Common failure modes of tech training",
+        "Anchoring content in real company projects",
+        "Blending theory, practice, and reflection",
+        "Choosing the right participants and roles",
+        "Following up after the training ends",
+      ],
+    },
+    {
+      id: "ai-governance-practical",
+      title: "Practical AI Governance for Growing Companies",
+      summary:
+        "How to put just enough structure around AI use so you move fast without creating unmanageable risk.",
+      category: "Leadership",
+      tags: ["AI governance", "risk", "policy"],
+      outline: [
+        "What can go wrong with uncontrolled AI use",
+        "Simple policy building blocks for AI tools",
+        "Data classification and access levels",
+        "Review loops for AI-driven decisions",
+        "Communicating guardrails to teams",
+      ],
+    },
+    {
+      id: "data-foundations-ai",
+      title: "Data Foundations Before AI: Cleaning the Pipes",
+      summary:
+        "AI is only as good as the data it sees. This article explains the data groundwork required before serious AI initiatives.",
+      category: "AI",
+      tags: ["data", "analytics", "preparation"],
+      outline: [
+        "Why messy data kills AI projects",
+        "Identifying your core data sources",
+        "Data quality checks and fixes",
+        "Building simple but reliable data pipelines",
+        "Using early analytics to shape AI priorities",
+      ],
+    },
+    {
+      id: "change-management-digital",
+      title:
+        "Change Management for Digital Transformation in African Contexts",
+      summary:
+        "Guidance for leaders running digital initiatives in environments with mixed digital skills and infrastructure.",
+      category: "Leadership",
+      tags: ["change management", "Africa", "transformation"],
+      outline: [
+        "Understanding local realities and constraints",
+        "Creating champions at different levels of the organization",
+        "Communicating changes in clear and simple language",
+        "Measuring adoption and adjusting the rollout",
+        "When to slow down and when to push",
+      ],
+    },
+  ],
+} as const;

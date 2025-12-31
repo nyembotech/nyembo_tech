@@ -73,7 +73,7 @@ export function KanbanBoard() {
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
-                distance: 5, // Require slight movement to start drag (prevents accidental clicks)
+                distance: 5,
             },
         }),
         useSensor(KeyboardSensor, {
@@ -102,7 +102,6 @@ export function KanbanBoard() {
 
         if (!isActiveTask) return;
 
-        // Dropping a Task over another Task
         if (isActiveTask && isOverTask) {
             setTasks((tasks) => {
                 const activeIndex = tasks.findIndex((t) => t.id === activeId);
@@ -116,12 +115,11 @@ export function KanbanBoard() {
             });
         }
 
-        // Dropping a Task over a Column
         if (isActiveTask && isOverColumn) {
             setTasks((tasks) => {
                 const activeIndex = tasks.findIndex((t) => t.id === activeId);
                 tasks[activeIndex].status = overId as Status;
-                return arrayMove(tasks, activeIndex, activeIndex); // Trigger re-render
+                return arrayMove(tasks, activeIndex, activeIndex);
             });
         }
     };
@@ -158,10 +156,12 @@ export function KanbanBoard() {
 
     return (
         <div className="h-full flex flex-col">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6 shrink-0">
                 <div>
-                    <h1 className="text-3xl font-bold text-white tracking-tight mb-2">Tasks Board</h1>
-                    <p className="text-muted-foreground">Manage internal tasks and project workflows.</p>
+                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 tracking-tight mb-2 drop-shadow-sm">
+                        Cyber Command Board
+                    </h1>
+                    <p className="text-muted-foreground/80 text-sm">Tactical operational workflow management.</p>
                 </div>
                 <NewTaskDialog onAddTask={handleAddTask} />
             </div>
@@ -173,19 +173,34 @@ export function KanbanBoard() {
                 onDragOver={handleDragOver}
                 onDragEnd={handleDragEnd}
             >
-                <div className="flex gap-6 h-full overflow-x-auto pb-4 items-start">
+                {/* 
+                  FIX: Enable horizontal scrolling for columns 
+                  - h-full: Fill available height
+                  - overflow-x-auto: Allow scroll
+                  - flex-nowrap: Don't stack columns
+                  - gap-6: Spacing
+                  - pb-8: Padding for scrollbar clearance
+                */}
+                <div className="flex gap-6 h-full overflow-x-auto overflow-y-hidden pb-4 items-start scrollbar-thin scrollbar-thumb-sky-500/20 scrollbar-track-transparent">
                     {initialColumns.map((col) => (
-                        <KanbanColumn
-                            key={col.id}
-                            column={col}
-                            tasks={tasks.filter((t) => t.status === col.id)}
-                        />
+                        <div key={col.id} className="min-w-[320px] h-full"> {/* Enforce Width */}
+                            <KanbanColumn
+                                column={col}
+                                tasks={tasks.filter((t) => t.status === col.id)}
+                            />
+                        </div>
                     ))}
+                    {/* Spacer for right aesthetic */}
+                    <div className="min-w-[20px]" />
                 </div>
 
                 {createPortal(
                     <DragOverlay>
-                        {activeTask && <KanbanCard task={activeTask} />}
+                        {activeTask && (
+                            <div className="rotate-2 scale-105 shadow-[0_0_30px_rgba(56,189,248,0.4)]">
+                                <KanbanCard task={activeTask} />
+                            </div>
+                        )}
                     </DragOverlay>,
                     document.body
                 )}

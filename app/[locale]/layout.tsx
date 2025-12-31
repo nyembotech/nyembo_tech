@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { ClientLayoutWrapper } from "@/components/layout/client-layout-wrapper";
 import { AuthProvider } from "@/context/auth-context";
 import { AnalyticsWrapper } from "@/components/analytics-wrapper";
+import { PublicAgentWrapper } from "@/components/ai/public-agent-wrapper";
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
@@ -17,6 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
     title: "Nyembotech | Future-grade AI Software",
     description: "Future-grade AI software for Africa. European engineering, African speed.",
+    metadataBase: new URL('https://nyembotech.com'),
 };
 
 export default async function LocaleLayout({
@@ -39,12 +41,13 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} suppressHydrationWarning>
-            <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
+            <body className={`${spaceGrotesk.variable} font-sans antialiased`} suppressHydrationWarning>
                 <NextIntlClientProvider messages={messages}>
                     <AuthProvider>
                         <AnalyticsWrapper />
                         <ClientLayoutWrapper>
                             {children}
+                            <PublicAgentWrapper />
                         </ClientLayoutWrapper>
                     </AuthProvider>
                 </NextIntlClientProvider>

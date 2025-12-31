@@ -4,9 +4,23 @@ export interface BaseEntity {
     id: string;
     createdAt: Timestamp;
     updatedAt: Timestamp;
+    organizationId?: string; // Multi-tenant scoping (Optional for migration, Required for new)
+}
+
+export interface Organization extends BaseEntity {
+    name: string;
+    slug: string;
+    ownerId: string;
+    logoUrl?: string;
+    theme?: {
+        primaryColor: string;
+        mode: "light" | "dark" | "system";
+    };
+    domain?: string;
 }
 
 export interface Customer extends BaseEntity {
+    uid?: string; // Link to Auth User UID
     name: string;
     domain: string;
     status: "active" | "inactive" | "pending";
@@ -37,6 +51,7 @@ export interface Project extends BaseEntity {
     targetDate: Timestamp;
     managerId?: string; // Reference to AdminUser (staff)
     tags: string[];
+    customerName?: string;
 }
 
 export interface Epic extends BaseEntity {
@@ -145,4 +160,58 @@ export interface Match extends BaseEntity {
         away: number;
     };
     ticketLink?: string;
+}
+
+export interface KnowledgeArticle extends BaseEntity {
+    slug: string;
+    title: string;
+    summary: string;
+    content: string; // Markdown/MDX
+    category: "AI" | "Cloud" | "Smart Spaces" | "Academy" | "Other";
+    tags: string[];
+    authorId: string;
+    publishedAt: Timestamp;
+    language: "en" | "sw" | "de";
+    status: "draft" | "published";
+    imageUrl?: string;
+}
+
+export interface FeatureFlag extends BaseEntity {
+    key: string;
+    description: string;
+    enabled: boolean;
+    targetRoles?: string[];
+    targetEmails?: string[];
+}
+
+export interface SmartSpace extends BaseEntity {
+    name: string;
+    type: "office" | "warehouse" | "retail" | "outdoor";
+    location: string;
+    status: "active" | "maintenance" | "offline";
+    sensors?: {
+        id: string;
+        type: string;
+        value: any;
+    }[];
+}
+
+export interface DeletionRequest extends BaseEntity {
+    customerId: string;
+    customerEmail: string;
+    requestedAt: Timestamp;
+    status: "pending" | "processing" | "completed" | "rejected";
+    adminNotes?: string;
+}
+
+export interface TranslationJob extends BaseEntity {
+    sourceText: string;
+    sourceLanguage: "en" | "sw" | "de";
+    targetLanguages: ("en" | "sw" | "de")[];
+    translations: {
+        [lang: string]: string;
+    };
+    status: "pending" | "completed" | "failed";
+    referenceId?: string;
+    referenceType?: "site_content" | "knowledge_article";
 }
