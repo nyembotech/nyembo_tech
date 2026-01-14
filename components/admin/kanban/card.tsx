@@ -2,7 +2,7 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Task } from "@/types/kanban";
+import { Task } from "@/types/firestore";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -40,10 +40,10 @@ export function KanbanCard({ task }: KanbanCardProps) {
     }
 
     const priorityColors: Record<string, string> = {
-        Low: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-        Medium: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-        High: "bg-orange-500/10 text-orange-400 border-orange-500/20",
-        Critical: "bg-red-500/10 text-red-400 border-red-500/20 animate-pulse-slow",
+        low: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+        medium: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+        high: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+        critical: "bg-red-500/10 text-red-400 border-red-500/20 animate-pulse-slow",
     };
 
     return (
@@ -55,7 +55,7 @@ export function KanbanCard({ task }: KanbanCardProps) {
 
                     <CardHeader className="p-4 pb-2 flex flex-row items-start justify-between space-y-0">
                         <Badge variant="outline" className="bg-black/20 border-white/5 text-[10px] font-medium text-gray-400 uppercase tracking-wide">
-                            {task.projectName}
+                            Project
                         </Badge>
                         <button className="text-gray-500 hover:text-white transition-colors">
                             <MoreHorizontal className="w-4 h-4" />
@@ -77,28 +77,14 @@ export function KanbanCard({ task }: KanbanCardProps) {
                             <div className="flex justify-between text-[10px] text-gray-400 font-mono">
                                 <span>PROGRESS</span>
                                 <span className={cn(task.progress === 100 ? "text-emerald-400" : "text-sky-400")}>
-                                    {task.progress}%
+                                    {task.storyPoints || 0} pts
                                 </span>
                             </div>
-                            <Progress
-                                value={task.progress}
-                                className="h-1.5 bg-black/40 border border-white/5 rounded-full"
-                                indicatorClassName={cn(
-                                    "rounded-full shadow-[0_0_10px_currentColor]",
-                                    task.progress === 100 ? "bg-emerald-500 text-emerald-500" :
-                                        task.priority === 'Critical' ? "bg-red-500 text-red-500" : "bg-sky-500 text-sky-500"
-                                )}
-                            />
+                            {/* Removed manual progress bar, relying on status or story points for now as 'progress' field is on Project, not Task (unless we add it back to Task) - Re-checking Task type: It DOES NOT have progress. Project has progress. */}
+                            {/* We will hide progress bar for Task cards or assume status mapping. */}
                         </div>
 
                         <div className="flex items-center justify-between pt-1 border-t border-white/5 mt-2">
-                            <div className="flex -space-x-2">
-                                <Avatar className="h-6 w-6 border-2 border-black bg-black">
-                                    <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-500 text-[9px] text-white font-bold">
-                                        {task.assigneeInitials}
-                                    </AvatarFallback>
-                                </Avatar>
-                            </div>
                             <Badge variant="outline" className={cn("text-[10px] px-2 py-0.5 border backdrop-blur-md", priorityColors[task.priority])}>
                                 {task.priority}
                             </Badge>

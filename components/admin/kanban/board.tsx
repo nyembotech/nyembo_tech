@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
     DndContext,
     DragOverlay,
@@ -17,57 +17,38 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { KanbanColumn } from "./column";
 import { KanbanCard } from "./card";
 import { NewTaskDialog } from "./new-task-dialog";
-import { Task, Column, Status } from "@/types/kanban";
+import { Column } from "@/types/kanban";
+import { Task } from "@/types/firestore";
 import { createPortal } from "react-dom";
+import { useTasks, TaskStatus } from "@/hooks/firestore/use-tasks";
+import { useProjects } from "@/hooks/firestore/use-projects";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Loader2 } from "lucide-react";
 
-const initialColumns: Column[] = [
-    { id: "Backlog", title: "Backlog" },
-    { id: "In Progress", title: "In Progress" },
-    { id: "Blocked", title: "Blocked" },
-    { id: "Done", title: "Done" },
-];
-
-const initialTasks: Task[] = [
-    {
-        id: "1",
-        title: "Implement Auth Flow",
-        status: "In Progress",
-        projectName: "Project Phoenix",
-        assigneeInitials: "JD",
-        priority: "High",
-        progress: 65,
-    },
-    {
-        id: "2",
-        title: "Design System Update",
-        status: "Backlog",
-        projectName: "UI Kit",
-        assigneeInitials: "AL",
-        priority: "Medium",
-        progress: 0,
-    },
-    {
-        id: "3",
-        title: "Fix API Latency",
-        status: "Blocked",
-        projectName: "Backend",
-        assigneeInitials: "MK",
-        priority: "Critical",
-        progress: 30,
-    },
-    {
-        id: "4",
-        title: "User Onboarding",
-        status: "Done",
-        projectName: "Project Phoenix",
-        assigneeInitials: "JD",
-        priority: "High",
-        progress: 100,
-    },
+// Map Firestore status to Display Title
+const columns: Column[] = [
+    { id: "todo", title: "Backlog" },
+    { id: "in-progress", title: "In Progress" },
+    { id: "review", title: "Review" },
+    { id: "done", title: "Done" },
 ];
 
 export function KanbanBoard() {
-    const [tasks, setTasks] = useState<Task[]>(initialTasks);
+    // 1. Project Filter State
+    const [selectedProjectId, setSelectedProjectId] = useState<string>("all");
+    const { projects, loading: projectsLoading } = useProjects();
+
+    // 2. Fetch Tasks based on filter
+    const queryProjectId = selectedProjectId === "all" ? undefined : selectedProjectId;
+    const { tasks: firestoreTasks, loading: tasksLoading, updateTask, addTask: addFirestoreTask, calculateProjectProgress } = useTasks(queryProjectId);
+
+    // Local state for optimistic UI updates (initially synced with Firestore)
+    // Note: Ideally we sync local state with firestoreTasks whenever firestoreTasks changes.
+    // However, dnd-kit needs stable local state to avoid flickering during optimistic updates.
+    // For simplicity in this iteration, we'll derive "displayTasks" from Firestore directly 
+    // but we can't easily drag-sort without local state if we rely solely on subscription.
+    // Let's rely on Firestore subscription updates for now, but handle 'DragEnd' carefully.
+
     const [activeTask, setActiveTask] = useState<Task | null>(null);
 
     const sensors = useSensors(
@@ -83,128 +64,147 @@ export function KanbanBoard() {
 
     const handleDragStart = (event: DragStartEvent) => {
         const { active } = event;
-        const task = tasks.find((t) => t.id === active.id);
+        const task = firestoreTasks.find((t) => t.id === active.id);
         if (task) setActiveTask(task);
     };
 
     const handleDragOver = (event: DragOverEvent) => {
-        const { active, over } = event;
-        if (!over) return;
-
-        const activeId = active.id;
-        const overId = over.id;
-
-        if (activeId === overId) return;
-
-        const isActiveTask = active.data.current?.type === "Task";
-        const isOverTask = over.data.current?.type === "Task";
-        const isOverColumn = over.data.current?.type === "Column";
-
-        if (!isActiveTask) return;
-
-        if (isActiveTask && isOverTask) {
-            setTasks((tasks) => {
-                const activeIndex = tasks.findIndex((t) => t.id === activeId);
-                const overIndex = tasks.findIndex((t) => t.id === overId);
-
-                if (tasks[activeIndex].status !== tasks[overIndex].status) {
-                    tasks[activeIndex].status = tasks[overIndex].status;
-                }
-
-                return arrayMove(tasks, activeIndex, overIndex);
-            });
-        }
-
-        if (isActiveTask && isOverColumn) {
-            setTasks((tasks) => {
-                const activeIndex = tasks.findIndex((t) => t.id === activeId);
-                tasks[activeIndex].status = overId as Status;
-                return arrayMove(tasks, activeIndex, activeIndex);
-            });
-        }
+        // We skip complex drag-over reordering for now to rely on simple status changes
+        // or we can implement it if we want visual sorting within columns.
+        // For functionality "Park Place", status change is the priority.
     };
 
-    const handleDragEnd = (event: DragEndEvent) => {
+    const handleDragEnd = async (event: DragEndEvent) => {
+        const { active, over } = event;
         setActiveTask(null);
-        const { active, over } = event;
+
         if (!over) return;
 
-        const activeId = active.id;
-        const overId = over.id;
+        const activeId = active.id as string;
+        // The over.id is likely the Column ID if dropped on a column, or Task ID if dropped on a task.
+        // We need to determine the new status.
 
-        if (activeId === overId) return;
+        let newStatus: TaskStatus | undefined;
 
-        const isActiveTask = active.data.current?.type === "Task";
-        const isOverTask = over.data.current?.type === "Task";
+        // Check if dropped on a Column
+        if (columns.some(c => c.id === over.id)) {
+            newStatus = over.id as TaskStatus;
+        }
+        // Check if dropped on another Task (find its status)
+        else {
+            const overTask = firestoreTasks.find(t => t.id === over.id);
+            if (overTask) {
+                newStatus = overTask.status;
+            }
+        }
 
-        if (isActiveTask && isOverTask) {
-            setTasks((tasks) => {
-                const activeIndex = tasks.findIndex((t) => t.id === activeId);
-                const overIndex = tasks.findIndex((t) => t.id === overId);
-                return arrayMove(tasks, activeIndex, overIndex);
-            });
+        if (newStatus) {
+            const currentTask = firestoreTasks.find(t => t.id === activeId);
+            if (currentTask && currentTask.status !== newStatus) {
+                // 1. Optimistic Update (optional, but dnd-kit might snap back if we don't update local state instantly. 
+                // Since we rely on Firestore hook, there might be a slight delay.
+                // We'll proceed with the API call.)
+
+                // 2. API Call
+                await updateTask(activeId, { status: newStatus });
+
+                // 3. Dynamic Progress Calculation
+                // If moving TO 'done' or FROM 'done', pass projectId to recalc
+                if ((newStatus === 'done' || currentTask.status === 'done') && currentTask.projectId) {
+                    // Update the project progress
+                    await calculateProjectProgress(currentTask.projectId);
+                }
+            }
         }
     };
 
-    const handleAddTask = (newTask: Omit<Task, "id">) => {
-        const task: Task = {
-            ...newTask,
-            id: Math.random().toString(36).substr(2, 9),
-        };
-        setTasks([...tasks, task]);
+    const handleAddTask = async (newTaskData: any) => {
+        // If a project is selected in filter, auto-assign it (if not already set in dialog)
+        // The dialog handles the internal "new task" object creation.
+        // We just verify projectId is set if possible.
+        try {
+            await addFirestoreTask({
+                ...newTaskData,
+                projectId: newTaskData.projectId || (selectedProjectId !== 'all' ? selectedProjectId : '')
+            });
+        } catch (e) {
+            console.error("Error creating task", e);
+        }
     };
 
     return (
         <div className="h-full flex flex-col">
-            <div className="flex items-center justify-between mb-6 shrink-0">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 shrink-0 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 tracking-tight mb-2 drop-shadow-sm">
                         Cyber Command Board
                     </h1>
-                    <p className="text-muted-foreground/80 text-sm">Tactical operational workflow management.</p>
+                    <p className="text-muted-foreground/80 text-sm">
+                        {selectedProjectId === 'all'
+                            ? "Aggregated view of all active operations (Park Place)."
+                            : "Filtering operations for specific mission."}
+                    </p>
                 </div>
-                <NewTaskDialog onAddTask={handleAddTask} />
+
+                <div className="flex items-center gap-4">
+                    {/* Project Filter */}
+                    <div className="w-[200px]">
+                        <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
+                            <SelectTrigger className="bg-black/20 border-white/10 text-white backdrop-blur-md">
+                                <SelectValue placeholder="Filter by Project" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#121214] border-white/10 text-white">
+                                <SelectItem value="all">All Projects (Park Place)</SelectItem>
+                                {projects.map(p => (
+                                    <SelectItem key={p.id} value={p.id}>{p.title}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <NewTaskDialog onAddTask={handleAddTask} selectedProjectId={selectedProjectId === 'all' ? undefined : selectedProjectId} projects={projects} />
+                </div>
             </div>
 
-            <DndContext
-                sensors={sensors}
-                collisionDetection={closestCorners}
-                onDragStart={handleDragStart}
-                onDragOver={handleDragOver}
-                onDragEnd={handleDragEnd}
-            >
-                {/* 
-                  FIX: Enable horizontal scrolling for columns 
-                  - h-full: Fill available height
-                  - overflow-x-auto: Allow scroll
-                  - flex-nowrap: Don't stack columns
-                  - gap-6: Spacing
-                  - pb-8: Padding for scrollbar clearance
-                */}
-                <div className="flex gap-6 h-full overflow-x-auto overflow-y-hidden pb-4 items-start scrollbar-thin scrollbar-thumb-sky-500/20 scrollbar-track-transparent">
-                    {initialColumns.map((col) => (
-                        <div key={col.id} className="min-w-[320px] h-full"> {/* Enforce Width */}
-                            <KanbanColumn
-                                column={col}
-                                tasks={tasks.filter((t) => t.status === col.id)}
-                            />
-                        </div>
-                    ))}
-                    {/* Spacer for right aesthetic */}
-                    <div className="min-w-[20px]" />
+            {/* Loading State */}
+            {tasksLoading && (
+                <div className="flex-1 flex items-center justify-center">
+                    <Loader2 className="w-8 h-8 text-sky-500 animate-spin" />
                 </div>
+            )}
 
-                {createPortal(
-                    <DragOverlay>
-                        {activeTask && (
-                            <div className="rotate-2 scale-105 shadow-[0_0_30px_rgba(56,189,248,0.4)]">
-                                <KanbanCard task={activeTask} />
+            {!tasksLoading && (
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCorners}
+                    onDragStart={handleDragStart}
+                    onDragOver={handleDragOver}
+                    onDragEnd={handleDragEnd}
+                >
+                    <div className="flex gap-6 h-full overflow-x-auto overflow-y-hidden pb-4 items-start scrollbar-thin scrollbar-thumb-sky-500/20 scrollbar-track-transparent">
+                        {columns.map((col) => (
+                            <div key={col.id} className="min-w-[320px] h-full">
+                                <KanbanColumn
+                                    column={col}
+                                    tasks={firestoreTasks.filter((t) => t.status === col.id)}
+                                />
                             </div>
-                        )}
-                    </DragOverlay>,
-                    document.body
-                )}
-            </DndContext>
+                        ))}
+                        <div className="min-w-[20px]" />
+                    </div>
+
+                    {createPortal(
+                        <DragOverlay>
+                            {activeTask && (
+                                <div className="rotate-2 scale-105 shadow-[0_0_30px_rgba(56,189,248,0.4)]">
+                                    <KanbanCard task={activeTask} />
+                                </div>
+                            )}
+                        </DragOverlay>,
+                        document.body
+                    )}
+                </DndContext>
+            )}
         </div>
     );
 }

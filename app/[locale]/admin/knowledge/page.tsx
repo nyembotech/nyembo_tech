@@ -9,21 +9,37 @@ import { Badge } from "@/components/ui/badge";
 import { useKnowledgeArticles } from "@/hooks/firestore/use-knowledge-articles";
 import { ArticleEditor } from "@/components/admin/knowledge/article-editor"; // Will create next
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function AdminKnowledgePage() {
     const { articles, loading, deleteArticle } = useKnowledgeArticles();
     const [search, setSearch] = useState("");
     const [isEditorOpen, setIsEditorOpen] = useState(false);
     const [editingArticle, setEditingArticle] = useState<any>(null);
+    const [articleToDelete, setArticleToDelete] = useState<string | null>(null);
 
     const filteredArticles = articles.filter(a =>
         a.title.toLowerCase().includes(search.toLowerCase()) ||
         a.category.toLowerCase().includes(search.toLowerCase())
     );
 
-    const handleDelete = async (id: string) => {
-        if (confirm("Delete this article?")) {
-            await deleteArticle(id);
+    const handleDeleteClick = (id: string) => {
+        setArticleToDelete(id);
+    };
+
+    const confirmDelete = async () => {
+        if (articleToDelete) {
+            await deleteArticle(articleToDelete);
+            setArticleToDelete(null);
         }
     };
 
@@ -86,7 +102,7 @@ export default function AdminKnowledgePage() {
                                         <Button size="icon" variant="ghost" className="h-8 w-8 hover:text-nyembo-sky" onClick={() => { setEditingArticle(article); setIsEditorOpen(true); }}>
                                             <PenLine className="w-4 h-4" />
                                         </Button>
-                                        <Button size="icon" variant="ghost" className="h-8 w-8 hover:text-red-500" onClick={() => handleDelete(article.id)}>
+                                        <Button size="icon" variant="ghost" className="h-8 w-8 hover:text-red-500" onClick={() => handleDeleteClick(article.id)}>
                                             <Trash2 className="w-4 h-4" />
                                         </Button>
                                     </div>
@@ -106,6 +122,26 @@ export default function AdminKnowledgePage() {
                     />
                 </DialogContent>
             </Dialog>
+
+            <AlertDialog open={!!articleToDelete} onOpenChange={(open) => !open && setArticleToDelete(null)}>
+                <AlertDialogContent className="bg-[#121214] border-white/10 text-white">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Article?</AlertDialogTitle>
+                        <AlertDialogDescription className="text-gray-400">
+                            This action cannot be undone. This will permanently remove the article from the Knowledge Hub.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/5 hover:text-white">Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={confirmDelete}
+                            className="bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20"
+                        >
+                            Delete Article
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

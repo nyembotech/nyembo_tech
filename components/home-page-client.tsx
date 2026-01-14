@@ -1,26 +1,22 @@
 "use client";
 
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
     ArrowRight,
     ArrowUpRight,
-    Bell,
-    Camera,
     ChevronRight,
     Heart,
     LogOut,
     Maximize2,
-    Menu,
-    Mic,
     Plus,
     RefreshCcw,
-    Search,
     Settings,
-    ShieldCheck,
-    Wallet,
 } from "lucide-react";
 import { HeroLanding } from "@/components/sections/hero-landing";
+import { FavoriteModulesWidget } from "@/components/portal/favorite-modules-widget";
 
 const navItems = [
     { label: "Menu" },
@@ -47,10 +43,38 @@ const knowledgeCards = [
 ];
 
 const quickSignals = [
-    { label: "Accounting", value: "Automated", icon: Wallet },
-    { label: "Engagement", value: "92% love score", icon: Heart },
-    { label: "Security", value: "ISO + SOC II", icon: ShieldCheck },
-    { label: "Performance", value: "99.9% Uptime", icon: Camera }, // Added missing item to match previous grid count if needed or just 3
+    {
+        label: "AI Usage",
+        value: "50%+ of Applications flows handled by AI",
+        image: "/assets/images/signals/ai-usage.png",
+        color: "text-fuchsia-400",
+        border: "group-hover:border-fuchsia-500/50",
+        bg: "group-hover:bg-fuchsia-500/10"
+    },
+    {
+        label: "Automation",
+        value: "70%+ of repetitive process /flows handled by AI agents",
+        image: "/assets/images/signals/automation.png",
+        color: "text-cyan-400",
+        border: "group-hover:border-cyan-500/50",
+        bg: "group-hover:bg-cyan-500/10"
+    },
+    {
+        label: "Satisfaction",
+        value: "92% user love score on shipped products",
+        image: "/assets/images/signals/satisfaction.png",
+        color: "text-pink-400",
+        border: "group-hover:border-pink-500/50",
+        bg: "group-hover:bg-pink-500/10"
+    },
+    {
+        label: "Reliability",
+        value: "99.8% uptime on managed platforms",
+        image: "/assets/images/signals/reliability.png",
+        color: "text-emerald-400",
+        border: "group-hover:border-emerald-500/50",
+        bg: "group-hover:bg-emerald-500/10"
+    },
 ];
 
 const galleryShots = [
@@ -83,6 +107,9 @@ const pillClass = "neumo-pill border-white/15 bg-white/10 text-white/70";
 const chipClass = "inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-1 text-[0.65rem] uppercase tracking-[0.45em] text-white/60";
 
 export function HomePageClient() {
+    const params = useParams();
+    const locale = (params.locale as string) || "en";
+
     return (
         <div className="relative min-h-screen overflow-hidden bg-[#030912] text-white">
             <div className="pointer-events-none absolute -top-40 right-0 h-[500px] w-[500px] rounded-full bg-nyembo-sky/10 blur-[180px]" />
@@ -97,24 +124,31 @@ export function HomePageClient() {
                             {/* Background Image */}
                             <div
                                 className="absolute inset-0 z-0 bg-contain bg-no-repeat bg-center bg-[#0c131c] transition-transform duration-700 group-hover:scale-105"
-                                style={{ backgroundImage: "url('/assets/images/how-we-work.png')" }}
+                                style={{ backgroundImage: "url('/assets/images/hero-section/agent_blue.png')" }}
                             >
                                 <div className="absolute inset-0 bg-black/40" /> {/* Overlay for readability */}
                             </div>
 
                             {/* Content Layer */}
                             <div className="relative z-10 flex items-center justify-between">
-                                <span className={`${chipClass}`}>Mengenal Nyembotech / Orbit</span>
-                                <button className={`${pillClass} border-white/20 bg-white/10 p-3 text-white/80`}>
+                                <span className={`${chipClass} border-nyembo-sky/30 bg-nyembo-sky/10 text-nyembo-sky shadow-[0_0_15px_rgba(88,255,255,0.3)]`}>Futuristic HUB</span>
+                                <button className={`${pillClass} border-white/20 bg-white/10 p-3 text-white/80 hover:bg-white/20 transition-colors`}>
                                     <Plus className="h-5 w-5" />
                                 </button>
                             </div>
 
                             <div className="relative z-10 mt-10 space-y-4">
-                                <p className={`${pillClass} inline-flex items-center bg-black/40 px-4 py-1 text-[0.65rem] uppercase tracking-[0.4em] text-white/70`}>
-                                    Future Range
-                                </p>
-                                {/* Text Removed as requested */}
+                                <div>
+                                    <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                                        AI Coworkers
+                                    </h2>
+                                    <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-nyembo-red/10 border border-nyembo-red/20 backdrop-blur-md">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-nyembo-red animate-pulse" />
+                                        <p className="text-xs font-bold tracking-widest text-nyembo-red uppercase">
+                                            SICU ROOM <span className="text-white/40 mx-1">|</span> <span className="text-white/70 font-medium normal-case tracking-normal">Software Intensive Care Unit</span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="relative z-10 mt-auto grid gap-4 sm:grid-cols-2">
@@ -153,48 +187,43 @@ export function HomePageClient() {
                     <div className="space-y-6">
                         <div className={`${surfaceClass} p-6`}>
                             <p className="text-xs uppercase tracking-[0.4em] text-white/50">Signals</p>
-                            <div className="mt-6 space-y-5">
+                            <div className="mt-6 space-y-4">
                                 {quickSignals.map((signal) => (
-                                    <div key={signal.label} className={`${surfaceClass} flex items-center justify-between gap-3 border-white/15 bg-black/20 px-4 py-3`}
+                                    <Link
+                                        href={`/${locale}/signals/${signal.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                        key={signal.label}
+                                        className={`group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg ${signal.border} ${signal.bg}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-white">
-                                                <signal.icon className="h-5 w-5" />
-                                            </span>
-                                            <div>
-                                                <p className="text-sm text-white/60">{signal.label}</p>
-                                                <p className="text-base font-semibold text-white">{signal.value}</p>
+                                        <div className={`absolute inset-0 bg-gradient-to-r ${signal.bg} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
+
+                                        <div className="relative z-10 flex items-center gap-4">
+                                            <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-black/20 p-2 shadow-inner">
+                                                <Image
+                                                    src={signal.image}
+                                                    alt={signal.label}
+                                                    width={56}
+                                                    height={56}
+                                                    className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <p className={`text-xs font-bold uppercase tracking-wider ${signal.color} opacity-80`}>{signal.label}</p>
+                                                <p className="text-sm font-medium leading-snug text-white/90">{signal.value}</p>
                                             </div>
                                         </div>
-                                        <ChevronRight className="h-4 w-4 text-white/40" />
-                                    </div>
+                                        <div className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-transform group-hover:translate-x-1 group-hover:bg-white/10`}>
+                                            <ChevronRight className="h-4 w-4 text-white/40 transition-colors group-hover:text-white" />
+                                        </div>
+                                    </Link>
                                 ))}
                             </div>
-                            <Button variant="outline" className="mt-6 w-full rounded-2xl border-white/30 text-white">
-                                View reports
+                            <Button variant="outline" className="mt-6 w-full rounded-2xl border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-white transition-all duration-300 py-6">
+                                View Project Reports <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         </div>
 
-                        <div className={`${surfaceClass} p-6`}>
-                            <p className="text-xs uppercase tracking-[0.4em] text-white/60">Favorite modules</p>
-                            <div className="mt-5 grid grid-cols-2 gap-4">
-                                <div className={`${surfaceClass} rounded-2xl border-white/15 bg-white/5 px-4 py-6 text-center`}>
-                                    <Heart className="mx-auto h-6 w-6 text-nyembo-yellow" />
-                                    <p className="mt-2 text-sm text-white/70">Community</p>
-                                </div>
-                                <div className={`${surfaceClass} rounded-2xl border-white/15 bg-white/5 px-4 py-6 text-center`}>
-                                    <Settings className="mx-auto h-6 w-6 text-nyembo-sky" />
-                                    <p className="mt-2 text-sm text-white/70">Automation</p>
-                                </div>
-                                <div className={`${surfaceClass} rounded-2xl border-white/15 bg-white/5 px-4 py-6 text-center`}>
-                                    <LogOut className="mx-auto h-6 w-6 text-white" />
-                                    <p className="mt-2 text-sm text-white/70">Portal</p>
-                                </div>
-                                <div className={`${surfaceClass} rounded-2xl border-white/15 bg-white/5 px-4 py-6 text-center`}>
-                                    <ArrowRight className="mx-auto h-6 w-6 text-nyembo-yellow" />
-                                    <p className="mt-2 text-sm text-white/70">Projects</p>
-                                </div>
-                            </div>
+                        <div className="h-full">
+                            <FavoriteModulesWidget />
                         </div>
                     </div>
                 </section>

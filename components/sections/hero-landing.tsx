@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { HeroSpineScene } from "@/components/ui/hero-spine-scene";
 import { HeroCardStack } from "@/components/ui/hero-card-stack";
 
+import { useRef, useEffect, useState } from "react"
 import { usePathname, useRouter, useParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
@@ -30,7 +31,7 @@ export function HeroLanding() {
 
     return (
         <div className="w-full p-4">
-            <div className="relative bg-slate-50 bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50 rounded-[3rem] overflow-hidden min-h-[800px] flex shadow-2xl border-4 border-white/50">
+            <div className="relative bg-slate-50 bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50 rounded-[3rem] overflow-hidden h-auto lg:min-h-[800px] flex shadow-2xl border-4 border-white/50">
                 {/* Main Content Area */}
                 <div className="flex-1 relative">
                     {/* Content omitted for brevity, keeping only relevant changes */}
@@ -39,14 +40,14 @@ export function HeroLanding() {
                         <div className="p-8 lg:p-12 flex flex-col justify-between relative z-10">
 
                             {/* Top Notification Card - With Animated Gradient Border */}
-                            <div className="relative group max-w-sm hover:scale-105 transition-transform duration-300">
+                            <Link href="/about" className="relative group max-w-sm hover:scale-105 transition-transform duration-300 cursor-pointer block">
                                 {/* Blinking/Pulsing Gradient Border */}
                                 <div className="absolute -inset-1 bg-gradient-to-r from-[#58ffff] via-[#ffff6c] to-[#F54633] rounded-[28px] animate-pulse blur-[1px]" />
 
                                 <div className="relative bg-white/85 p-4 rounded-3xl flex gap-4 backdrop-blur-md shadow-lg border border-white/40">
                                     <div className="w-16 h-16 rounded-2xl bg-gray-300 overflow-hidden shrink-0 shadow-inner px-0 py-0 flex items-center justify-center">
                                         <Image
-                                            src="/assets/images/hero-section/hero.png"
+                                            src="/assets/images/hero-section/products.png"
                                             alt="Thumbnail"
                                             width={64}
                                             height={64}
@@ -58,7 +59,10 @@ export function HeroLanding() {
                                         {t.raw('heroSubtitle')}
                                     </p>
                                 </div>
-                            </div>
+                            </Link>
+
+                            {/* Hero Cards Floating */}
+
 
                             {/* Language Switcher Timeline */}
                             <div className="space-y-6 pl-4 border-l-2 border-gray-300/50 my-8 lg:my-10">
@@ -104,30 +108,31 @@ export function HeroLanding() {
                                 ))}
                             </div>
 
-                            {/* Pills omitted */}
+                            {/* Hero Cards Floating - Moved here for Mobile Order */}
+                            <div className="relative mt-8 mb-8 flex justify-center w-full lg:absolute lg:mt-0 lg:mb-0 lg:w-auto lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-1/4 z-20 block">
+                                <HeroCardStack />
+                            </div>
+
                             <div className="flex flex-wrap gap-3 mb-8">
                                 {[
-                                    { label: "Artificial Intelligence", color: "hover:bg-blue-500 hover:border-blue-500" },
-                                    { label: "Cyborg", color: "hover:bg-purple-500 hover:border-purple-500" },
-                                    { label: "Art", color: "hover:bg-pink-500 hover:border-pink-500" },
-                                    { label: "Technology", color: "hover:bg-cyan-500 hover:border-cyan-500" },
-                                    { label: "Game", color: "hover:bg-yellow-500 hover:border-yellow-500" }
+                                    { label: "Project Status", color: "border-blue-500 text-blue-500 hover:bg-blue-500", href: "/status" },
+                                    { label: "Chat with us", color: "border-cyan-500 text-cyan-500 hover:bg-cyan-500", href: "/contact" }
                                 ].map((tag) => (
-                                    <span key={tag.label} className={`px-4 py-2 rounded-full border border-black/80 text-[10px] font-bold uppercase tracking-wider text-black hover:text-white transition-all hover:scale-105 cursor-pointer shadow-sm hover:shadow-lg ${tag.color}`}>
-                                        {tag.label}
-                                    </span>
+                                    <Link key={tag.label} href={tag.href}>
+                                        <span className={`block px-4 py-2 rounded-full border-2 text-[10px] font-bold uppercase tracking-wider hover:text-white transition-all hover:scale-105 cursor-pointer shadow-sm hover:shadow-lg ${tag.color}`}>
+                                            {tag.label}
+                                        </span>
+                                    </Link>
                                 ))}
                             </div>
 
                             {/* Main Text */}
                             <div className="space-y-6">
-                                <p className="text-[10px] max-w-xs text-slate-600 font-bold leading-relaxed tracking-wide">
-                                    {t('heroSubtitle').toUpperCase()}
-                                </p>
+
 
                                 <div>
-                                    <p className="text-2xl font-bold text-slate-400 mb-2">AI</p>
-                                    <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 leading-[0.9] tracking-tighter drop-shadow-sm">
+                                    <p className="text-2xl font-bold text-slate-400 mb-2">{t('heroTagline')}</p>
+                                    <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 leading-[0.9] tracking-tighter drop-shadow-sm">
                                         {t('heroTitle')}
                                     </h1>
                                 </div>
@@ -136,20 +141,20 @@ export function HeroLanding() {
 
 
                         {/* Right Image Column */}
-                        <div className="relative h-[700px] lg:h-auto overflow-hidden">
+                        <div className="relative min-h-[400px] h-auto lg:h-auto overflow-hidden">
                             {/* Background Graphics & Image */}
                             <div className="absolute inset-0 overflow-hidden lg:rounded-bl-[100px] lg:rounded-tr-[3rem] border-l border-white/20 bg-white/5 backdrop-blur-sm shadow-[0_0_50px_rgba(255,255,255,0.05)] flex items-center justify-center">
                                 {/* BACKGROUND GRID */}
                                 <div className="absolute top-0 right-0 w-full h-full bg-[url('/assets/grid-pattern.svg')] opacity-60 mix-blend-multiply z-0 pointer-events-none" />
 
                                 {/* NEW BACKGROUND PRODUCT IMAGE */}
-                                <div className="absolute inset-0 hidden lg:flex items-center justify-center z-0 pointer-events-none opacity-[0.95]">
+                                <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none opacity-[0.95]">
                                     <Image
                                         src="/assets/images/hero-section/products.png"
                                         alt="Products Background"
                                         fill
                                         sizes="(max-width: 1024px) 100vw, 50vw"
-                                        className="object-contain lg:object-cover"
+                                        className="object-cover lg:object-cover"
                                         priority
                                     />
                                 </div>
@@ -157,8 +162,8 @@ export function HeroLanding() {
 
 
                                 {/* NEW HERO CARD STACK */}
-                                <div className="relative z-20 w-full h-full p-4 flex flex-col items-center justify-start pt-32 lg:pt-10 lg:justify-center">
-                                    <HeroCardStack />
+                                <div className="relative z-20 w-full h-full px-4 pt-12 pb-0 lg:p-4 flex flex-col items-center justify-start lg:pt-10 lg:justify-center">
+
 
                                     {/* HEAVY CTA BUTTON */}
                                     <div className="relative mt-8 lg:absolute lg:mt-0 lg:bottom-10 left-0 right-0 z-30 flex justify-center px-4 pointer-events-auto">

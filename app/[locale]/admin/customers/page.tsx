@@ -11,12 +11,23 @@ import { CustomerDialog } from "@/components/admin/customers/customer-dialog";
 import { GradientListItem } from "@/components/ui/gradient-list-item";
 import { updateDocument } from "@/services/firebase/database";
 import { Customer } from "@/types/firestore";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function AdminCustomersPage() {
     const { customers, loading, addCustomer, deleteCustomer } = useCustomers();
     const [searchQuery, setSearchQuery] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
+    const [customerToDelete, setCustomerToDelete] = useState<string | null>(null);
 
     const filteredCustomers = customers.filter(c =>
         c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -35,9 +46,14 @@ export default function AdminCustomersPage() {
         setEditingCustomer(null);
     };
 
-    const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this customer?")) {
-            await deleteCustomer(id);
+    const handleDeleteClick = (id: string) => {
+        setCustomerToDelete(id);
+    };
+
+    const confirmDelete = async () => {
+        if (customerToDelete) {
+            await deleteCustomer(customerToDelete);
+            setCustomerToDelete(null);
         }
     };
 
@@ -59,6 +75,26 @@ export default function AdminCustomersPage() {
                 customer={editingCustomer}
                 onSubmit={handleSave}
             />
+
+            <AlertDialog open={!!customerToDelete} onOpenChange={(open) => !open && setCustomerToDelete(null)}>
+                <AlertDialogContent className="bg-[#121214] border-white/10 text-white">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription className="text-gray-400">
+                            This action cannot be undone. This will permanently delete the customer and remove their data from our servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/5 hover:text-white">Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={confirmDelete}
+                            className="bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20"
+                        >
+                            Delete Customer
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
@@ -119,7 +155,14 @@ export default function AdminCustomersPage() {
                                         {customer.type === 'company' ? <Building2 className="w-6 h-6" /> : <User className="w-6 h-6" />}
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-white text-lg">{customer.name}</h3>
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="font-bold text-white text-lg">{customer.name}</h3>
+                                            {customer.trackingCode && (
+                                                <Badge variant="outline" className="text-xs border-[#bef264]/30 text-[#bef264] bg-[#bef264]/10 font-mono tracking-wider">
+                                                    {customer.trackingCode}
+                                                </Badge>
+                                            )}
+                                        </div>
                                         {customer.type === 'company' && <p className="text-muted-foreground text-sm">{customer.companyName}</p>}
                                         <p className="text-xs text-muted-foreground/60">{customer.contactEmail}</p>
                                     </div>
@@ -140,7 +183,7 @@ export default function AdminCustomersPage() {
                                         <Button variant="ghost" size="icon" onClick={() => openEdit(customer)} className="hover:text-[#bef264]">
                                             <Edit className="w-4 h-4" />
                                         </Button>
-                                        <Button variant="ghost" size="icon" onClick={() => handleDelete(customer.id)} className="hover:text-red-500">
+                                        <Button variant="ghost" size="icon" onClick={() => handleDeleteClick(customer.id)} className="hover:text-red-500">
                                             <Trash2 className="w-4 h-4" />
                                         </Button>
                                     </div>

@@ -23,7 +23,7 @@ export interface Customer extends BaseEntity {
     uid?: string; // Link to Auth User UID
     name: string;
     domain: string;
-    status: "active" | "inactive" | "pending";
+    status: "active" | "inactive" | "pending" | "suspended";
     plan: "enterprise" | "business" | "starter";
     logoUrl?: string;
     contactEmail: string;
@@ -31,6 +31,7 @@ export interface Customer extends BaseEntity {
     companyName?: string;
     password?: string; // Optional: stored only if custom auth is used
     onboardingStatus?: "pending" | "invited" | "completed";
+    trackingCode?: string; // Project Request Tracking Code
 }
 
 export interface CustomerInvite extends BaseEntity {

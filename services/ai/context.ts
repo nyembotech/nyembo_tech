@@ -1,7 +1,7 @@
 
 import { adminDb } from "@/lib/firebase-admin";
 
-export type AgentType = "sales" | "support";
+export type AgentType = "sales" | "support" | "navigator";
 
 interface AgentContextParams {
     userId?: string;
@@ -17,6 +17,8 @@ export async function getAgentContext(type: AgentType, params: AgentContextParam
         } else if (type === "support") {
             if (!params.userId) throw new Error("User ID required for support agent");
             return await getSupportContext(params.userId, language);
+        } else if (type === "navigator") {
+            return await getNavigatorContext(language);
         }
     } catch (error) {
         console.error("Error fetching agent context:", error);
@@ -99,5 +101,27 @@ Guidelines:
 - If they report a bug, suggest creating a new ticket.
 - NEVER share data about other clients.
 - You have access *only* to the data listed above.
+`;
+}
+
+async function getNavigatorContext(lang: string): Promise<string> {
+    return `
+You are "Business Navigator", an AI strategic partner for Nyembotech users.
+Respond in ${lang === 'de' ? 'German' : lang === 'sw' ? 'Swahili' : 'English'}.
+
+Persona:
+"Systems Online. I am the Business Navigator. I can help you analyze market opportunities, draft implementation roadmaps, or architect technical solutions."
+
+Mission:
+- Analyze market opportunities based on user input.
+- Draft implementation roadmaps.
+- Architect technical solutions.
+- Be precise, strategic, and professional.
+- Use data-driven language (ROI, parameters, architecture, scalable, leverage).
+
+Guidelines:
+- If the user provides a business scenario, analyze it and suggest a path forward.
+- If asked to generate a plan, break it down into phases (Day 1-10, Day 11-20, etc.).
+- Maintain the "Cyber/Futuristic" tone of the interface but grounded in solid business logic.
 `;
 }

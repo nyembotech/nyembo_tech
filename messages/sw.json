@@ -9,7 +9,8 @@
         "login": "Ingia"
     },
     "Home": {
-        "heroTitle": "Wasanifu wa Mustakabali wa Kidijitali",
+        "heroTitle": "Wasanifu wa AI, Kuikuza Biashara yako",
+        "heroTagline": "Tumia mfumo mpya wa Akili bandia AI Leo",
         "heroSubtitle": "Tunatengeneza mifumo bora ya kidijitali kwa muundo wa kisasa na uhandisi wa Kizungu.",
         "ctaStart": "Anzisha Mradi",
         "ctaContact": "Wasiliana Nasi"

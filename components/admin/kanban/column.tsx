@@ -2,7 +2,8 @@
 
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { Column, Task } from "@/types/kanban";
+import { Column } from "@/types/kanban";
+import { Task } from "@/types/firestore";
 import { KanbanCard } from "./card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -19,17 +20,17 @@ export function KanbanColumn({ column, tasks }: KanbanColumnProps) {
     });
 
     const statusStyles: Record<string, string> = {
-        "Backlog": "border-t-gray-500 shadow-gray-500/10",
-        "In Progress": "border-t-sky-500 shadow-sky-500/20 bg-sky-500/5",
-        "Blocked": "border-t-red-500 shadow-red-500/20 bg-red-500/5",
-        "Done": "border-t-emerald-500 shadow-emerald-500/20",
+        "todo": "border-t-gray-500 shadow-gray-500/10",
+        "in-progress": "border-t-sky-500 shadow-sky-500/20 bg-sky-500/5",
+        "review": "border-t-yellow-500 shadow-yellow-500/20 bg-yellow-500/5",
+        "done": "border-t-emerald-500 shadow-emerald-500/20",
     };
 
     const headerColors: Record<string, string> = {
-        "Backlog": "text-gray-400",
-        "In Progress": "text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.3)]",
-        "Blocked": "text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.4)]",
-        "Done": "text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.4)]",
+        "todo": "text-gray-400",
+        "in-progress": "text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.3)]",
+        "review": "text-yellow-400 drop-shadow-[0_0_10px_rgba(234,179,8,0.4)]",
+        "done": "text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.4)]",
     };
 
     return (

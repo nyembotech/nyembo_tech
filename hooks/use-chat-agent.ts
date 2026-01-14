@@ -9,6 +9,7 @@ export interface Message {
     role: "function" | "system" | "user" | "assistant" | "data" | "tool";
     content?: string;
     parts?: Array<{ type: string; text?: string }>;
+    createdAt?: Date | any;
 }
 
 // Helper to extract text content from a message (supports both formats)
@@ -26,16 +27,29 @@ export function getMessageContent(message: Message): string {
 }
 
 type UseChatAgentProps = {
-    agentType: "sales" | "support";
+    agentType: "sales" | "support" | "navigator";
     projectId?: string;
     language?: string;
 };
+
+// Safe UUID generator that works in older environments
+function generateUUID() {
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+        return crypto.randomUUID();
+    }
+    // Fallback for environments without crypto.randomUUID
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
 
 export function useChatAgent({ agentType, projectId, language = "en" }: UseChatAgentProps) {
     const { user } = useAuth();
     const [input, setInput] = useState("");
     // Generate a stable session ID for this chat instance
-    const [sessionId] = useState(() => crypto.randomUUID());
+    const [sessionId] = useState(() => generateUUID());
 
     // Create transport with memoization to avoid recreating on every render
     const transport = useMemo(() => new DefaultChatTransport({

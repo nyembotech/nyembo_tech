@@ -8,7 +8,7 @@ import { OrgSwitcher } from "@/components/admin/org-switcher";
 import {
     LayoutDashboard, FileText, Folder, Users, CheckSquare, GraduationCap,
     Building2, Settings, BrainCircuit, Bot, Activity, BookOpen, FlaskConical, Globe,
-    ChevronDown, Map as MapIcon
+    ChevronDown, Map as MapIcon, MessageSquare
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -33,6 +33,7 @@ const navGroups: NavGroup[] = [
         title: "Intelligence",
         items: [
             { name: "Agents", href: "/admin/agents", icon: Bot },
+            { name: "Chat & AI", href: "/admin/chat-bots", icon: MessageSquare },
             { name: "Navigator", href: "/admin/navigator", icon: MapIcon },
             { name: "AI Architect", href: "/admin/ai-architect", icon: BrainCircuit },
             { name: "Translation", href: "/admin/translate", icon: Globe },

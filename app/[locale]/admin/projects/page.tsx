@@ -10,7 +10,17 @@ import { Button } from "@/components/ui/button";
 import { ProjectDialog } from "@/components/admin/projects/project-dialog";
 import { GradientListItem } from "@/components/ui/gradient-list-item";
 import { updateDocument } from "@/services/firebase/database";
-import { Search, Filter, Plus, LayoutGrid, List } from "lucide-react";
+import { Search, Filter, Plus, LayoutGrid, List, Trash2 } from "lucide-react";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function AdminProjectsPage() {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -22,6 +32,8 @@ export default function AdminProjectsPage() {
     const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+    const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
+    const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
 
     useEffect(() => {
         if (projects) {
@@ -50,9 +62,17 @@ export default function AdminProjectsPage() {
         setEditingProject(null);
     };
 
-    const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this project?")) {
-            await deleteProject(id);
+    const handleDeleteClick = (id: string) => {
+        setProjectToDelete(id);
+        setDeleteAlertOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        if (projectToDelete) {
+            await deleteProject(projectToDelete);
+            setDeleteAlertOpen(false);
+            setProjectToDelete(null);
+            setIsDialogOpen(false); // Close edit dialog if open
         }
     };
 
@@ -78,7 +98,25 @@ export default function AdminProjectsPage() {
                 project={editingProject}
                 customers={customers}
                 onSubmit={handleSave}
+                onDelete={handleDeleteClick}
             />
+
+            <AlertDialog open={deleteAlertOpen} onOpenChange={setDeleteAlertOpen}>
+                <AlertDialogContent className="bg-[#121214] border-white/10 text-white">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription className="text-gray-400">
+                            This action cannot be undone. This will permanently delete the project and remove it from our servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/10 hover:text-white">Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDelete} className="bg-red-500 text-white hover:bg-red-600 border-none">
+                            Delete Project
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             {/* Header / Filter Bar */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -171,9 +209,9 @@ export default function AdminProjectsPage() {
                                             <span className="sr-only">Edit</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                                         </Button>
-                                        <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleDelete(project.id); }} className="hover:text-red-500">
+                                        <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleDeleteClick(project.id); }} className="hover:text-red-500">
                                             <span className="sr-only">Delete</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                                            <Trash2 className="w-4 h-4" />
                                         </Button>
                                     </div>
                                 </div>

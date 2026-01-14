@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { useState, useEffect } from "react";
 import { Project, Customer } from "@/types/firestore";
+import { Trash2 } from "lucide-react";
 
 interface ProjectDialogProps {
     open: boolean;
@@ -14,9 +15,10 @@ interface ProjectDialogProps {
     project?: Project | null; // If null, creating new
     customers: Customer[];
     onSubmit: (data: any) => Promise<void>;
+    onDelete?: (id: string) => void;
 }
 
-export function ProjectDialog({ open, onOpenChange, project, customers, onSubmit }: ProjectDialogProps) {
+export function ProjectDialog({ open, onOpenChange, project, customers, onSubmit, onDelete }: ProjectDialogProps) {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -50,13 +52,18 @@ export function ProjectDialog({ open, onOpenChange, project, customers, onSubmit
             await onSubmit({
                 ...formData,
                 progress: parseInt(formData.progress) || 0,
-                // Add defaults for new fields if needed
             });
             onOpenChange(false);
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDelete = () => {
+        if (project && onDelete) {
+            onDelete(project.id);
         }
     };
 
@@ -73,7 +80,7 @@ export function ProjectDialog({ open, onOpenChange, project, customers, onSubmit
                             required
                             value={formData.title}
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            className="bg-black/40 border-white/10 focus-visible:ring-[#bef264]/50"
+                            className="bg-black/40 border-white/10 focus-visible:ring-[#bef264]/50 text-white"
                         />
                     </div>
 
@@ -83,7 +90,7 @@ export function ProjectDialog({ open, onOpenChange, project, customers, onSubmit
                             value={formData.customerId}
                             onValueChange={(val) => setFormData({ ...formData, customerId: val })}
                         >
-                            <SelectTrigger className="bg-black/40 border-white/10">
+                            <SelectTrigger className="bg-black/40 border-white/10 text-white">
                                 <SelectValue placeholder="Select a customer" />
                             </SelectTrigger>
                             <SelectContent className="bg-[#121214] border-white/10 text-white">
@@ -101,7 +108,7 @@ export function ProjectDialog({ open, onOpenChange, project, customers, onSubmit
                                 value={formData.status}
                                 onValueChange={(val) => setFormData({ ...formData, status: val })}
                             >
-                                <SelectTrigger className="bg-black/40 border-white/10">
+                                <SelectTrigger className="bg-black/40 border-white/10 text-white">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent className="bg-[#121214] border-white/10 text-white">
@@ -120,16 +127,31 @@ export function ProjectDialog({ open, onOpenChange, project, customers, onSubmit
                                 max="100"
                                 value={formData.progress}
                                 onChange={(e) => setFormData({ ...formData, progress: e.target.value })}
-                                className="bg-black/40 border-white/10 focus-visible:ring-[#bef264]/50"
+                                className="bg-black/40 border-white/10 focus-visible:ring-[#bef264]/50 text-white"
                             />
                         </div>
                     </div>
 
-                    <div className="pt-4 flex justify-end gap-2">
-                        <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
-                        <Button type="submit" disabled={loading} className="bg-[#bef264] text-black hover:bg-[#a3e635]">
-                            {loading ? "Saving..." : "Save Project"}
-                        </Button>
+                    <div className="pt-4 flex justify-between gap-2">
+                        <div>
+                            {project && onDelete && (
+                                <Button
+                                    type="button"
+                                    variant="destructive"
+                                    className="bg-red-500/10 text-red-500 hover:bg-red-500/20 border-red-500/20"
+                                    onClick={handleDelete}
+                                >
+                                    <Trash2 className="w-4 h-4 mr-2" />
+                                    Delete
+                                </Button>
+                            )}
+                        </div>
+                        <div className="flex gap-2">
+                            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
+                            <Button type="submit" disabled={loading} className="bg-[#bef264] text-black hover:bg-[#a3e635]">
+                                {loading ? "Saving..." : "Save Project"}
+                            </Button>
+                        </div>
                     </div>
                 </form>
             </DialogContent>

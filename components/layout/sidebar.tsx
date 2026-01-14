@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Aperture, Home, Info, Briefcase, Mail, Layers, GraduationCap, Building2, Lightbulb, Menu, BookOpen } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/use-auth";
 
 export function Sidebar() {
@@ -15,8 +16,7 @@ export function Sidebar() {
         { icon: Building2, label: "Smart Spaces", href: "/smart-spaces", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
         { icon: GraduationCap, label: "Academy", href: "/academy", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" },
         { icon: BookOpen, label: "Knowledge", href: "/knowledge", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
-        { icon: Info, label: "About", href: "/about", colorClasses: "text-yellow-400 border-yellow-400/30 bg-yellow-400/10 shadow-yellow-400/20" },
-        { icon: Mail, label: "Contact", href: "/contact", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" }
+        { icon: Info, label: "About", href: "/about", colorClasses: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10 shadow-cyan-400/20" }
     ];
 
     const pathname = usePathname();
@@ -91,34 +91,51 @@ export function Sidebar() {
             </div>
 
             {/* FUTRISTIC MOBILE BOTTOM DOCK (Small Screens) */}
-            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] z-[9999] pointer-events-auto">
-                {/* Glass Dock Container */}
-                <div className="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 shadow-[0_10px_50px_rgba(0,0,0,0.5)] flex items-center justify-between overflow-x-auto relative">
-                    {/* Glowing Accent Line */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-nyembo-sky/50 to-transparent" />
+            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[95%] max-w-[420px] z-[9999] pointer-events-auto">
+                <div className="bg-[#0f1115]/90 backdrop-blur-2xl border border-white/10 rounded-[2rem] px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex items-center justify-between gap-1 overflow-x-auto scrollbar-hide">
+                    {/* Top Glow Line */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent pointer-events-none" />
 
-                    {/* Primary Nav Items (Limit to 4-5 for mobile space) */}
-                    {navItems.slice(0, 5).map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.href}
-                            className={`relative flex-1 min-w-[3.5rem] h-12 flex flex-col items-center justify-center gap-1 rounded-xl transition-all duration-300 hover:bg-white/5 active:scale-95 group`}
-                        >
-                            {/* Icon */}
-                            <item.icon className={`w-5 h-5 transition-colors duration-300 ${item.colorClasses.split(' ')[0].replace('text-', 'group-hover:text-')}`} />
+                    {navItems.map((item, index) => {
+                        // Normalize pathname to handle locales (e.g., /en/solutions -> /solutions)
+                        const normalizedPath = pathname?.replace(/^\/[a-z]{2}(\/|$)/, "/") || "/";
+                        const isActive = normalizedPath === item.href;
+                        // Extract base color from colorClasses (e.g., text-cyan-400 or text-yellow-400)
+                        const baseColor = item.colorClasses.match(/text-\w+-\d+/)?.[0] || 'text-white';
+                        const dotColor = baseColor.replace('text-', 'bg-');
+                        const shadowColor = baseColor.includes('cyan') ? 'rgba(34,211,238,0.8)' : 'rgba(250,204,21,0.8)';
 
-                            {/* Active Indicator Dot */}
-                            <span className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-nyembo-sky transition-colors" />
+                        return (
+                            <Link
+                                key={index}
+                                href={item.href}
+                                className="relative flex-shrink-0 flex items-center justify-center w-12 h-12 z-10"
+                            >
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="mobile-nav-active"
+                                        className="absolute inset-0 bg-[#1c1f2e] rounded-2xl -z-10"
+                                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    />
+                                )}
 
-                            {/* Label (Hidden but accessible?) - Removed for cleaner look on mobile, or could be tooltip */}
-                        </Link>
-                    ))}
-
-                    {/* Mobile Menu Trigger for overflow items */}
-                    <button className="flex-1 min-w-[3.5rem] h-12 flex flex-col items-center justify-center gap-1 rounded-xl hover:bg-white/5 active:scale-95 text-white/70 hover:text-white transition-colors">
-                        <Menu className="w-5 h-5" />
-                        <span className="w-1 h-1 rounded-full bg-white/20" />
-                    </button>
+                                <div className="flex flex-col items-center gap-1">
+                                    <item.icon
+                                        className={`w-6 h-6 transition-all duration-300 ${baseColor} ${isActive ? 'opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'opacity-50'}`}
+                                        strokeWidth={1.5}
+                                    />
+                                    {isActive && (
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            className={`w-1 h-1 rounded-full ${dotColor}`}
+                                            style={{ boxShadow: `0 0 8px ${shadowColor}` }}
+                                        />
+                                    )}
+                                </div>
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </>
