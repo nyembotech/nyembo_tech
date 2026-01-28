@@ -19,5 +19,172 @@
     "Common": {
         "loading": "Loading...",
         "error": "Something went wrong"
+    },
+    "Landing": {
+        "navbar": {
+            "infrastructure": "Infrastructure",
+            "deployment": "Deployment",
+            "enterprise": "Enterprise",
+            "pricing": "Pricing",
+            "docs": "Docs",
+            "login": "Login",
+            "startBuilding": "START BUILDING"
+        },
+        "hero": {
+            "badge": "AUTONOMOUS INFRASTRUCTURE PLATFORM",
+            "titleLine1": "SCALE",
+            "titleLine2": "WITH",
+            "titleLine3": "AUTONOMY",
+            "subtitle": "Deploy self-healing infrastructure that scales without human intervention. Built for teams that ship fast and sleep well.",
+            "cta": "START BUILDING",
+            "secondaryCta": "View Documentation",
+            "uptimeLabel": "PLATFORM UPTIME",
+            "uptimeValue": "99.99%",
+            "statusOperational": "ALL SYSTEMS OPERATIONAL",
+            "requestsLabel": "API REQUESTS TODAY",
+            "requestsValue": "2.4M",
+            "latencyLabel": "AVG LATENCY",
+            "latencyValue": "< 45ms"
+        },
+        "primitives": {
+            "label": "INFRASTRUCTURE",
+            "title": "PRIMITIVES",
+            "subtitle": "Four foundational building blocks that power every deployment.",
+            "dataIngestion": {
+                "title": "Data Ingestion",
+                "description": "Real-time streaming pipelines processing millions of events per second with automatic schema evolution."
+            },
+            "coreProcessing": {
+                "title": "Core Processing",
+                "description": "Distributed compute engine with automatic load balancing, failover, and horizontal scaling."
+            },
+            "securityMesh": {
+                "title": "Security Mesh",
+                "description": "Zero-trust architecture with end-to-end encryption, mTLS, and automated certificate rotation."
+            },
+            "telemetry": {
+                "title": "Telemetry",
+                "description": "Full-stack observability with distributed tracing, metrics aggregation, and intelligent alerting."
+            }
+        },
+        "deployment": {
+            "label": "DEPLOYMENT",
+            "title": "SCENARIOS",
+            "categories": {
+                "cloud": "Cloud Infrastructure Automation",
+                "edge": "Edge Computing",
+                "hybrid": "Hybrid Deployments",
+                "multiRegion": "Multi-Region"
+            },
+            "cloudTitle": "CLOUD INFRASTRUCTURE AUTOMATION",
+            "cloudDescription": "Deploy and manage infrastructure across multiple cloud providers with a unified control plane. Automated provisioning, scaling, and disaster recovery.",
+            "features": {
+                "multiCloud": "Multi-cloud orchestration",
+                "autoScaling": "Automatic scaling policies",
+                "disasterRecovery": "Disaster recovery automation",
+                "costOptimization": "Cost optimization engine"
+            }
+        },
+        "systemFlow": {
+            "label": "SYSTEM",
+            "title": "FLOW",
+            "ingestionTitle": "DATA INGESTION LAYER",
+            "sources": {
+                "api": "API Gateway",
+                "stream": "Event Stream",
+                "batch": "Batch Upload",
+                "webhook": "Webhooks"
+            },
+            "orchestrationTitle": "ORCHESTRATION ENGINE",
+            "orchestrationItems": {
+                "routing": "Intelligent Routing",
+                "loadBalancing": "Load Balancing",
+                "failover": "Auto-Failover",
+                "caching": "Distributed Cache"
+            },
+            "telemetryTitle": "TELEMETRY OUTPUT",
+            "telemetryItems": {
+                "metrics": "Real-time Metrics",
+                "traces": "Distributed Traces",
+                "logs": "Structured Logs",
+                "alerts": "Smart Alerts"
+            }
+        },
+        "validation": {
+            "label": "VALIDATION",
+            "title": "CONSOLE",
+            "lines": {
+                "init": "$ nyembo init --project infrastructure-prod",
+                "check": "✓ Configuration validated",
+                "deploy": "✓ Deploying to 3 regions...",
+                "mesh": "✓ Security mesh established",
+                "telemetry": "✓ Telemetry pipeline active",
+                "ready": "✓ System ready — all health checks passing",
+                "latency": "→ Average latency: 12ms | Uptime: 99.99%"
+            }
+        },
+        "enterprise": {
+            "label": "ENTERPRISE",
+            "title": "INTEGRITY",
+            "subtitle": "Built for organizations that demand absolute reliability and security compliance.",
+            "stats": {
+                "requests": { "value": "38M+", "label": "API Requests Processed" },
+                "uptime": { "value": "99.99%", "label": "Platform Uptime" },
+                "latency": { "value": "<1ms", "label": "P99 Latency" }
+            },
+            "encryption": "AES-256-GCM",
+            "encryptionLabel": "ENCRYPTION STANDARD",
+            "compliance": "SOC 2 Type II · ISO 27001 · GDPR"
+        },
+        "pricing": {
+            "label": "TRANSPARENT",
+            "title": "PRICING",
+            "subtitle": "Simple, predictable pricing that scales with your infrastructure.",
+            "developer": {
+                "name": "Developer",
+                "price": "$0",
+                "period": "/month",
+                "description": "For individual developers and small projects.",
+                "features": ["Up to 100K API requests", "1 environment", "Community support", "Basic telemetry"],
+                "cta": "GET STARTED"
+            },
+            "professional": {
+                "name": "Professional",
+                "price": "$499",
+                "period": "/month",
+                "description": "For growing teams that need production-grade infrastructure.",
+                "features": ["Unlimited API requests", "10 environments", "Priority support", "Full telemetry suite", "Custom domains", "Team management"],
+                "cta": "START TRIAL",
+                "badge": "MOST POPULAR"
+            },
+            "enterprise": {
+                "name": "Enterprise",
+                "price": "Custom",
+                "period": "",
+                "description": "For organizations with advanced security and compliance needs.",
+                "features": ["Everything in Professional", "Unlimited environments", "24/7 dedicated support", "Custom SLA", "SSO / SAML", "Audit logging", "On-premise option"],
+                "cta": "CONTACT SALES"
+            }
+        },
+        "cta": {
+            "titleLine1": "SCALE YOUR",
+            "titleLine2": "INFRASTRUCTURE",
+            "subtitle": "Deploy your first autonomous infrastructure in minutes.",
+            "buttonText": "START BUILDING",
+            "terminalLine": "$ nyembo deploy --production"
+        },
+        "footer": {
+            "startBuilding": "START BUILDING",
+            "product": "Product",
+            "productLinks": { "infrastructure": "Infrastructure", "deployment": "Deployment", "security": "Security", "telemetry": "Telemetry" },
+            "developers": "Developers",
+            "developerLinks": { "docs": "Documentation", "api": "API Reference", "sdks": "SDKs", "status": "Status" },
+            "company": "Company",
+            "companyLinks": { "about": "About", "careers": "Careers", "blog": "Blog", "contact": "Contact" },
+            "legal": "Legal",
+            "legalLinks": { "privacy": "Privacy", "terms": "Terms", "security": "Security" },
+            "copyright": "© 2025 Nyembotech. All rights reserved.",
+            "tagline": "Autonomous Infrastructure Platform"
+        }
     }
 }

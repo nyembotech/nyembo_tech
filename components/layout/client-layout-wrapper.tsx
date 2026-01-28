@@ -3,14 +3,29 @@
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Footer } from "@/components/layout/footer";
+import { LandingNavbar } from "@/components/landing/landing-navbar";
+import { LandingFooter } from "@/components/landing/landing-footer";
 
 export function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const isAdmin = pathname?.includes("/admin");
     const isPortal = pathname?.includes("/portal");
 
+    // Detect home page: /en, /sw, /de, or just /
+    const isHome = pathname ? /^\/(en|sw|de)?\/?$/.test(pathname) : false;
+
     if (isAdmin || isPortal) {
         return <>{children}</>;
+    }
+
+    if (isHome) {
+        return (
+            <>
+                <LandingNavbar />
+                <main className="min-h-screen">{children}</main>
+                <LandingFooter />
+            </>
+        );
     }
 
     return (

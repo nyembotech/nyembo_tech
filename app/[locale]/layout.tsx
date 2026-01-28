@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Playfair_Display } from "next/font/google";
 import "@/app/globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -13,6 +13,12 @@ import { PublicAgentWrapper } from "@/components/ai/public-agent-wrapper";
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
     variable: "--font-space-grotesk",
+});
+
+const playfairDisplay = Playfair_Display({
+    subsets: ["latin"],
+    variable: "--font-playfair",
+    weight: ["400", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -41,7 +47,7 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} suppressHydrationWarning>
-            <body className={`${spaceGrotesk.variable} font-sans antialiased`} suppressHydrationWarning>
+            <body className={`${spaceGrotesk.variable} ${playfairDisplay.variable} font-sans antialiased`} suppressHydrationWarning>
                 <NextIntlClientProvider messages={messages}>
                     <AuthProvider>
                         <AnalyticsWrapper />

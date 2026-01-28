@@ -8,7 +8,7 @@ import { OrgSwitcher } from "@/components/admin/org-switcher";
 import {
     LayoutDashboard, FileText, Folder, Users, CheckSquare, GraduationCap,
     Building2, Settings, BrainCircuit, Bot, Activity, BookOpen, FlaskConical, Globe,
-    ChevronDown, Map as MapIcon, MessageSquare
+    ChevronDown, Map as MapIcon, MessageSquare, Inbox
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -43,6 +43,7 @@ const navGroups: NavGroup[] = [
     {
         title: "Operations",
         items: [
+            { name: "Requests", href: "/admin/requests", icon: Inbox },
             { name: "Projects", href: "/admin/projects", icon: Folder },
             { name: "Tasks", href: "/admin/tasks", icon: CheckSquare },
             { name: "Customers", href: "/admin/customers", icon: Users },

@@ -346,7 +346,7 @@ export function AgentChatWidget({ agentType, projectId, language = "en" }: Agent
                                                 value={input}
                                                 onChange={handleInputChange}
                                                 placeholder="Type your message..."
-                                                className="bg-gray-50 border-gray-200 focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500 h-[56px] text-base pl-5 pr-4 rounded-2xl shadow-sm transition-all"
+                                                className="bg-gray-50 border-gray-200 focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500 h-[56px] text-base pl-5 pr-4 rounded-2xl shadow-sm transition-all text-gray-900 placeholder:text-gray-400"
                                             />
                                         </div>
 

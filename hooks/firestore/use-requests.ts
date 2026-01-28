@@ -115,8 +115,58 @@ export function useProjectRequestByCode(code?: string) {
     return { request, loading, error };
 }
 
+export function useProjectRequestsByEmail(email?: string) {
+    const [requests, setRequests] = useState<ProjectRequest[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        if (!email) {
+            setLoading(false);
+            return;
+        }
+
+        const unsubscribe = subscribeToCollection<ProjectRequest>(
+            "project_requests",
+            [where("contactInfo.email", "==", email)],
+            (data) => {
+                // Sort client-side to avoid needing a specific composite index for email + createdAt
+                const sortedData = data.sort((a, b) => {
+                    const timeA = a.createdAt?.seconds || 0;
+                    const timeB = b.createdAt?.seconds || 0;
+                    return timeB - timeA;
+                });
+                setRequests(sortedData);
+                setLoading(false);
+            },
+            (err) => {
+                setError(err);
+                setLoading(false);
+            }
+        );
+
+        return () => unsubscribe();
+    }, [email]);
+
+    return { requests, loading, error };
+}
+
 export async function submitProjectRequest(data: Omit<ProjectRequest, "id" | "createdAt" | "updatedAt" | "status" | "requestCode">) {
-    const requestCode = `REQ-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+    // Generate Initials
+    const nameParts = data.contactInfo.name.split(' ').filter(p => p.length > 0);
+    let initials = "XX";
+    if (nameParts.length >= 2) {
+        initials = (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
+    } else if (nameParts.length === 1) {
+        initials = nameParts[0].substring(0, 2).toUpperCase();
+    }
+
+    // Generate Random Suffix (4 chars)
+    const randomSuffix = Math.random().toString(36).substr(2, 4).toUpperCase();
+
+    // Format: REQ-INIT-RAND (REQ-JD-7X9Y) or REQ-INITRAND (REQ-JD7X9Y) based on user example REQ-ZKPC0P
+    // User example REQ-ZKPC0P suggests REQ + Initials(2) + Random(4)
+    const requestCode = `REQ-${initials}${randomSuffix}`;
 
     try {
         const id = await createDocument("project_requests", {
